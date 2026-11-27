@@ -82,23 +82,18 @@
       "permanent": true
     },
     {
-      "source": "/vymena-oleje-v-motoru",
-      "destination": "/rezervace/#olej-motor",
-      "permanent": true
-    },
-    {
       "source": "/vymena-oleje-v-automaticke-prevodovce:rest*",
       "destination": "/vymena-oleje-automaticka-prevodovka/",
       "permanent": true
     },
     {
-      "source": "/pneuservis:rest*",
-      "destination": "/kontakt/",
+      "source": "/pneuservis-2:rest*",
+      "destination": "/rezervace/#pneuservis",
       "permanent": true
     },
     {
-      "source": "/plneni-klimatizace:rest*",
-      "destination": "/kontakt/",
+      "source": "/plneni-klimatizace-2:rest*",
+      "destination": "/rezervace/#klimatizace",
       "permanent": true
     }
   ],

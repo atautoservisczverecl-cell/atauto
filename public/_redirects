@@ -14,7 +14,6 @@
 /zasady-cookies-eu/ /cookies/ 301
 /thanks/ / 301
 /servisni-prohlidka/ /kontakt/ 301
-/vymena-oleje-v-motoru/ /rezervace/#olej-motor 301
 /servis-a-opravy-prevodovek /oprava-automaticke-prevodovky/ 301
 /oprava-prevodovky /oprava-automaticke-prevodovky/ 301
 /repase-automatickych-prevodovek-zf /znacky/zf/ 301
@@ -31,8 +30,8 @@
 /zasady-cookies-eu /cookies/ 301
 /thanks / 301
 /servisni-prohlidka /kontakt/ 301
-/vymena-oleje-v-motoru /rezervace/#olej-motor 301
 /vymena-oleje-v-automaticke-prevodovce* /vymena-oleje-automaticka-prevodovka/ 301
-/pneuservis* /kontakt/ 301
-/plneni-klimatizace* /kontakt/ 301
 /api/poptavka /.netlify/functions/poptavka 200
+
+/pneuservis-2/* /rezervace/#pneuservis 301
+/plneni-klimatizace-2/* /rezervace/#klimatizace 301

@@ -6,8 +6,10 @@ import Icon from './Icon.astro';
 import { site } from '../data/site';
 export const bookingServices = [
   { id: 'olej-prevodovka', icon: 'oil', title: 'Výměna oleje v převodovce', text: 'Dynamická výměna s proplachem měniče a chladiče.', link: '/vymena-oleje-automaticka-prevodovka/#cenik', linkText: 'Orientační ceník' },
-  { id: 'olej-motor', icon: 'drop', title: 'Výměna oleje v motoru', text: 'Motorový olej a filtr podle předpisu výrobce.' },
   { id: 'diagnostika', icon: 'scan', title: 'Diagnostika převodovky', text: 'Chybové kódy, živá data, kontrola oleje a zkušební jízda.', link: '/diagnostika-automaticke-prevodovky/', linkText: 'Co diagnostika obnáší' },
+  { id: 'olej-motor', icon: 'drop', title: 'Výměna oleje v motoru', text: 'Motorový olej a filtr podle předpisu výrobce.' },
+  { id: 'pneuservis', icon: 'tire', title: 'Pneuservis', text: 'Přezutí, vyvážení a přehození kol 13″ až 21″.' },
+  { id: 'klimatizace', icon: 'snow', title: 'Plnění klimatizace', text: 'Chladivo R134a i R1234yf.' },
 ];
 const brands = ['Alfa Romeo','Audi','BMW','Citroën','Cupra','Dacia','Fiat','Ford','Honda','Hyundai','Chevrolet','Chrysler','Jaguar','Jeep','Kia','Land Rover','Lexus','Mazda','Mercedes-Benz','Mini','Mitsubishi','Nissan','Opel','Peugeot','Porsche','Renault','Seat','Subaru','Suzuki','Škoda','Toyota','Volkswagen','Volvo','Jiná značka'];
 const years = Array.from({ length: new Date().getFullYear() - 1989 }, (_, i) => new Date().getFullYear() - i);
@@ -119,7 +121,7 @@ const id = 'rez';
   [aria-invalid=true] { border-color: var(--red) !important; background: var(--red-soft) !important; }
 
   .svc-pick { display: grid; gap: .75rem; }
-  @media (min-width: 720px) { .svc-pick { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 720px) { .svc-pick { grid-template-columns: repeat(6, 1fr); } .svc-pick > .pick { grid-column: span 2; } .svc-pick > .pick:nth-child(n+4) { grid-column: span 3; } }
   .pick { position: relative; cursor: pointer; font-weight: 400; }
   .pick input { position: absolute; opacity: 0; inset: 0; }
   .pick-box { position: relative; display: grid; gap: .35rem; height: 100%; padding: 1rem 1rem 1.1rem; border: 1.5px solid #c9ced4; border-radius: 8px; background: #fff; transition: border-color .15s, box-shadow .15s; }
@@ -206,7 +208,7 @@ const id = 'rez';
     };
     dates.forEach((el) => el.addEventListener('change', () => check(el)));
 
-    // Předvýběr služby z odkazu (#olej-prevodovka, #olej-motor, #diagnostika)
+    // Předvýběr služby z odkazu (#olej-prevodovka, #olej-motor, #diagnostika, #pneuservis, #klimatizace)
     const preselect = () => { const h = location.hash.slice(1); const b = boxes.find((x) => x.dataset.svc === h); if (b) { b.checked = true; pickWrap.classList.remove('invalid'); form.scrollIntoView({ behavior: 'smooth', block: 'start' }); } };
     const h0 = location.hash.slice(1); const b0 = boxes.find((x) => x.dataset.svc === h0); if (b0) b0.checked = true;
     window.addEventListener('hashchange', preselect);

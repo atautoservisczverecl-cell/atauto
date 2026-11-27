@@ -6,6 +6,11 @@ export const transmissionLinks = [
   { href: '/typy-prevodovek/cvt/', label: 'CVT', sub: 'Nissan, Toyota, Mitsubishi' },
   { href: '/typy-prevodovek/multitronic/', label: 'Multitronic', sub: 'Audi' },
 ];
+export const otherServices = [
+  { href: '/vymena-oleje-v-motoru/', label: 'Výměna oleje v motoru', sub: 'Olej a filtr podle předpisu', book: 'olej-motor' },
+  { href: '/pneuservis/', label: 'Pneuservis', sub: 'Přezutí a vyvážení kol 13″–21″', book: 'pneuservis' },
+  { href: '/plneni-klimatizace/', label: 'Plnění klimatizace', sub: 'Chladivo R134a i R1234yf', book: 'klimatizace' },
+];
 export const mainNav = [
   { href: '/oprava-automaticke-prevodovky/', label: 'Opravy' },
   { href: '/repase-automaticke-prevodovky/', label: 'Repase' },

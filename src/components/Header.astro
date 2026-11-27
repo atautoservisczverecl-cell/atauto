@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import { site } from '../data/site';
-import { transmissionLinks } from '../data/nav';
+import { transmissionLinks, otherServices } from '../data/nav';
 import { cmsMenu } from '../data/cms';
 const path = Astro.url.pathname;
 const primary = cmsMenu.filter((n) => n.in_header);
@@ -26,6 +26,13 @@ const mobileNav = cmsMenu.filter((n) => n.in_mobile);
         {primary.map((n) => (
           <li><a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>
         ))}
+        <li class="has-sub">
+          <button type="button" class="sub-btn" aria-expanded="false" aria-current={otherServices.some((o) => path.startsWith(o.href)) ? 'page' : undefined}>Další servis <Icon name="chevron" size={14} /></button>
+          <div class="sub">
+            {otherServices.map((o) => <a href={o.href}><strong>{o.label}</strong><small>{o.sub}</small></a>)}
+            <a class="sub-book" href="/rezervace/">Rezervovat termín online <Icon name="arrow" size={14} /></a>
+          </div>
+        </li>
       </ul>
     </nav>
     <div class="header-cta">
@@ -48,6 +55,10 @@ const mobileNav = cmsMenu.filter((n) => n.in_mobile);
     <p class="mm-label">Opravy převodovek</p>
     <div class="mm-grid">
       {transmissionLinks.map((t) => <a href={t.href}><strong>{t.label}</strong><small>{t.sub}</small></a>)}
+    </div>
+    <p class="mm-label">Další servis</p>
+    <div class="mm-grid mm-other">
+      {otherServices.map((o) => <a href={o.href}><strong>{o.label}</strong><small>{o.sub}</small></a>)}
     </div>
     <ul class="mm-links">
       <li><a href="/poptavka/">Poptat opravu online <small>Odpovíme obvykle týž pracovní den</small></a></li>
@@ -77,10 +88,21 @@ const mobileNav = cmsMenu.filter((n) => n.in_mobile);
   .nav a { white-space: nowrap; display: block; padding: .5rem .6rem; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--on-dark-soft); border-radius: 4px; }
   .nav a:hover, .nav a[aria-current] { color: #fff; }
   .nav a[aria-current] { box-shadow: inset 0 -2px 0 var(--red); border-radius: 0; }
+  .has-sub { position: relative; }
+  .sub-btn { display: inline-flex; align-items: center; gap: .3rem; background: none; border: 0; cursor: pointer; padding: .5rem .6rem; font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--on-dark-soft); white-space: nowrap; }
+  .sub-btn:hover, .sub-btn[aria-current], .has-sub:focus-within .sub-btn { color: #fff; }
+  .sub-btn :global(svg) { transform: rotate(90deg); transition: transform .15s; }
+  .sub { display: none; position: absolute; right: 0; top: 100%; min-width: 280px; padding: .5rem; background: var(--graphite); border: 1px solid var(--line-dark); border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,.45); }
+  .has-sub:hover .sub, .has-sub:focus-within .sub, .has-sub.open .sub { display: grid; gap: .15rem; }
+  .nav .sub a { white-space: normal; padding: .6rem .75rem; border-radius: 6px; color: #fff; }
+  .nav .sub a:hover { background: rgba(255,255,255,.06); }
+  .sub small { display: block; font: 400 .85rem var(--font-body); color: var(--on-dark-soft); }
+  .nav .sub .sub-book { color: #ff6a5f; display: flex; align-items: center; gap: .35rem; border-top: 1px solid var(--line-dark); border-radius: 0 0 6px 6px; margin-top: .25rem; }
   .header-cta { display: flex; gap: .5rem; align-items: center; }
   .header-cta .btn { padding: .65rem 1rem; }
   .menu-btn { display: none; background: none; border: 1px solid var(--line-dark); color: #fff; border-radius: var(--radius); padding: .55rem; cursor: pointer; }
   .show-xs { display: none; }
+  @media (max-width: 1599px) { .header-cta .hide-sm { display: none; } }
   @media (max-width: 1359px) { .nav { display: none; } .menu-btn { display: inline-flex; } .header-cta { margin-left: auto; } }
   @media (max-width: 640px) { .hide-sm { display: none; } .header-in { min-height: 62px; } .logo img { width: 168px; } .logo { padding: 0 .65rem; } .header-in { gap: .6rem; } }
   @media (max-width: 480px) { .hide-xs { display: none; } .show-xs { display: inline; } .header-cta .btn { padding: .6rem .75rem; font-size: 1rem; } .header-cta { gap: .45rem; } .menu-btn { padding: .45rem; } }
@@ -95,6 +117,7 @@ const mobileNav = cmsMenu.filter((n) => n.in_mobile);
   .mm-call-ic { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.16); display: grid; place-items: center; flex: none; }
   .mm-label { font: 600 .8rem var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: #ff6a5f; margin-top: .5rem; }
   .mm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .mm-grid.mm-other { grid-template-columns: 1fr; }
   .mm-grid a { border: 1px solid var(--line-dark); background: var(--graphite); border-radius: 8px; padding: .8rem .9rem; text-decoration: none; }
   .mm-grid strong { display: block; font: 700 1.05rem var(--font-display); }
   .mm-grid small { color: var(--on-dark-soft); }
@@ -118,4 +141,8 @@ const mobileNav = cmsMenu.filter((n) => n.in_mobile);
   btn?.addEventListener('click', () => setOpen(true));
   close?.addEventListener('click', () => setOpen(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu && !menu.hidden) setOpen(false); });
+  const sub = document.querySelector<HTMLElement>('.has-sub');
+  const subBtn = sub?.querySelector<HTMLButtonElement>('.sub-btn');
+  subBtn?.addEventListener('click', () => { const o = !sub!.classList.contains('open'); sub!.classList.toggle('open', o); subBtn.setAttribute('aria-expanded', String(o)); });
+  document.addEventListener('click', (e) => { if (sub && !sub.contains(e.target as Node)) { sub.classList.remove('open'); subBtn?.setAttribute('aria-expanded', 'false'); } });
 </script>

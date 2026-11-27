@@ -1,0 +1,16 @@
+---
+import Content from '../layouts/Content.astro';
+import md from '../texts/dalsi/pneuservis.md?raw';
+---
+<Content
+  title="Pneuservis: přezutí a vyvážení kol | Hostivice | A.T. Autoservis"
+  description="Přezutí, vyvážení a přehození kol osobních, SUV a užitkových vozů s průměrem 13″ až 21″. Hostivice u Prahy, rezervace termínu online."
+  eyebrow="Další servis" h1="Pneuservis"
+  lead="Přezutí, vyvážení a přehození kol osobních, SUV a užitkových vozů s průměrem kol 13″ až 21″."
+  crumbs={[{ href: '/pneuservis/', label: 'Pneuservis' }]}
+  markdown={md}
+  bookingFirst
+  booking="pneuservis"
+  related={[{ href: '/rezervace/#pneuservis', label: 'Rezervovat termín' }, { href: '/vymena-oleje-automaticka-prevodovka/', label: 'Výměna oleje v převodovce' }, { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika převodovky' }]}
+  service={{ name: 'Pneuservis', serviceType: 'Pneuservis' }}
+/>

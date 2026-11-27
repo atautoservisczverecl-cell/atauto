@@ -1,0 +1,16 @@
+---
+import Content from '../layouts/Content.astro';
+import md from '../texts/dalsi/klimatizace.md?raw';
+---
+<Content
+  title="Plnění klimatizace R134a i R1234yf | Hostivice | A.T. Autoservis"
+  description="Plnění klimatizace auta chladivem R134a i R1234yf na zařízení Ecotechnics ECK3900 PREMIUM-H. Hostivice u Prahy, rezervace online."
+  eyebrow="Další servis" h1="Plnění klimatizace"
+  lead="Plníme klimatizace chladivem R134a i R1234yf na moderním zařízení Ecotechnics ECK3900 PREMIUM-H."
+  crumbs={[{ href: '/plneni-klimatizace/', label: 'Plnění klimatizace' }]}
+  markdown={md}
+  bookingFirst
+  booking="klimatizace"
+  related={[{ href: '/rezervace/#klimatizace', label: 'Rezervovat termín' }, { href: '/vymena-oleje-automaticka-prevodovka/', label: 'Výměna oleje v převodovce' }, { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika převodovky' }]}
+  service={{ name: 'Plnění klimatizace', serviceType: 'Plnění klimatizace' }}
+/>

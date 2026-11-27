@@ -6,8 +6,8 @@ import Icon from '../components/Icon.astro';
 import { site } from '../data/site';
 const crumbs = [{ href: '/rezervace/', label: 'Rezervace termínu' }];
 ---
-<Base title="Rezervace termínu: výměna oleje a diagnostika převodovky | A.T. Autoservis" description={`Online rezervace termínu na výměnu oleje v automatické převodovce, výměnu oleje v motoru nebo diagnostiku převodovky. ${site.street}, ${site.city}. Termín potvrdíme obvykle týž pracovní den.`} breadcrumbs={crumbs}>
-  <PageHero eyebrow="Rezervace online" title="Rezervujte si termín" lead="Výměna oleje v převodovce, výměna oleje v motoru nebo diagnostika převodovky. Vyberte službu a den, termín vám potvrdíme obvykle ještě týž pracovní den." crumbs={crumbs} cta={false} cutout image={{ src: '/img/ui/prevodovka-hero.webp', alt: 'Řez automatickou převodovkou s měničem točivého momentu a planetovými soukolími', w: 1200, h: 800 }}>
+<Base title="Rezervace termínu: výměna oleje, diagnostika, pneuservis, klimatizace | A.T. Autoservis" description={`Online rezervace termínu na výměnu oleje v automatické převodovce, výměnu oleje v motoru, diagnostiku převodovky, pneuservis nebo plnění klimatizace. ${site.street}, ${site.city}. Termín potvrdíme obvykle týž pracovní den.`} breadcrumbs={crumbs}>
+  <PageHero eyebrow="Rezervace online" title="Rezervujte si termín" lead="Výměna oleje v převodovce i v motoru, diagnostika převodovky, pneuservis nebo plnění klimatizace. Vyberte službu a den, termín vám potvrdíme obvykle ještě týž pracovní den." crumbs={crumbs} cta={false} cutout image={{ src: '/img/ui/prevodovka-hero.webp', alt: 'Řez automatickou převodovkou s měničem točivého momentu a planetovými soukolími', w: 1200, h: 800 }}>
     <div class="quick">
       {bookingServices.map((s) => <a href={`#${s.id}`} class="tag">{s.title}</a>)}
     </div>

@@ -1,0 +1,16 @@
+---
+import Content from '../layouts/Content.astro';
+import md from '../texts/dalsi/olej-motor.md?raw';
+---
+<Content
+  title="Výměna oleje v motoru | Hostivice u Prahy | A.T. Autoservis"
+  description="Výměna motorového oleje a olejového filtru podle předpisu výrobce v Hostivicích u Prahy. Rezervace termínu online, cenu víte předem."
+  eyebrow="Další servis" h1="Výměna oleje v motoru"
+  lead="Motorový olej a filtr podle předpisu výrobce vozu. Termín si zarezervujete online a cenu víte předem."
+  crumbs={[{ href: '/vymena-oleje-v-motoru/', label: 'Výměna oleje v motoru' }]}
+  markdown={md}
+  bookingFirst
+  booking="olej-motor"
+  related={[{ href: '/rezervace/#olej-motor', label: 'Rezervovat termín' }, { href: '/vymena-oleje-automaticka-prevodovka/', label: 'Výměna oleje v převodovce' }, { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika převodovky' }]}
+  service={{ name: 'Výměna motorového oleje', serviceType: 'Výměna motorového oleje' }}
+/>

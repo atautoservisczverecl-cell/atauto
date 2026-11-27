@@ -2,8 +2,8 @@
 import Breadcrumbs from './Breadcrumbs.astro';
 import Icon from './Icon.astro';
 import { site } from '../data/site';
-interface Props { eyebrow?: string; title: string; lead?: string; crumbs?: { href: string; label: string }[]; image?: { src: string; alt: string; w: number; h: number }; tags?: string[]; cta?: boolean; cutout?: boolean; }
-const { eyebrow, title, lead, crumbs, image, tags, cta = true, cutout = false } = Astro.props;
+interface Props { eyebrow?: string; title: string; lead?: string; crumbs?: { href: string; label: string }[]; image?: { src: string; alt: string; w: number; h: number }; tags?: string[]; cta?: boolean; cutout?: boolean; ctaHref?: string; ctaLabel?: string; }
+const { eyebrow, title, lead, crumbs, image, tags, cta = true, cutout = false, ctaHref = '/poptavka/', ctaLabel = 'Poptat opravu' } = Astro.props;
 ---
 <section class="phero dark">
   <div class="wrap phero-in" class:list={[{ 'has-img': !!image }]}>
@@ -15,7 +15,7 @@ const { eyebrow, title, lead, crumbs, image, tags, cta = true, cutout = false } 
       {tags && <div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>}
       {cta && (
         <div class="btn-row">
-          <a class="btn btn-red" href="/poptavka/">Poptat opravu <Icon name="arrow" /></a>
+          <a class="btn btn-red" href={ctaHref}>{ctaLabel} <Icon name="arrow" /></a>
           <a class="btn btn-ghost" href={site.phoneHref} data-track="phone"><Icon name="phone" /> {site.phone}</a>
         </div>
       )}
