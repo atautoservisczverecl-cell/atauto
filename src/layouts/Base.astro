@@ -40,6 +40,7 @@ const business = {
   vatID: site.dic,
   foundingDate: String(site.since),
   priceRange: 'Kč',
+  hasMap: site.mapUrl,
   address: { '@type': 'PostalAddress', streetAddress: site.street, addressLocality: site.city, postalCode: site.zip.replace(' ', ''), addressRegion: 'Středočeský kraj', addressCountry: 'CZ' },
   areaServed: [{ '@type': 'City', name: 'Praha' }, { '@type': 'AdministrativeArea', name: 'Středočeský kraj' }, { '@type': 'Country', name: 'Česká republika' }],
   openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', dayOfWeek: site.hoursSchema.days, opens: site.hoursSchema.opens, closes: site.hoursSchema.closes }],

@@ -13,7 +13,7 @@ export const site = {
   city: 'Hostivice',
   zip: '253 01',
   region: 'Praha-západ',
-  mapUrl: 'https://maps.google.com/?q=N%C3%A1dra%C5%BEn%C3%AD+272,+253+01+Hostivice',
+  mapUrl: 'https://maps.app.goo.gl/4oi2L1k2nFpYzSNEA', // profil firmy na Google Mapách (recenze, navigace)
   hours: 'Po–Pá 8:30–17:30',
   hoursSchema: { days: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:30', closes: '17:30' },
   since: 1991,
