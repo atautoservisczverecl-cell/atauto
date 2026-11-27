@@ -1,0 +1,20 @@
+{
+  "name": "atautoservis-web",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "build:preview-artifact": "astro build && node scripts/relativize.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.6",
+    "@fontsource/chakra-petch": "^5.3.0",
+    "@fontsource/figtree": "^5.3.0",
+    "@supabase/supabase-js": "^2.119.2",
+    "astro": "^5.18.2",
+    "marked": "^15.0.12"
+  }
+}

@@ -1,0 +1,11 @@
+---
+// Vlastní stránky vytvořené v administraci (Stránky a SEO → Nová stránka).
+import Content from '../layouts/Content.astro';
+import { cmsCustomPages } from '../data/cms';
+export function getStaticPaths() {
+  return cmsCustomPages.filter((p) => /^[a-z0-9-]+$/.test(p.slug)).map((p) => ({ params: { custom: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+---
+<Content title={p.seo_title || `${p.title} | A.T. Autoservis`} description={p.seo_description || p.lead || p.title} h1={p.title} lead={p.lead}
+  crumbs={[{ href: `/${p.slug}/`, label: p.title }]} markdown={p.body_md || ''} />

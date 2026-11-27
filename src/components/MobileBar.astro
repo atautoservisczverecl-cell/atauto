@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+<div class="mbar" aria-label="Rychlý kontakt">
+  <a href={site.phoneHref} class="mbar-call" data-track="phone">Zavolat</a>
+  <a href="/rezervace/" class="mbar-form">Objednat online</a>
+</div>
+<style>
+  .mbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; padding: .6rem var(--gutter-r) calc(.6rem + env(safe-area-inset-bottom, 0px)) var(--gutter); background: rgba(19,20,22,.97); border-top: 1px solid var(--line-dark); }
+  .mbar a { display: flex; align-items: center; justify-content: center; gap: .5rem; padding: .85rem; min-height: 50px; border-radius: var(--radius); font: 600 1.02rem var(--font-display); text-decoration: none; }
+  .mbar svg { width: 1.15em; height: 1.15em; }
+  .mbar-call { background: var(--red); color: #fff; }
+  .mbar-form { background: var(--ink); color: #fff; border: 1px solid #5a5f66; }
+  @media (min-width: 900px) { .mbar { display: none; } }
+</style>

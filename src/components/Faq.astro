@@ -1,0 +1,24 @@
+---
+const { items, title = 'Časté otázky', id = 'faq' } = Astro.props as { items: { q: string; a: string }[]; title?: string; id?: string };
+---
+<div class="faq" id={id}>
+  <h2>{title}</h2>
+  <div class="faq-list">
+    {items.map((f) => (
+      <details>
+        <summary>{f.q}</summary>
+        <div class="faq-a" set:html={f.a} />
+      </details>
+    ))}
+  </div>
+</div>
+<style>
+  .faq h2 { margin-bottom: 1.5rem; }
+  .faq-list { border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary { cursor: pointer; list-style: none; padding: 1.1rem 2.5rem 1.1rem 0; position: relative; font: 600 1.1rem/1.35 var(--font-display); }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; position: absolute; right: .25rem; top: .85rem; font-size: 1.6rem; color: var(--red); font-weight: 500; transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  .faq-a { padding: 0 0 1.25rem; color: var(--text-soft); max-width: 70ch; }
+</style>

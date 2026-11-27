@@ -1,0 +1,104 @@
+---
+import Base from './Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Gallery from '../components/Gallery.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { marked } from 'marked';
+
+interface Props {
+  title: string; description: string; h1: string; lead?: string; eyebrow?: string;
+  crumbs: { href: string; label: string }[];
+  markdown?: string; faq?: { q: string; a: string }[]; photos?: any[]; photosTitle?: string;
+  related?: { href: string; label: string }[]; tags?: string[];
+  heroImage?: { src: string; alt: string; w: number; h: number };
+  service?: { name: string; serviceType: string; description?: string };
+  schema?: Record<string, unknown>[]; type?: 'website' | 'article'; booking?: string;
+}
+const { title, description, h1, lead, eyebrow, crumbs, markdown, faq, photos, photosTitle = 'Fotografie z oprav v naší dílně', related = [], tags, heroImage, service, schema = [], type, booking } = Astro.props;
+
+// Markdown → HTML; nadpisy dostanou id pro kotvy, odkazy fungují pro interní prolinkování
+const slug = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const renderer = new marked.Renderer();
+renderer.heading = ({ tokens, depth }) => { const text = marked.Parser.parseInline(tokens); const plain = text.replace(/<[^>]+>/g, ''); return `<h${depth} id="${slug(plain)}">${text}</h${depth}>`; };
+renderer.table = function (token) { const html = marked.Renderer.prototype.table.call(this, token); return `<div class="table-scroll">${html}</div>`; };
+const html = markdown ? marked.parse(markdown, { renderer, async: false }) as string : '';
+const toc = markdown ? [...markdown.matchAll(/^## (.+)$/gm)].map((m) => ({ id: slug(m[1].replace(/[*_`]/g, '')), label: m[1].replace(/[*_`]/g, '') })) : [];
+
+const extra: Record<string, unknown>[] = [];
+if (faq?.length) extra.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') } })) });
+if (service) extra.push({ '@context': 'https://schema.org', '@type': 'Service', name: service.name, serviceType: service.serviceType, description: service.description ?? description, provider: { '@id': `${site.url}/#firma` }, areaServed: { '@type': 'Country', name: 'Česká republika' }, url: new URL(Astro.url.pathname, site.url).href });
+---
+<Base title={title} description={description} breadcrumbs={crumbs} schema={[...extra, ...schema]} type={type}>
+  <PageHero eyebrow={eyebrow} title={h1} lead={lead} crumbs={crumbs} image={heroImage} tags={tags} />
+  <slot name="top" />
+  <section class="section">
+    <div class="wrap content-grid">
+      <article class="prose">
+        <slot name="before" />
+        <Fragment set:html={html} />
+        <slot />
+      </article>
+      <aside class="side">
+        <div class="side-card">
+          <p class="side-h">Potřebujete poradit?</p>
+          <p>Popište nám příznaky. Ozveme se obvykle ještě týž pracovní den.</p>
+          <a class="btn btn-red" href="/poptavka/">Poptat opravu <Icon name="arrow" /></a>
+          {booking && <a class="btn btn-ghost side-book" href={`/rezervace/#${booking}`}>Rezervovat termín</a>}
+          <a class="side-phone" href={site.phoneHref} data-track="phone"><Icon name="phone" /> {site.phone}</a>
+          <p class="side-small">{site.hours} · {site.street}, {site.city}</p>
+        </div>
+        {toc.length > 3 && (
+          <nav class="side-toc" aria-label="Obsah stránky">
+            <p class="side-h">Na této stránce</p>
+            <ol>{toc.map((t) => <li><a href={`#${t.id}`}>{t.label}</a></li>)}</ol>
+          </nav>
+        )}
+        {related.length > 0 && (
+          <nav class="side-rel" aria-label="Související">
+            <p class="side-h">Související</p>
+            <ul>{related.map((r) => <li><a href={r.href}>{r.label} <Icon name="chevron" size={16} /></a></li>)}</ul>
+          </nav>
+        )}
+      </aside>
+    </div>
+  </section>
+  {photos && photos.length > 0 && (
+    <section class="section-tight light">
+      <div class="wrap">
+        <h2 class="gal-h">{photosTitle}</h2>
+        <Gallery photos={photos} cols={photos.length >= 8 ? 4 : photos.length >= 6 ? 3 : 4} />
+      </div>
+    </section>
+  )}
+  <slot name="after" />
+  {faq && faq.length > 0 && (
+    <section class="section"><div class="wrap-narrow"><Faq items={faq} /></div></section>
+  )}
+  <CtaBand />
+</Base>
+<style>
+  .content-grid { display: grid; gap: 3rem; }
+  @media (min-width: 1000px) { .content-grid { grid-template-columns: minmax(0, 1fr) 320px; gap: 4rem; } }
+  .side { display: grid; gap: 1.25rem; align-content: start; }
+  @media (min-width: 1000px) { .side { position: sticky; top: 96px; } }
+  .side-card { background: var(--ink); color: var(--on-dark); border-radius: 8px; padding: 1.4rem; display: grid; gap: .8rem; }
+  .side-card p { color: var(--on-dark-soft); font-size: .95rem; }
+  .side-h { font: 600 .78rem var(--font-display) !important; letter-spacing: .14em; text-transform: uppercase; color: var(--text) ; }
+  .side-card .side-h { color: #fff !important; }
+  .side-phone { display: inline-flex; gap: .5rem; align-items: center; font: 700 1.3rem var(--font-display); color: #fff; text-decoration: none; }
+  .side-book { justify-content: center; }
+  .side-small { font-size: .82rem !important; }
+  .side-toc, .side-rel { border: 1px solid var(--line); background: var(--white); border-radius: 8px; padding: 1.2rem 1.3rem; }
+  .side-toc ol { margin: .6rem 0 0; padding-left: 1.1rem; display: grid; gap: .35rem; font-size: .93rem; }
+  .side-toc a { color: var(--text-soft); text-decoration: none; }
+  .side-toc a:hover { color: var(--red-hover); }
+  @media (max-width: 999px) { .side-toc { display: none; } }
+  .side-rel ul { list-style: none; margin: .5rem 0 0; padding: 0; }
+  .side-rel a { display: flex; justify-content: space-between; align-items: center; padding: .55rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-weight: 600; font-size: .95rem; }
+  .side-rel li:last-child a { border-bottom: 0; }
+  .side-rel svg { color: var(--red); }
+  .gal-h { margin-bottom: 1.5rem; font-size: clamp(1.4rem, 1.2rem + .8vw, 1.8rem); }
+</style>

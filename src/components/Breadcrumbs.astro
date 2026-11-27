@@ -1,0 +1,18 @@
+---
+const { items } = Astro.props as { items: { href: string; label: string }[] };
+---
+<nav aria-label="Drobečková navigace" class="crumbs">
+  <ol>
+    <li><a href="/">Úvod</a></li>
+    {items.map((it, i) => (
+      <li>{i === items.length - 1 ? <span aria-current="page">{it.label}</span> : <a href={it.href}>{it.label}</a>}</li>
+    ))}
+  </ol>
+</nav>
+<style>
+  .crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: .3rem; margin: 0; padding: 0; font-size: .85rem; color: var(--on-dark-soft); }
+  .crumbs li + li::before { content: "/"; margin-right: .3rem; opacity: .6; }
+  .crumbs a { color: var(--on-dark-soft); text-decoration: none; }
+  .crumbs a:hover { color: #fff; }
+  .crumbs [aria-current] { color: var(--on-dark); }
+</style>

@@ -1,0 +1,362 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { site, yearsOnMarket } from '../data/site';
+import { cmsServices } from '../data/cms';
+import { photos } from '../data/photos';
+
+const symptoms = [
+  { icon: 'jerk', title: 'Cuká nebo tvrdě řadí', text: 'Rázy při přeřazení, hlavně za studena nebo při rozjezdu.', href: '/blog/proc-automaticka-prevodovka-cuka/' },
+  { icon: 'slip', title: 'Prokluzuje', text: 'Otáčky vyletí nahoru, ale auto nezrychluje.', href: '/diagnostika-automaticke-prevodovky/#prokluzovani' },
+  { icon: 'warn', title: 'Nouzový režim', text: 'Svítí kontrolka, auto jede jen na jeden převodový stupeň.', href: '/diagnostika-automaticke-prevodovky/#nouzovy-rezim' },
+  { icon: 'noise', title: 'Hučí, píská nebo klepe', text: 'Zvuk, který se mění s rychlostí nebo se zařazeným stupněm.', href: '/diagnostika-automaticke-prevodovky/#hlucnost' },
+  { icon: 'drop', title: 'Uniká olej', text: 'Červené nebo hnědé skvrny pod autem po odstavení.', href: '/oprava-automaticke-prevodovky/#unik-oleje' },
+  { icon: 'delay', title: 'Zpožděný záběr D / R', text: 'Po zařazení D nebo R chvíli trvá, než auto „chytne“.', href: '/diagnostika-automaticke-prevodovky/#zpozdeny-zaber' },
+];
+
+const services = cmsServices.map((s) => ({ icon: s.icon, title: s.title, text: s.summary, href: s.href }));
+
+const types = [
+  { make: 'VW · Škoda · Audi · Seat', name: 'DSG', codes: ['DQ200 / 0AM', 'DQ250 / 02E', 'DQ381 / 0GC'], href: '/typy-prevodovek/dsg/' },
+  { make: 'BMW · Audi · Jaguar · Land Rover', name: 'ZF 6HP / 8HP', codes: ['6HP26', '8HP50', '8HP70'], href: '/znacky/zf/' },
+  { make: 'Volvo · Peugeot · Citroën · Opel', name: 'Aisin Warner', codes: ['TF-80SC', 'TF-60SN / 09G', 'AWF8F35'], href: '/znacky/aisin/' },
+  { make: 'Ford · Volvo', name: 'PowerShift', codes: ['6DCT250 / DPS6', '6DCT450 / MPS6'], href: '/znacky/ford-powershift/' },
+  { make: 'Nissan · Mitsubishi · Toyota', name: 'CVT', codes: ['JF011E', 'JF016E', 'K310 / K311'], href: '/typy-prevodovek/cvt/' },
+  { make: 'Audi', name: 'Multitronic', codes: ['01J', '0AW'], href: '/typy-prevodovek/multitronic/' },
+];
+
+const steps = [
+  { t: 'Diagnostika', d: 'Přečteme chybové kódy, změříme tlaky, zkontrolujeme olej a projedeme se s vozem. Hledáme skutečnou příčinu.' },
+  { t: 'Návrh řešení a cena', d: 'Vysvětlíme, co je vadné, a navrhneme opravu nebo repasi. Cenu a termín znáte předem.' },
+  { t: 'Oprava s vaším souhlasem', d: 'Pracujeme až po odsouhlasení. Když během opravy najdeme něco dalšího, nejdřív vám zavoláme.' },
+  { t: 'Kontrola a testování', d: 'Adaptace, kontrola těsnosti a zkušební jízda. Auto předáme s vysvětlením, co jsme dělali.' },
+];
+
+const reasons = [
+  { t: `Od roku ${site.since}`, d: 'Začínali jsme opravami automatů amerických vozů. Dnes opravujeme převodovky od nejstarších po nejmodernější.' },
+  { t: 'Jen automatické převodovky', d: 'Nejsme univerzální servis. Převodovky jsou naše hlavní práce, ne doplňková služba.' },
+  { t: 'Diagnostika před opravou', d: 'Jeden chybový kód automaticky neznamená výměnu dílu. Rozsah opravy určujeme podle skutečného stavu.' },
+  { t: 'Moderní vybavení', d: 'Diagnostické přístroje, zařízení na dynamickou výměnu oleje a nářadí pro práci s mechatronikami.' },
+  { t: 'Individuální přístup', d: 'Každou převodovku posuzujeme zvlášť podle vozu, nájezdu a historie. Neměníme díly „pro jistotu“.' },
+  { t: 'Záruka až 24 měsíců', d: 'Na nové díly poskytujeme záruku 24 měsíců, na repasované 6 měsíců. Záruční prohlídku po 1 000 km děláme zdarma.' },
+];
+
+const faq = [
+  { q: 'Kolik stojí oprava automatické převodovky?', a: 'Cena závisí na typu převodovky a rozsahu závady. Jinak vychází oprava mechatroniky, jinak výměna těsnění a jinak kompletní repase. Přesnou cenu proto stanovíme po diagnostice a před zahájením práce ji s vámi odsouhlasíme. Bez vašeho souhlasu nic navíc neúčtujeme. ' + site.priceDiag + ' Orientační ceny výměny oleje najdete v <a href="/vymena-oleje-automaticka-prevodovka/#cenik">ceníku</a>.' },
+  { q: 'Musí se při závadě vždy dělat kompletní repase?', a: 'Ne. Řada závad jde vyřešit opravou mechatroniky, hydrauliky, měniče nebo jiné konkrétní části. O rozsahu opravy rozhoduje diagnostika a skutečný stav převodovky.' },
+  { q: 'Jaké převodovky opravujete?', a: 'Klasické hydrodynamické automaty (ZF, Aisin Warner, Mercedes-Benz, Jatco, GM), dvouspojkové DSG a PowerShift, CVT včetně Multitronicu a další typy. Opravujeme převodovky vozů všech značek.' },
+  { q: 'Jaká je záruka na opravu?', a: `${site.warrantyDetail} Podrobnosti najdete v <a href="/obchodni-podminky/">obchodních podmínkách</a>.` },
+  { q: 'Stačí vyměnit olej, když převodovka cuká?', a: 'Někdy ano, často ne. Výměna oleje je správný servisní úkon, ale opotřebenou mechanickou nebo hydraulickou část neopraví. Proto doporučujeme nejdřív diagnostiku.' },
+  { q: 'Jak se objednat?', a: `Zavolejte na <a href="${site.phoneHref}">${site.phone}</a> (${site.hours}) nebo vyplňte <a href="/poptavka/">poptávkový formulář</a>. Pomůže, když uvedete značku, model, rok výroby, motor a popis závady.` },
+];
+
+const gallery = [photos['zf'][1], photos['vw-dq381'][2], photos['jatco'][5], photos['toyota'][2], photos['ford'][1], photos['mitsubishi'][2], photos['zf'][6], photos['aisin'][1]];
+
+const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a.replace(/<[^>]+>/g, '') } })) };
+---
+<Base title="Oprava a repase automatických převodovek | A.T. Autoservis Praha-západ" description={`Specialisté na automatické převodovky od roku ${site.since}. Diagnostika, opravy a repase DSG, ZF, Aisin, CVT i PowerShift. Hostivice u Prahy, záruka ${site.warranty}.`} schema={[faqSchema]}>
+
+  <section class="hero dark">
+    <div class="wrap hero-in">
+      <div class="hero-text">
+        <p class="eyebrow">Specializovaný servis · Hostivice u Prahy</p>
+        <h1>Oprava a repase <span>automatických</span> převodovek</h1>
+        <p class="lead">DSG, ZF, Aisin, CVT, PowerShift i Multitronic. Nejdřív přesná diagnostika, potom oprava, kterou vám předem vysvětlíme a naceníme. Se zárukou {site.warranty}.</p>
+        <div class="btn-row">
+          <a class="btn btn-red btn-lg" href="/rezervace/#diagnostika">Objednat diagnostiku</a>
+          <a class="btn btn-ghost btn-lg" href={site.phoneHref} data-track="phone">Zavolat {site.phoneShort}</a>
+        </div>
+      </div>
+      <figure class="hero-gear">
+        <img src="/img/ui/prevodovka-hero.webp" srcset="/img/ui/prevodovka-hero-sm.webp 640w, /img/ui/prevodovka-hero.webp 1200w" sizes="(min-width: 960px) 45vw, 100vw" width="1200" height="800" alt="Řez automatickou převodovkou s měničem točivého momentu, lamelovými spojkami a planetovými soukolími" fetchpriority="high" />
+      </figure>
+    </div>
+    <div class="wrap">
+      <ul class="trust">
+        <li><strong>od {site.since}</strong><span>na českém trhu</span></li>
+        <li><strong>100 %</strong><span>specializace na automatické převodovky</span></li>
+        <li><strong>všechny typy</strong><span>DSG, CVT, klasické automaty, PowerShift</span></li>
+        <li><strong>až 24 měs.</strong><span>záruka na provedené opravy</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="priznaky">
+    <div class="wrap">
+      <div class="section-head split">
+        <div><p class="eyebrow">Příznaky závady</p><h2>Co dělá vaše převodovka?</h2></div>
+        <p class="lead">Čím dřív závadu zachytíme, tím levnější bývá oprava. Poznáte některý z těchto příznaků?</p>
+      </div>
+      <div class="grid grid-3">
+        {symptoms.map((s) => (
+          <a class="sym card" href={s.href}>
+            <span class="sym-ic"><Icon name={s.icon} size={22} /></span>
+            <span><strong>{s.title}</strong><span>{s.text}</span></span>
+          </a>
+        ))}
+      </div>
+      <div class="sym-cta">
+        <div><strong>Nevíte si rady? Popište nám příznaky.</strong><span>Ozveme se obvykle ještě týž pracovní den a řekneme vám, jak postupovat.</span></div>
+        <a class="btn btn-red" href="/poptavka/">Poptat diagnostiku <Icon name="arrow" /></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section light" id="sluzby">
+    <div class="wrap">
+      <div class="section-head split">
+        <div><p class="eyebrow">Naše specializace</p><h2>Co pro vás uděláme</h2></div>
+        <p class="lead">Automatické převodovky jsou jediné, čemu se věnujeme naplno. Od diagnostiky po kompletní repasi.</p>
+      </div>
+      <div class="grid grid-4">
+        {services.map((s) => (
+          <a class="svc" href={s.href}>
+            <span class="svc-ic"><Icon name={s.icon} size={26} /></span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <span class="more">Více <Icon name="arrow" size={16} /></span>
+          </a>
+        ))}
+      </div>
+      <p class="also">Opravujeme také <a href="/oprava-mechatroniky/">mechatroniky a řídicí jednotky</a> a <a href="/chybove-kody-prevodovek/">vysvětlíme chybové kódy</a>. Stálým zákazníkům zajistíme i servisní prohlídku, výměnu oleje v motoru, plnění klimatizace a pneuservis. <strong>Výměnu oleje v převodovce či motoru a diagnostiku si můžete <a href="/rezervace/">rezervovat online</a>.</strong></p>
+    </div>
+  </section>
+
+  <section class="section dark" id="typy">
+    <div class="wrap">
+      <div class="section-head split">
+        <div><p class="eyebrow">Typy převodovek</p><h2>Opravujeme téměř všechny automaty</h2></div>
+        <p class="lead">Každý typ má vlastní stránku s typickými závadami, postupem opravy a fotografiemi z realizací.</p>
+      </div>
+      <div class="types">
+        {types.map((t) => (
+          <a class="type" href={t.href}>
+            <span class="type-make">{t.make}</span>
+            <strong>{t.name}</strong>
+            <span class="tags">{t.codes.map((c) => <span class="tag">{c}</span>)}</span>
+            <span class="more">Závady a opravy <Icon name="arrow" size={16} /></span>
+          </a>
+        ))}
+      </div>
+      <p class="types-more">Opravujeme i převodovky Mercedes-Benz (7G-Tronic, 9G-Tronic), GM, Jatco, Hyundai a Kia. <a href="/znacky/">Všechny značky a výrobci</a> · <a href="/typy-prevodovek/">Přehled technologií</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="proc-my">
+    <div class="wrap why">
+      <div>
+        <p class="eyebrow">Proč my</p>
+        <h2>Proč svěřit převodovku právě nám</h2>
+        <p class="lead">Automatická převodovka je kombinace mechaniky, hydrauliky a elektroniky. Správná oprava začíná správnou diagnózou.</p>
+        <figure class="why-img"><img src="/img/realizace/zf-03-sm.webp" width="480" height="639" alt="Hydraulický blok převodovky ZF při kontrole" loading="lazy" /></figure>
+      </div>
+      <ul class="reasons">
+        {reasons.map((r) => <li><Icon name="check" size={22} /><div><h3>{r.t}</h3><p>{r.d}</p></div></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section graphite" id="postup">
+    <div class="wrap">
+      <div class="section-head split">
+        <div><p class="eyebrow">Postup</p><h2>Jak probíhá oprava nebo repase</h2></div>
+        <p class="lead">Bez zbytečného čekání a bez překvapení na faktuře.</p>
+      </div>
+      <ol class="steps4">
+        {steps.map((s, i) => <li><span class="n">{i + 1}</span><h3>{s.t}</h3><p>{s.d}</p></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section light" id="realizace">
+    <div class="wrap">
+      <div class="section-head split">
+        <div><p class="eyebrow">Realizace</p><h2>Ukázky z naší dílny</h2></div>
+        <p class="lead">Skutečné fotografie z oprav převodovek ZF, DSG DQ381, Jatco CVT, Toyota, Ford PowerShift a dalších.</p>
+      </div>
+      <ul class="rgal">
+        {gallery.map((p) => <li><img src={p.src} width={p.w} height={p.h} alt={p.alt} loading="lazy" decoding="async" /></li>)}
+      </ul>
+      <a class="btn btn-dark" href="/realizace/">Všechny realizace <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <section class="section" id="kody">
+    <div class="wrap codes-teaser">
+      <div>
+        <p class="eyebrow">Chybové kódy</p>
+        <h2>Svítí kontrolka? Zjistěte, co znamená chybový kód</h2>
+        <p class="lead">Databáze nejčastějších kódů převodovek DSG, ZF, Aisin, CVT a PowerShift s vysvětlením typických příčin.</p>
+      </div>
+      <form class="code-search" action="/chybove-kody-prevodovek/" method="get" data-code-jump>
+        <label for="home-code">Zadejte kód</label>
+        <div class="cs-row">
+          <input id="home-code" name="kod" placeholder="např. P0741 nebo P17BF" autocomplete="off" />
+          <button class="btn btn-red" type="submit"><Icon name="search" /> Hledat</button>
+        </div>
+        <p class="cs-ex">Časté: <a href="/chybove-kody-prevodovek/#P0741">P0741</a> <a href="/chybove-kody-prevodovek/#P0868">P0868</a> <a href="/chybove-kody-prevodovek/#P17BF">P17BF</a> <a href="/chybove-kody-prevodovek/#P0730">P0730</a></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section light" id="recenze">
+    <div class="wrap">
+      <div class="section-head split">
+        <div><p class="eyebrow">Zkušenosti zákazníků</p><h2>Co o nás říkají zákazníci</h2></div>
+        <div class="award"><img src="/img/ui/firmy-top-2025.webp" width="287" height="262" alt="Firmy.cz TOP FIRMA 2025" loading="lazy" /><p>Ocenění <strong>TOP FIRMA 2025</strong> na portálu Firmy.cz</p></div>
+      </div>
+      <div class="placeholder" data-placeholder="recenze">
+        <strong>Místo pro skutečné recenze zákazníků</strong>
+        <p>Před spuštěním sem vložíme ověřená hodnocení z Google a Firmy.cz (s odkazem na zdroj). Nebudeme používat vymyšlené ani upravené recenze.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-narrow"><Faq items={faq} /></div>
+  </section>
+
+  <section class="section dark" id="kontakt">
+    <div class="wrap contact">
+      <div class="contact-card">
+        <p class="eyebrow">Kontakt</p>
+        <h2>Kde nás najdete</h2>
+        <a class="big-phone" href={site.phoneHref} data-track="phone">{site.phone}</a>
+        <dl>
+          <dt>Adresa</dt><dd>{site.street}, {site.zip} {site.city}<br />{site.region}</dd>
+          <dt>Otevřeno</dt><dd>{site.hours}</dd>
+          <dt>E-mail</dt><dd><a href={`mailto:${site.email}`} data-track="email">{site.email}</a></dd>
+          <dt>Firma</dt><dd>{site.legalName}, IČO {site.ico}</dd>
+        </dl>
+        <div class="btn-row">
+          <a class="btn btn-ghost" href={site.mapUrl} target="_blank" rel="noopener"><Icon name="pin" /> Google Mapy</a>
+          <a class="btn btn-ghost" href="https://mapy.cz/zakladni?q=N%C3%A1dra%C5%BEn%C3%AD%20272%20Hostivice" target="_blank" rel="noopener"><Icon name="pin" /> Mapy.cz</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h2>Poptejte opravu</h2>
+        <p>Vyplnění zabere minutu. Podrobnější formulář s přílohami najdete na stránce <a href="/poptavka/">Poptávka</a>.</p>
+        <InquiryForm compact id="home-form" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('form[data-code-jump]').forEach((f) => f.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const v = (f.querySelector('input') as HTMLInputElement).value.trim().toUpperCase().replace(/\s+/g, '');
+    location.href = f.getAttribute('action') + (v ? '#' + encodeURIComponent(v) : '');
+  }));
+</script>
+
+<style>
+  .btn-lg { padding: 1rem 1.5rem; font-size: 1.08rem; }
+  .hero { padding-top: clamp(2.5rem, 2rem + 3vw, 5rem); padding-bottom: 0; position: relative; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 70% at 85% 30%, rgba(217,39,29,.16), transparent 70%); pointer-events: none; }
+  .hero-in { position: relative; display: grid; gap: 2.5rem; align-items: center; }
+  @media (min-width: 960px) { .hero-in { grid-template-columns: 1.1fr .9fr; gap: 3rem; } }
+  .hero-text { display: grid; gap: 1.3rem; justify-items: start; }
+  .hero h1 { font-size: clamp(2.15rem, 1.2rem + 3.8vw, 4.1rem); line-height: 1.04; text-transform: uppercase; letter-spacing: .005em; max-width: 14ch; }
+  @media (max-width: 479px) { .hero .eyebrow { font-size: .74rem; letter-spacing: .1em; } }
+  .hero h1 span { color: var(--red); display: block; }
+  @media (max-width: 959px) { .hero .btn-row { display: grid; width: 100%; gap: .8rem; } .hero .btn-row .btn { justify-content: center; width: 100%; } }
+  .hero-note { display: inline-flex; gap: .45rem; align-items: center; color: var(--on-dark-soft); font-size: .92rem; }
+  .hero-note a { color: var(--on-dark); text-underline-offset: 3px; }
+  .hero-gear { margin: 0; position: relative; }
+  .hero-gear::before { content: ""; position: absolute; inset: -8% -4%; background: radial-gradient(closest-side, rgba(217,39,29,.2), transparent); }
+  .hero-gear img { position: relative; width: 100%; height: auto; filter: drop-shadow(0 24px 40px rgba(0,0,0,.55)); }
+  @media (max-width: 959px) { .hero-gear { order: -1; max-width: 560px; justify-self: center; margin-bottom: -1rem; } }
+  .trust { list-style: none; margin: clamp(2.5rem, 2rem + 2vw, 4rem) 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); border-top: 1px solid var(--line-dark); }
+  @media (min-width: 900px) { .trust { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  .trust li { padding: 1.4rem 1rem 1.6rem 0; display: grid; gap: .2rem; border-right: 1px solid var(--line-dark); padding-left: 1rem; }
+  .trust li:first-child, .trust li:nth-child(3) { padding-left: 0; }
+  @media (min-width: 900px) { .trust li:nth-child(3) { padding-left: 1rem; } }
+  .trust li:last-child { border-right: 0; }
+  @media (max-width: 899px) { .trust li:nth-child(2) { border-right: 0; } .trust li:nth-child(-n+2) { border-bottom: 1px solid var(--line-dark); } }
+  .trust strong { font: 700 clamp(1.3rem, 1rem + 1.2vw, 1.85rem) var(--font-display); color: #fff; }
+  .trust span { color: var(--on-dark-soft); font-size: .9rem; line-height: 1.4; }
+
+  .sym { display: flex; gap: 1rem; align-items: flex-start; text-decoration: none; transition: border-color .2s, transform .2s; }
+  .sym:hover { border-color: var(--red); transform: translateY(-2px); }
+  .sym-ic { width: 44px; height: 44px; border-radius: 8px; background: var(--red-soft); color: var(--red); display: grid; place-items: center; flex: none; }
+  .sym strong { display: block; font: 600 1.12rem var(--font-display); }
+  .sym span span { color: var(--text-soft); font-size: .95rem; }
+  .sym-cta { margin-top: 1.25rem; background: var(--ink); color: var(--on-dark); border-radius: var(--radius); padding: 1.4rem 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; }
+  .sym-cta strong { display: block; font: 700 1.2rem var(--font-display); }
+  .sym-cta span { color: var(--on-dark-soft); }
+
+  .svc { display: grid; gap: .7rem; align-content: start; text-decoration: none; padding: 1.6rem 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); transition: border-color .2s, background .2s; }
+  .svc:hover { border-color: var(--ink); background: #fff; }
+  .svc-ic { color: var(--red); }
+  .svc p { color: var(--text-soft); font-size: .97rem; }
+  .more { display: inline-flex; gap: .35rem; align-items: center; font: 600 .95rem var(--font-display); color: var(--red-hover); margin-top: .3rem; }
+  .also { margin-top: 1.5rem; color: var(--text-soft); max-width: 80ch; }
+  .also a { color: var(--text); font-weight: 600; }
+
+  .types { display: grid; gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; }
+  @media (min-width: 640px) { .types { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width: 1000px) { .types { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .type { background: var(--ink); padding: 1.5rem; display: grid; gap: .6rem; align-content: start; text-decoration: none; transition: background .2s; }
+  .type:hover { background: var(--graphite); }
+  .type-make { font: 600 .74rem var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: #ff6a5f; }
+  .type strong { font: 700 1.6rem var(--font-display); color: #fff; }
+  .type .more { color: var(--on-dark); }
+  .types-more { margin-top: 1.25rem; color: var(--on-dark-soft); }
+  .types-more a { color: #fff; font-weight: 600; }
+
+  .why { display: grid; gap: 2.5rem; }
+  @media (min-width: 960px) { .why { grid-template-columns: .9fr 1.1fr; gap: 4rem; } }
+  .why > div { display: grid; gap: 1rem; align-content: start; }
+  .why-img { margin: .75rem 0 0; border-radius: var(--radius); overflow: hidden; max-width: 380px; aspect-ratio: 4 / 3.6; }
+  .why-img img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 959px) { .why-img { display: none; } }
+  .reasons { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .reasons li { display: flex; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+  .reasons li:first-child { padding-top: 0; }
+  .reasons svg { color: var(--red); flex: none; margin-top: .15rem; }
+  .reasons p { color: var(--text-soft); margin-top: .25rem; }
+
+  .steps4 { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; }
+  @media (min-width: 700px) { .steps4 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width: 1000px) { .steps4 { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  .steps4 li { border-top: 2px solid var(--line-dark); padding-top: 1.1rem; display: grid; gap: .5rem; align-content: start; }
+  .steps4 .n { font: 700 .9rem var(--font-display); color: #ff6a5f; }
+  .steps4 p { color: var(--on-dark-soft); font-size: .97rem; }
+
+  .rgal { list-style: none; margin: 0 0 1.75rem; padding: 0; display: grid; gap: .6rem; grid-template-columns: repeat(2, minmax(0,1fr)); }
+  @media (min-width: 760px) { .rgal { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  .rgal li { border-radius: 6px; overflow: hidden; aspect-ratio: 1; background: var(--steel); }
+  .rgal img { width: 100%; height: 100%; object-fit: cover; }
+
+  .codes-teaser { display: grid; gap: 2rem; align-items: center; }
+  @media (min-width: 960px) { .codes-teaser { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+  .codes-teaser > div { display: grid; gap: 1rem; }
+  .code-search { min-width: 0; background: var(--ink); color: var(--on-dark); padding: 1.6rem; border-radius: 8px; display: grid; gap: .7rem; }
+  .code-search label { font: 600 .8rem var(--font-display); letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark-soft); }
+  .cs-row { display: flex; gap: .5rem; min-width: 0; }
+  @media (max-width: 420px) { .cs-row { flex-direction: column; } }
+  .cs-row input { flex: 1; min-width: 0; font: 600 1.25rem var(--font-display); letter-spacing: .06em; text-transform: uppercase; padding: .75rem .9rem; border-radius: var(--radius); border: 1px solid var(--line-dark); background: var(--graphite); color: #fff; }
+  .cs-row input::placeholder { text-transform: none; letter-spacing: 0; font: 400 1rem var(--font-body); color: #80868d; }
+  .cs-ex { font-size: .9rem; color: var(--on-dark-soft); display: flex; gap: .6rem; flex-wrap: wrap; }
+  .cs-ex a { color: #fff; font-family: var(--font-display); font-weight: 600; }
+
+  .award { display: flex; gap: 1rem; align-items: center; }
+  .award img { width: 72px; }
+  .placeholder { border: 2px dashed #b3b9c0; border-radius: 8px; padding: 1.75rem; display: grid; gap: .4rem; color: var(--text-soft); background: repeating-linear-gradient(-45deg, transparent 0 12px, rgba(0,0,0,.02) 12px 24px); }
+  .placeholder strong { color: var(--text); font-family: var(--font-display); font-size: 1.15rem; }
+
+  .contact { display: grid; gap: 1.5rem; }
+  @media (min-width: 960px) { .contact { grid-template-columns: .9fr 1.1fr; } }
+  .contact-card { display: grid; gap: 1rem; align-content: start; }
+  .big-phone { font: 700 clamp(1.8rem, 1.4rem + 1.8vw, 2.6rem) var(--font-display); color: #fff; text-decoration: none; }
+  dl { display: grid; grid-template-columns: 6.5rem 1fr; gap: .7rem 1rem; margin: .5rem 0 .5rem; }
+  dt { color: var(--on-dark-soft); font-size: .9rem; }
+  dd { margin: 0; }
+  dd a { color: #fff; }
+  .contact-form { background: var(--white); color: var(--text); border-radius: 8px; padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem); display: grid; gap: .8rem; align-content: start; }
+  .contact-form > p { color: var(--text-soft); }
+  .contact-form a { color: var(--red-hover); }
+</style>

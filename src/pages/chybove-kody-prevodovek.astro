@@ -1,0 +1,152 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import Icon from '../components/Icon.astro';
+import { families, allCodes } from '../data/codes';
+const seen = new Set<string>();
+const codeId = (c: string) => { if (seen.has(c)) return undefined; seen.add(c); return c; };
+const faq = [
+  { q: 'Znamená chybový kód automaticky vadný díl?', a: 'Ne. Kód ukazuje na obvod nebo funkci, ne vždy přímo na vadný díl. Například P0741 může způsobit opotřebený měnič, zaseknutý ventil v rozvaděči i starý olej. Proto kód vždy ověřujeme diagnostikou.' },
+  { q: 'Můžu jezdit, když svítí kontrolka převodovky?', a: 'Pokud převodovka přešla do nouzového režimu, dojeďte jen do servisu. Prokluzující nebo přehřátá převodovka se poškozuje dál a oprava se prodraží.' },
+  { q: 'Stačí chybu vymazat?', a: 'Vymazání chyby příčinu neodstraní. Pokud se kód vrátí, problém trvá. Smazáním navíc přijdete o informace, které pomáhají najít závadu.' },
+  { q: 'Proč má stejný kód různé významy?', a: 'Obecné OBD kódy (P07xx) jsou standardizované, ale výrobci je vykládají pro své převodovky různě. Výrobcové kódy (VAG pětimístné, BMW šestimístné) jsou specifické. Proto je u každého kódu uvedena převodovka.' },
+];
+---
+<Base title="Chybové kódy automatických převodovek | P0741, P0868, P17BF a další | A.T. Autoservis" description={`Databáze ${allCodes.length} chybových kódů převodovek DSG, ZF, Aisin, CVT Jatco, Multitronic a PowerShift. Co kód znamená, typické příčiny a závady. Vyhledejte svůj kód.`} breadcrumbs={[{ href: '/chybove-kody-prevodovek/', label: 'Chybové kódy převodovek' }]}
+  schema={[{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }]}>
+  <PageHero eyebrow="Závady a chybové kódy" title="Chybové kódy automatických převodovek" lead="Nejčastější závady a chybové kódy převodovek DSG, ZF, Aisin, CVT a PowerShift. Zadejte kód z diagnostiky a zjistěte, co obvykle znamená." crumbs={[{ href: '/chybove-kody-prevodovek/', label: 'Chybové kódy' }]} cta={false}>
+    <div class="search">
+      <label for="code-q" class="sr-only">Hledat chybový kód nebo převodovku</label>
+      <Icon name="search" size={22} />
+      <input id="code-q" type="search" placeholder="Kód nebo převodovka, např. P0741, DQ381, 8HP" autocomplete="off" spellcheck="false" />
+    </div>
+    <p class="s-count" aria-live="polite"><span id="code-count">{allCodes.length}</span> kódů u {families.reduce((s, f) => s + f.units.length, 0)} převodovek</p>
+  </PageHero>
+
+  <section class="section-tight light jump">
+    <div class="wrap jump-in">
+      {families.map((f) => <a href={`#${f.id}`}>{f.name.split(' (')[0]}</a>)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="note callout">Kód ukazuje na obvod nebo funkci, ne vždy přímo na vadný díl. Jednu chybu může způsobit více příčin, proto ji vždy ověřujeme <a href="/diagnostika-automaticke-prevodovky/">diagnostikou</a>.</p>
+      <div id="no-result" class="nores" hidden>
+        <strong>Kód jsme v přehledu nenašli.</strong>
+        <p>Nevadí. Pošlete nám kód, značku a model vozu a podíváme se na to. <a href="/poptavka/">Poslat poptávku</a></p>
+      </div>
+      {families.map((f) => (
+        <section class="fam" id={f.id} data-fam>
+          <header class="fam-h">
+            <h2>{f.name}</h2>
+            <p>{f.intro}</p>
+            <a href={f.link} class="fam-link">Opravy a repase <Icon name="arrow" size={16} /></a>
+          </header>
+          {f.units.map((u) => (
+            <article class="unit" id={u.id} data-unit data-text={`${u.name} ${u.aka ?? ''} ${u.cars}`.toLowerCase()}>
+              <div class="unit-h">
+                <h3>{u.name}{u.aka && <span class="aka"> {u.aka}</span>}</h3>
+                <p class="spec">{u.spec}. {u.cars}.</p>
+                {u.link && <a href={u.link} class="unit-link">Detail převodovky <Icon name="chevron" size={14} /></a>}
+              </div>
+              <div class="unit-b">
+                <div>
+                  <h4>Nejčastější závady</h4>
+                  <ul class="faults">{u.faults.map((x) => <li data-text={`${x.title} ${x.text}`.toLowerCase()}><strong>{x.title}.</strong> {x.text}</li>)}</ul>
+                </div>
+                <div>
+                  <h4>Typické chybové kódy</h4>
+                  <dl class="codes">
+                    {u.codes.map((c) => (
+                      <div class="code" id={codeId(c.code)} data-code={c.code} data-text={`${c.code} ${c.text}`.toLowerCase()}>
+                        <dt>{c.code}</dt><dd>{c.text}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                </div>
+              </div>
+            </article>
+          ))}
+        </section>
+      ))}
+      <p class="src">Zdroj: interní podklady A.T. Autoservis z praxe a technické dokumentace výrobců. Přehled slouží k orientaci a nenahrazuje diagnostiku konkrétního vozu.</p>
+    </div>
+  </section>
+  <section class="section light"><div class="wrap-narrow"><Faq items={faq} /></div></section>
+  <CtaBand title="Máte chybový kód a nevíte, co dál?" text="Pošlete nám kód, značku, model a rok výroby. Řekneme vám, co kód u vaší převodovky obvykle znamená a jak postupovat." />
+</Base>
+<script>
+  const q = document.getElementById('code-q') as HTMLInputElement;
+  const units = Array.from(document.querySelectorAll<HTMLElement>('[data-unit]'));
+  const fams = Array.from(document.querySelectorAll<HTMLElement>('[data-fam]'));
+  const count = document.getElementById('code-count')!;
+  const nores = document.getElementById('no-result')!;
+  const total = count.textContent;
+  const run = (raw: string) => {
+    const v = raw.trim().toLowerCase();
+    let n = 0;
+    units.forEach((u) => {
+      const codes = Array.from(u.querySelectorAll<HTMLElement>('.code'));
+      const unitHit = !v || (u.dataset.text || '').includes(v);
+      let hits = 0;
+      codes.forEach((c) => { const hit = !v || unitHit || (c.dataset.text || '').includes(v); c.classList.toggle('dim', !!v && !hit); c.classList.toggle('hit', !!v && hit && !unitHit); if (hit) hits++; });
+      const faultHit = Array.from(u.querySelectorAll<HTMLElement>('.faults li')).some((li) => (li.dataset.text || '').includes(v));
+      const show = unitHit || hits > 0 || faultHit;
+      u.hidden = !show; if (show) n += unitHit ? codes.length : hits;
+    });
+    fams.forEach((f) => { f.hidden = !f.querySelector('[data-unit]:not([hidden])'); });
+    count.textContent = v ? String(n) : total!;
+    nores.hidden = !v || n > 0 || units.some((u) => !u.hidden);
+  };
+  q.addEventListener('input', () => run(q.value));
+  const fromHash = () => {
+    const h = decodeURIComponent(location.hash.slice(1));
+    if (!h) return;
+    const el = document.getElementById(h);
+    if (el && el.matches('[data-fam],[data-unit]')) return;
+    if (/^[A-Z0-9]{4,6}$/i.test(h)) { q.value = h.toUpperCase(); run(h); }
+  };
+  fromHash(); window.addEventListener('hashchange', fromHash);
+</script>
+<style>
+  .search { display: flex; align-items: center; gap: .7rem; width: 100%; max-width: 640px; background: #fff; color: var(--text); border-radius: 8px; padding: .3rem .4rem .3rem 1rem; margin-top: .5rem; }
+  .search svg { color: var(--text-soft); flex: none; }
+  .search input { flex: 1; min-width: 0; border: 0; font: 600 1.15rem var(--font-display); padding: .8rem .2rem; background: transparent; color: var(--text); outline: none; }
+  .search:focus-within { outline: 3px solid var(--red); }
+  .s-count { color: var(--on-dark-soft); font-size: .9rem; }
+  .jump { padding-block: 1rem; border-bottom: 1px solid var(--line); position: sticky; top: calc(env(safe-area-inset-top, 0px) + 62px); z-index: 10; }
+  @media (min-width: 641px) { .jump { top: calc(env(safe-area-inset-top, 0px) + 72px); } }
+  .jump-in { display: flex; gap: .5rem; overflow-x: auto; }
+  .jump a { white-space: nowrap; font: 600 .92rem var(--font-display); text-decoration: none; padding: .45rem .8rem; border: 1px solid var(--line); border-radius: 999px; }
+  .jump a:hover { border-color: var(--ink); }
+  .note { margin-bottom: 2rem; max-width: 80ch; }
+  .note a, .nores a, .src a { color: var(--red-hover); }
+  .nores { border: 2px dashed #b3b9c0; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem; }
+  .fam { margin-bottom: 4rem; scroll-margin-top: 150px; }
+  .fam-h { display: grid; gap: .6rem; margin-bottom: 1.5rem; max-width: 80ch; }
+  .fam-h p { color: var(--text-soft); }
+  .fam-link, .unit-link { display: inline-flex; gap: .3rem; align-items: center; font: 600 .95rem var(--font-display); color: var(--red-hover); text-decoration: none; }
+  .unit { background: var(--white); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 1rem; overflow: hidden; scroll-margin-top: 150px; }
+  .unit-h { background: var(--ink); color: var(--on-dark); padding: 1.1rem 1.4rem; display: grid; gap: .3rem; }
+  .unit-h h3 { color: #fff; }
+  .aka { color: var(--on-dark-soft); font-weight: 500; font-size: .9em; }
+  .spec { color: var(--on-dark-soft); font-size: .93rem; }
+  .unit-h .unit-link { color: #ff8d84; }
+  .unit-b { display: grid; gap: 1.5rem; padding: 1.4rem; }
+  @media (min-width: 900px) { .unit-b { grid-template-columns: 1fr 1fr; gap: 2.5rem; } }
+  .unit-b h4 { font: 600 .78rem var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: .7rem; }
+  .faults { margin: 0; padding-left: 1.1rem; display: grid; gap: .6rem; font-size: .97rem; }
+  .faults li::marker { color: var(--red); }
+  .codes { margin: 0; display: grid; gap: 0; }
+  .code { display: grid; grid-template-columns: 5.5rem 1fr; gap: .8rem; padding: .55rem 0; border-bottom: 1px solid var(--line); scroll-margin-top: 160px; }
+  .code:last-child { border-bottom: 0; }
+  .code dt { font: 700 1rem var(--font-display); letter-spacing: .03em; }
+  .code dd { margin: 0; font-size: .95rem; color: var(--text-soft); }
+  .code.dim { opacity: .35; }
+  .code.hit { background: #fff6d6; margin-inline: -.6rem; padding-inline: .6rem; border-radius: 4px; }
+  .code:target { background: #fff6d6; }
+  .src { color: var(--text-soft); font-size: .88rem; max-width: 80ch; }
+</style>

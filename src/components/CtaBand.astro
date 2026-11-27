@@ -1,0 +1,24 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+const { title = 'Nevíte si rady s převodovkou? Popište nám příznaky.', text = 'Pošlete značku, model, rok výroby a popis závady. Ozveme se obvykle ještě týž pracovní den a řekneme vám, jak postupovat dál.' } = Astro.props;
+---
+<section class="ctaband">
+  <div class="wrap ctaband-in">
+    <div>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-red" href="/poptavka/">Poptat opravu <Icon name="arrow" /></a>
+      <a class="btn btn-ghost" href={site.phoneHref} data-track="phone"><Icon name="phone" /> {site.phone}</a>
+    </div>
+  </div>
+</section>
+<style>
+  .ctaband { background: var(--graphite); color: var(--on-dark); padding-block: clamp(2.5rem, 2rem + 2vw, 3.5rem); border-top: 3px solid var(--red); }
+  .ctaband-in { display: grid; gap: 1.5rem; align-items: center; }
+  .ctaband h2 { font-size: clamp(1.4rem, 1.15rem + 1vw, 1.9rem); }
+  .ctaband p { color: var(--on-dark-soft); margin-top: .5rem; max-width: 60ch; }
+  @media (min-width: 900px) { .ctaband-in { grid-template-columns: 1fr auto; gap: 3rem; } }
+</style>

@@ -1,0 +1,163 @@
+---
+// Chytrý poptávkový formulář. Odesílá na serverovou funkci /api/poptavka (viz api/poptavka.js).
+// Pokud není endpoint dostupný (statický náhled), zobrazí potvrzení v režimu náhledu.
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+const { compact = false, id = 'poptavka-form' } = Astro.props;
+const brands = ['Alfa Romeo','Audi','BMW','Citroën','Cupra','Dacia','Fiat','Ford','Honda','Hyundai','Chevrolet','Chrysler','Jaguar','Jeep','Kia','Land Rover','Lexus','Mazda','Mercedes-Benz','Mini','Mitsubishi','Nissan','Opel','Peugeot','Porsche','Renault','Seat','Subaru','Suzuki','Škoda','Toyota','Volkswagen','Volvo','Jiná značka'];
+const years = Array.from({ length: new Date().getFullYear() - 1989 }, (_, i) => new Date().getFullYear() - i);
+---
+<form class="iform" id={id} method="post" action="/api/poptavka" enctype="multipart/form-data" novalidate data-inquiry>
+  <input type="hidden" name="form" value={compact ? 'kratka-poptavka' : 'poptavka'} />
+  <input type="hidden" name="page" value={Astro.url.pathname} />
+  <input type="hidden" name="ts" value="" />
+  <div class="hp" aria-hidden="true"><label>Nevyplňujte <input type="text" name="web" tabindex="-1" autocomplete="off" /></label></div>
+
+  <fieldset>
+    <legend>Kontakt</legend>
+    <div class="row">
+      <div class="f"><label for={`${id}-name`}>Jméno a příjmení *</label><input id={`${id}-name`} name="name" autocomplete="name" required /></div>
+      <div class="f"><label for={`${id}-phone`}>Telefon *</label><input id={`${id}-phone`} name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="+420" pattern="[+0-9 ()-]{9,}" /></div>
+    </div>
+    <div class="f"><label for={`${id}-email`}>E-mail {compact ? '' : '*'}</label><input id={`${id}-email`} name="email" type="email" autocomplete="email" required={!compact} /></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Vozidlo</legend>
+    <div class="row">
+      <div class="f"><label for={`${id}-brand`}>Značka *</label>
+        <select id={`${id}-brand`} name="brand" required><option value="">Vyberte</option>{brands.map((b) => <option>{b}</option>)}</select></div>
+      <div class="f"><label for={`${id}-model`}>Model *</label><input id={`${id}-model`} name="model" required placeholder="např. Superb 2.0 TDI" /></div>
+    </div>
+    {!compact && (
+      <div class="row row-3">
+        <div class="f"><label for={`${id}-year`}>Rok výroby</label><select id={`${id}-year`} name="year"><option value="">Vyberte</option>{years.map((y) => <option>{y}</option>)}<option>starší</option></select></div>
+        <div class="f"><label for={`${id}-engine`}>Motorizace</label><input id={`${id}-engine`} name="engine" placeholder="např. 2.0 TDI 140 kW" /></div>
+        <div class="f"><label for={`${id}-km`}>Stav km</label><input id={`${id}-km`} name="km" inputmode="numeric" placeholder="např. 185 000" /></div>
+      </div>
+    )}
+    <div class="f">
+      <span class="label" id={`${id}-tt`}>Typ převodovky, pokud ho znáte</span>
+      <div class="chips" role="radiogroup" aria-labelledby={`${id}-tt`}>
+        {['Klasický automat','DSG / DCT','CVT','PowerShift','Nevím'].map((t, i) => (
+          <label class="chip"><input type="radio" name="gearbox" value={t} checked={t === 'Nevím'} /><span>{t}</span></label>
+        ))}
+      </div>
+    </div>
+    {!compact && <div class="f"><label for={`${id}-code`}>Označení převodovky nebo VIN</label><input id={`${id}-code`} name="gearbox_code" placeholder="např. 0GC, 8HP50, JF016E nebo VIN" /></div>}
+  </fieldset>
+
+  <fieldset>
+    <legend>Problém</legend>
+    {!compact && (
+      <div class="f">
+        <span class="label" id={`${id}-sy`}>Co převodovka dělá?</span>
+        <div class="chips">
+          {['Cuká / tvrdě řadí','Prokluzuje','Nouzový režim','Hučí nebo klepe','Uniká olej','Zpožděný záběr D/R','Svítí kontrolka','Jen výměna oleje'].map((s) => (
+            <label class="chip"><input type="checkbox" name="symptoms" value={s} /><span>{s}</span></label>
+          ))}
+        </div>
+      </div>
+    )}
+    <div class="f"><label for={`${id}-msg`}>Popis problému *</label><textarea id={`${id}-msg`} name="message" rows={compact ? 3 : 5} required placeholder="Kdy se závada projevuje (za studena, po zahřátí, při rozjezdu…), chybové kódy, co už se opravovalo."></textarea></div>
+    {!compact && (
+      <div class="f">
+        <label for={`${id}-files`} class="upload"><Icon name="upload" /> <span>Přiložit fotky nebo diagnostický protokol <small>JPG, PNG, HEIC nebo PDF, max. 3 soubory, celkem do 8 MB</small></span></label>
+        <input id={`${id}-files`} name="files" type="file" accept="image/*,.pdf,.heic" multiple class="file" />
+        <p class="file-list" aria-live="polite"></p>
+      </div>
+    )}
+  </fieldset>
+
+  <p class="gdpr">Odesláním souhlasíte se zpracováním údajů za účelem vyřízení poptávky. <a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a></p>
+  <p class="err" role="alert" hidden></p>
+  <button class="btn btn-red btn-submit" type="submit">Odeslat poptávku <Icon name="arrow" /></button>
+  <p class="alt">Raději telefonicky? <a href={site.phoneHref} data-track="phone">{site.phone}</a></p>
+</form>
+<div class="isuccess" hidden tabindex="-1">
+  <div class="ok-ic"><Icon name="check" size={28} /></div>
+  <h3>Děkujeme, poptávku jsme přijali</h3>
+  <p>Ozveme se vám obvykle ještě týž pracovní den ({site.hours}). Pokud spěcháte, zavolejte na <a href={site.phoneHref}>{site.phone}</a>.</p>
+  <p class="demo-note" hidden>Náhled webu: formulář zatím nikam neodesílá. Po spuštění poputuje poptávka na firemní e-mail.</p>
+</div>
+
+<style>
+  .iform { display: grid; gap: 1.25rem; }
+  fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: .9rem; min-width: 0; }
+  legend { font: 600 .78rem var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--red); margin-bottom: .2rem; padding: 0; }
+  .row { display: grid; gap: .9rem; }
+  @media (min-width: 560px) { .row { grid-template-columns: 1fr 1fr; } .row-3 { grid-template-columns: 1fr 1fr 1fr; } }
+  .f { display: grid; gap: .35rem; min-width: 0; }
+  label, .label { font-weight: 600; font-size: .92rem; }
+  input:not([type=radio]):not([type=checkbox]):not([type=file]), select, textarea { width: 100%; font: inherit; font-size: 1rem; color: var(--text); background: #fff; border: 1px solid #c9ced4; border-radius: var(--radius); padding: .75rem .85rem; min-height: 48px; }
+  input:focus, select:focus, textarea:focus { outline: 2px solid var(--red); outline-offset: 0; border-color: var(--red); }
+  input[aria-invalid=true], select[aria-invalid=true], textarea[aria-invalid=true] { border-color: var(--red); background: var(--red-soft); }
+  textarea { resize: vertical; }
+  .chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+  .chip { position: relative; font-weight: 500; }
+  .chip input { position: absolute; opacity: 0; inset: 0; }
+  .chip span { display: inline-block; padding: .5rem .8rem; border: 1px solid #c9ced4; border-radius: 999px; background: #fff; font-size: .92rem; cursor: pointer; }
+  .chip input:checked + span { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .chip input:focus-visible + span { outline: 3px solid var(--red); outline-offset: 2px; }
+  .upload { display: flex; gap: .7rem; align-items: center; border: 1px dashed #b3b9c0; border-radius: var(--radius); padding: .9rem 1rem; cursor: pointer; background: #fff; }
+  .upload small { display: block; font-weight: 400; color: var(--text-soft); }
+  .file { font-size: .9rem; }
+  .file-list { font-size: .9rem; color: var(--text-soft); }
+  .hp { position: absolute; left: -9999px; }
+  .gdpr, .alt { font-size: .85rem; color: var(--text-soft); }
+  .gdpr a, .alt a { color: var(--red-hover); }
+  .err { color: var(--red-hover); font-weight: 600; }
+  .btn-submit { width: 100%; padding-block: 1rem; font-size: 1.1rem; }
+  .isuccess { text-align: center; padding: 2rem 1rem; display: grid; gap: .8rem; justify-items: center; }
+  .isuccess[hidden] { display: none; }
+  .ok-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; }
+  .isuccess a { color: var(--red-hover); }
+  .demo-note { font-size: .88rem; background: #fff6d6; border: 1px solid #e8d48a; padding: .6rem .8rem; border-radius: var(--radius); }
+</style>
+<script>
+  const MAX_FILES = 3, MAX_BYTES = 8 * 1024 * 1024;
+  document.querySelectorAll<HTMLFormElement>('form[data-inquiry]').forEach((form) => {
+    const ts = form.querySelector<HTMLInputElement>('input[name=ts]');
+    if (ts) ts.value = String(Date.now());
+    const err = form.querySelector<HTMLElement>('.err')!;
+    const success = form.nextElementSibling as HTMLElement;
+    const files = form.querySelector<HTMLInputElement>('input[type=file]');
+    const list = form.querySelector<HTMLElement>('.file-list');
+    files?.addEventListener('change', () => {
+      if (!list || !files.files) return;
+      list.textContent = Array.from(files.files).map((f) => `${f.name} (${(f.size / 1024 / 1024).toFixed(1)} MB)`).join(', ');
+    });
+    const showError = (msg: string, field?: Element | null) => { err.textContent = msg; err.hidden = false; (field as HTMLElement | null)?.focus(); };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      const invalid = Array.from(form.querySelectorAll<HTMLInputElement>('input,select,textarea')).filter((el) => !el.checkValidity());
+      if (invalid.length) {
+        invalid.forEach((el) => el.setAttribute('aria-invalid', 'true'));
+        const name = form.querySelector(`label[for="${invalid[0].id}"]`)?.textContent?.replace('*', '').trim();
+        return showError(`Vyplňte prosím pole „${name ?? 'označené hvězdičkou'}“.`, invalid[0]);
+      }
+      if (files?.files) {
+        const arr = Array.from(files.files);
+        if (arr.length > MAX_FILES) return showError('Přiložte nejvýše 3 soubory.', files);
+        if (arr.reduce((s, f) => s + f.size, 0) > MAX_BYTES) return showError('Soubory jsou dohromady větší než 8 MB. Zmenšete je nebo pošlete méně fotek.', files);
+      }
+      const btn = form.querySelector<HTMLButtonElement>('.btn-submit')!;
+      btn.disabled = true; const label = btn.innerHTML; btn.textContent = 'Odesílám…';
+      let demo = false;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        if (res.status === 404 || res.status === 405) demo = true;
+        else if (!res.ok) { const j = await res.json().catch(() => ({})); throw new Error(j.error || 'Odeslání se nepovedlo.'); }
+      } catch (ex: any) {
+        if (ex instanceof TypeError || location.hostname.endsWith('claude.ai') || location.protocol === 'file:') demo = true;
+        else { btn.disabled = false; btn.innerHTML = label; return showError(`${ex.message} Zkuste to prosím znovu, nebo zavolejte na 721 004 440.`); }
+      }
+      const w = window as any; (w.dataLayer = w.dataLayer || []).push({ event: 'generate_lead', form_id: form.id, page_path: location.pathname });
+      form.hidden = true; success.hidden = false;
+      if (demo) success.querySelector<HTMLElement>('.demo-note')!.hidden = false;
+      success.focus();
+    });
+  });
+</script>

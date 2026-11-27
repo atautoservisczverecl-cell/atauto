@@ -1,0 +1,81 @@
+---
+import Content from '../layouts/Content.astro';
+import md from '../texts/olej.md?raw';
+import Icon from '../components/Icon.astro';
+// Orientační ceník dynamické výměny oleje převzatý ze stávajícího webu (ceny vč. DPH).
+const prices: [string, string][] = [
+  ['Alfa Romeo', '8 695–15 695'], ['Audi', '7 390–19 990'], ['BMW', '8 490–19 800'], ['Cadillac', '8 780–14 290'],
+  ['Citroën', '7 695–12 195'], ['Fiat', '6 695–12 240'], ['Ford', '9 495–12 995'], ['Honda', '12 000'],
+  ['Hyundai', '8 200–12 400'], ['Chevrolet', '8 200–14 550'], ['Chrysler', '12 000'], ['Jaguar', '7 590–21 990'],
+  ['Jeep', '9 490–12 190'], ['Kia', '8 195–13 500'], ['Land Rover', '11 130–18 240'], ['Mazda', '9 490–12 190'],
+  ['Mercedes-Benz', '7 390–16 490'], ['Suzuki', '8 690–11 030'], ['Škoda', '6 800–9 670'], ['Toyota', '7 695–14 500'],
+  ['Volkswagen', '4 090–13 390'], ['Volvo', '10 600–12 160'],
+];
+const gearboxes = [
+  { t: 'Klasické hydrodynamické', items: ['ZF 5HP, 6HP, 8HP, 9HP48', 'Mercedes 5G, 7G, 9G-Tronic', 'Aisin / AW (6–8 st.)', 'Ultradrive', 'Ford 6R80, 8F35'] },
+  { t: 'Dvouspojkové', items: ['DSG 6 (mokrá)', 'DSG 7 (mokrá i suchá)', 'DDCT (Fiat)', 'PowerShift'] },
+  { t: 'Robotizované', items: ['Dualogic', 'Selespeed', 'Sensodrive', 'Citigo, Ford, Honda a další'] },
+  { t: 'CVT a další', items: ['CVT Honda, Audi, Nissan, Subaru, Toyota', 'Multitronic', 'AL4', 'Skyactiv-Drive'] },
+];
+const faq = [
+  { q: 'Je výměna oleje v automatu opravdu nutná?', a: 'Ano. I když někteří výrobci uvádějí „doživotní náplň“, olej v převodovce stárne, ztrácí vlastnosti a zanáší vnitřní části. Pravidelná výměna výrazně prodlužuje životnost převodovky.' },
+  { q: 'Jak dlouho výměna trvá?', a: 'Obvykle 2 až 4 hodiny podle typu převodovky a rozsahu práce. Přesný čas sdělíme při převzetí vozu.' },
+  { q: 'Kolik výměna stojí?', a: 'Orientační ceny podle značky najdete v ceníku na této stránce. Přesnou cenu vždy potvrdíme před zahájením práce. Bez vašeho souhlasu nic navíc neúčtujeme.' },
+  { q: 'Můžu přijet jen na kontrolu?', a: 'Ano. Převodovku zkontrolujeme a otevřeně řekneme, zda má výměna smysl, nebo jestli ještě počká.' },
+  { q: 'Co když se při servisu zjistí další problém?', a: 'Nejdřív vás kontaktujeme, vše vysvětlíme a navrhneme řešení. Bez vašeho souhlasu žádné další práce neprovádíme.' },
+  { q: 'Dostanu na výměnu záruku?', a: 'Ano. Na provedenou výměnu poskytujeme záruku až 24 měsíců.' },
+];
+---
+<Content
+  title="Výměna oleje v automatické převodovce | Dynamická výměna a ceník | A.T. Autoservis"
+  description="Dynamická výměna oleje v automatické převodovce s proplachem: až 95–100 % oleje, oleje podle specifikace výrobce. DSG, ZF, Aisin, CVT. Orientační ceník podle značky vozu."
+  eyebrow="Servis převodovek" h1="Výměna oleje v automatické převodovce"
+  lead="Dynamická výměna vymění až 95–100 % oleje včetně měniče a chladiče. Používáme jen oleje schválené výrobcem převodovky."
+  crumbs={[{ href: '/vymena-oleje-automaticka-prevodovka/', label: 'Výměna oleje v automatické převodovce' }]}
+  markdown={md} faq={faq}
+  heroImage={{ src: '/img/ui/olej.webp', alt: 'Doplňování převodového oleje', w: 1200, h: 800 }}
+  related={[{ href: '/blog/kdy-vymenit-olej-v-automaticke-prevodovce/', label: 'Kdy vyměnit olej v automatu' }, { href: '/blog/jak-prodlouzit-zivotnost-automaticke-prevodovky/', label: 'Jak prodloužit životnost převodovky' }, { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika' }]}
+  booking="olej-prevodovka"
+  service={{ name: 'Dynamická výměna oleje v automatické převodovce', serviceType: 'Výměna převodového oleje' }}
+>
+  <Fragment slot="after">
+    <section class="section light" id="cenik">
+      <div class="wrap">
+        <div class="section-head split">
+          <div><p class="eyebrow">Ceník</p><h2>Orientační ceník dynamické výměny oleje</h2></div>
+          <p class="lead">Ceny jsou orientační včetně DPH a liší se podle typu převodovky, množství oleje a použitých dílů. Pro přesnou kalkulaci nám pošlete model, rok výroby a typ převodovky.</p>
+        </div>
+        <ul class="prices">
+          {prices.map(([b, p]) => <li><span>{b}</span><strong>{p} Kč</strong></li>)}
+        </ul>
+        <div class="price-cta">
+          <a class="btn btn-red" href="/poptavka/">Chci přesnou cenu <Icon name="arrow" /></a>
+          <span>Součástí výměny je proplach, kontrola hladiny při předepsané teplotě, adaptace a zkušební jízda. Filtr a těsnění měníme podle konstrukce převodovky.</span>
+        </div>
+        <h3 class="gb-h">Převodovky, se kterými pracujeme</h3>
+        <div class="grid grid-4 gb">
+          {gearboxes.map((g) => <div class="card"><h4>{g.t}</h4><ul>{g.items.map((i) => <li>{i}</li>)}</ul></div>)}
+        </div>
+        <figure class="machine">
+          <img src="/img/ui/launch-cat.webp" width="344" height="528" alt="Zařízení pro dynamickou výměnu převodového oleje" loading="lazy" />
+          <figcaption>Výměnu provádíme profesionálním zařízením, které hlídá tlak, teplotu a množství oleje v systému.</figcaption>
+        </figure>
+      </div>
+    </section>
+  </Fragment>
+</Content>
+<style>
+  .prices { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 2rem; grid-template-columns: 1fr; font-variant-numeric: tabular-nums; }
+  @media (min-width: 700px) { .prices { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1100px) { .prices { grid-template-columns: 1fr 1fr 1fr; } }
+  .prices li { display: flex; justify-content: space-between; gap: 1rem; padding: .75rem 0; border-bottom: 1px solid var(--line); }
+  .prices strong { font-family: var(--font-display); font-weight: 600; white-space: nowrap; }
+  .price-cta { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin-top: 1.75rem; color: var(--text-soft); font-size: .95rem; }
+  .price-cta span { flex: 1 1 320px; }
+  .gb-h { margin: 3.5rem 0 1.25rem; font-size: 1.5rem; }
+  .gb h4 { font: 600 1.1rem var(--font-display); margin-bottom: .6rem; }
+  .gb ul { margin: 0; padding-left: 1.1rem; color: var(--text-soft); font-size: .95rem; display: grid; gap: .25rem; }
+  .machine { margin: 2.5rem 0 0; display: flex; gap: 1.5rem; align-items: center; max-width: 640px; }
+  .machine img { width: 120px; flex: none; }
+  .machine figcaption { color: var(--text-soft); }
+</style>

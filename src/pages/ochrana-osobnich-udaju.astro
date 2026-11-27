@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+---
+<Base title="Ochrana osobních údajů | A.T. Autoservis" description="Jak A.T. Auto Service s.r.o. zpracovává osobní údaje z poptávkového formuláře, telefonické a e-mailové komunikace a při opravě vozidla." breadcrumbs={[{ href: '/ochrana-osobnich-udaju/', label: 'Ochrana osobních údajů' }]}>
+  <PageHero title="Ochrana osobních údajů" lead="Informace o zpracování osobních údajů podle nařízení GDPR." crumbs={[{ href: '/ochrana-osobnich-udaju/', label: 'Ochrana osobních údajů' }]} cta={false} />
+  <section class="section"><div class="wrap"><div class="prose">
+    <p class="callout"><strong>Návrh textu k odsouhlasení.</strong> Před spuštěním webu prosím nechte text zkontrolovat a doplňte případné zpracovatele (účetní, hosting, e-mailová služba).</p>
+    <h2>Správce osobních údajů</h2>
+    <p>{site.legalName}, IČO {site.ico}, se sídlem provozovny {site.street}, {site.zip} {site.city}. Kontakt: <a href={`mailto:${site.email}`}>{site.email}</a>, {site.phone}.</p>
+    <h2>Jaké údaje zpracováváme a proč</h2>
+    <ul>
+      <li><strong>Poptávka z webu:</strong> jméno, telefon, e-mail, údaje o vozidle, popis závady a přiložené soubory. Účel: vyřízení poptávky a příprava nabídky. Právní základ: kroky před uzavřením smlouvy na vaši žádost.</li>
+      <li><strong>Oprava vozidla:</strong> identifikační a kontaktní údaje, údaje o vozidle (VIN, SPZ, stav km). Účel: plnění smlouvy o dílo, fakturace, záruka a reklamace. Právní základ: plnění smlouvy a právní povinnost.</li>
+      <li><strong>Analytika a marketing:</strong> pouze s vaším souhlasem v cookie liště. Podrobnosti na stránce <a href="/cookies/">Cookies</a>.</li>
+    </ul>
+    <h2>Jak dlouho údaje uchováváme</h2>
+    <p>Údaje z nerealizované poptávky nejdéle 12 měsíců. Údaje související s opravou po dobu záruky a dále po dobu stanovenou účetními a daňovými předpisy.</p>
+    <h2>Kdo má k údajům přístup</h2>
+    <p>Údaje nepředáváme třetím stranám k marketingovým účelům. Mohou je zpracovávat naši dodavatelé služeb (provoz webu a e-mailu, účetnictví), a to jen v nezbytném rozsahu.</p>
+    <h2>Vaše práva</h2>
+    <p>Máte právo na přístup k údajům, jejich opravu, výmaz, omezení zpracování, přenositelnost a právo vznést námitku. Souhlas můžete kdykoli odvolat. Stížnost můžete podat u Úřadu pro ochranu osobních údajů (www.uoou.cz).</p>
+  </div></div></section>
+</Base>

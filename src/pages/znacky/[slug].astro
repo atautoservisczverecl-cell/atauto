@@ -1,0 +1,25 @@
+---
+import Content from '../../layouts/Content.astro';
+import brands from '../../data/brands.json';
+import { photos } from '../../data/photos';
+
+export function getStaticPaths() {
+  return brands.map((b) => ({ params: { slug: b.slug }, props: { b } }));
+}
+const { b } = Astro.props as { b: (typeof brands)[number] };
+const ph = photos[b.photos] ?? [];
+const hero = ph.length ? { src: ph[0].src.replace('-sm', ''), alt: ph[0].alt, w: 1000, h: Math.round(1000 * ph[0].h / ph[0].w) } : undefined;
+const others = brands.filter((x) => x.slug !== b.slug).map((x) => ({ href: `/znacky/${x.slug}/`, label: x.name }));
+const related = [
+  { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika převodovky' },
+  { href: '/chybove-kody-prevodovek/', label: 'Chybové kódy převodovek' },
+  { href: '/vymena-oleje-automaticka-prevodovka/', label: 'Výměna oleje a ceník' },
+  ...others.slice(0, 4),
+];
+---
+<Content
+  title={b.title} description={b.desc} h1={b.h1} lead={b.lead} eyebrow={b.makes} tags={b.tags}
+  crumbs={[{ href: '/znacky/', label: 'Značky a výrobci' }, { href: `/znacky/${b.slug}/`, label: b.name }]}
+  markdown={b.body} faq={b.faq} photos={ph} photosTitle={`Fotografie z oprav: ${b.name}`} related={related} heroImage={hero}
+  service={{ name: b.h1, serviceType: 'Oprava automatické převodovky' }}
+/>

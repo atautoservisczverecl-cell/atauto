@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import Content from '../../layouts/Content.astro';
+import { pageLabels } from '../../data/labels';
+import { site } from '../../data/site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p, all: posts } }));
+}
+const { post, all } = Astro.props;
+const d = post.data;
+const titles = Object.fromEntries(all.map((p) => [`/blog/${p.id}/`, p.data.title]));
+const related = [...d.related.map((h) => ({ href: h, label: titles[h] ?? pageLabels[h] ?? h })), { href: '/blog/', label: 'Všechny články' }];
+const dateCz = d.date.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' });
+const crumbs = [{ href: '/blog/', label: 'Rady a články' }, { href: `/blog/${post.id}/`, label: d.title }];
+const article = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: d.title, description: d.description,
+  datePublished: d.date.toISOString().slice(0, 10), image: new URL(d.image, site.url).href,
+  author: { '@id': `${site.url}/#firma` }, publisher: { '@id': `${site.url}/#firma` },
+  mainEntityOfPage: new URL(`/blog/${post.id}/`, site.url).href, inLanguage: 'cs-CZ',
+};
+---
+<Content title={d.seoTitle} description={d.description} h1={d.title} lead={d.excerpt} eyebrow={`Rady a články · ${dateCz}`}
+  crumbs={crumbs} markdown={post.body} related={related} schema={[article]} type="article" />

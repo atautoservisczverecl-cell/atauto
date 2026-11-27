@@ -1,0 +1,283 @@
+// Zdroj: interní podklad A.T. Autoservis „Nejčastější závady a chybové kódy převodovek“ (PDF, 2026).
+export type Code = { code: string; text: string };
+export type Unit = { id: string; name: string; aka?: string; spec: string; cars: string; faults: { title: string; text: string }[]; codes: Code[]; link?: string };
+export type Family = { id: string; name: string; intro: string; link: string; units: Unit[] };
+
+export const families: Family[] = [
+  {
+    id: 'dsg', name: 'DSG (VW, Škoda, Audi, Seat, Cupra)', link: '/typy-prevodovek/dsg/',
+    intro: 'Dvouspojkové převodovky DSG koncernu VW se dělí podle konstrukce na převodovky se suchými spojkami a se spojkami v olejové lázni. Podle toho se liší i typické závady.',
+    units: [
+      { id: 'dq200', name: 'DQ200', aka: '0AM / 0CW', spec: '7stupňová, suché spojky, do 250 Nm', cars: 'motory 1.2 TSI, 1.4 TSI, 1.5 TSI, 1.6 TDI',
+        faults: [
+          { title: 'Opotřebení suchých dvojspojek', text: 'Škubání při rozjezdu nebo prokluz na sudých či lichých stupních.' },
+          { title: 'Prasklý akumulátor tlaku v mechatronice', text: 'Ztráta tlaku oleje v řídicí jednotce a vyřazení převodovky z provozu.' },
+          { title: 'Vadné snímače a řídicí jednotka mechatroniky', text: 'Zkraty uvnitř elektroniky nebo selhání čidel polohy řadicích vidliček.' },
+        ],
+        codes: [
+          { code: 'P17BF', text: 'Ochrana hydraulického čerpadla proti přetížení, nejčastěji prasklý akumulátor tlaku.' },
+          { code: 'P189C', text: 'Omezení funkce z důvodu nedostatečného nárůstu tlaku.' },
+          { code: 'P0841', text: 'Snímač tlaku hydraulického oleje, nevěrohodný signál.' },
+          { code: 'P177B', text: 'Spojka 1 dosáhla hranice tolerance (opotřebené lamely).' },
+          { code: 'P177C', text: 'Spojka 2 dosáhla hranice tolerance (opotřebené lamely).' },
+        ] },
+      { id: 'dq250', name: 'DQ250', aka: '02E / 0D9', spec: '6stupňová, spojky v olejové lázni, do 350–400 Nm', cars: 'silnější motory, např. 2.0 TDI a 2.0 TSI; 0D9 je modernizovaná 02E',
+        faults: [
+          { title: 'Selhání solenoidů (regulačních ventilů) v mechatronice', text: 'Tvrdé řazení, cukání při podřazování nebo nouzový režim po zahřátí oleje.' },
+          { title: 'Zanesené nebo vadné snímače teploty a otáček', text: 'Často vede k odpojení jedné větve převodovky, jedou jen sudé nebo jen liché stupně.' },
+          { title: 'Opotřebený dvouhmotový setrvačník', text: 'Klepání na volnoběh, typicky u 2.0 TDI.' },
+        ],
+        codes: [
+          { code: 'P1740', text: 'Sledování teploty spojky (přehřátí nebo vadné čidlo G509).' },
+          { code: 'P2711', text: 'Nevěrohodný průběh řazení (mechanický problém nebo vadný solenoid).' },
+          { code: 'P0776', text: 'Regulační ventil tlaku 2, zaseknutý ventil v mechatronice.' },
+          { code: 'P0746', text: 'Regulační ventil tlaku 1, zaseknutý ventil v mechatronice.' },
+          { code: 'P179D', text: 'Závada snímače zařazeného stupně.' },
+          { code: 'P179E', text: 'Závada snímače zařazeného stupně.' },
+        ] },
+      { id: 'dq381', name: 'DQ381', aka: '0GC', spec: '7stupňová, spojky v olejové lázni, do 420–430 Nm', cars: 'novější vozy koncernu VW zhruba od roku 2017, nástupce DQ250', link: '/znacky/dsg-dq381/',
+        faults: [
+          { title: 'Vadné snímače tlaku spojky G193 / G194 na desce mechatroniky', text: 'Nejznámější slabina této převodovky. Převodovka spadne do nouzového režimu a řadí jen liché nebo jen sudé stupně.' },
+          { title: 'Závada pomocného elektrického olejového čerpadla', text: 'Čerpadlo drží tlak při funkci Start-Stop. Při selhání auto cuká při rozjezdu nebo hlásí chybu převodovky.' },
+        ],
+        codes: [
+          { code: 'P1735', text: 'Snímač polohy spojky 1, elektrická závada nebo vadný snímač tlaku G193.' },
+          { code: 'P1736', text: 'Snímač polohy spojky 2, elektrická závada nebo vadný snímač tlaku G194.' },
+          { code: 'P0C29', text: 'Přídavné čerpadlo převodového oleje je zablokované nebo vadné.' },
+        ] },
+    ],
+  },
+  {
+    id: 'zf', name: 'ZF (4HP, 5HP, 6HP, 8HP)', link: '/znacky/zf/',
+    intro: 'Závady automatických převodovek ZF nejčastěji souvisejí se zanedbanou výměnou oleje, opotřebením mechatroniky a hydrodynamického měniče.',
+    units: [
+      { id: 'zf4hp', name: 'ZF 4HP', aka: '4HP14, 4HP18, 4HP20, 4HP22', spec: '4stupňová, starší generace', cars: 'vozy z 80. a 90. let: BMW, Peugeot, Citroën, Audi, Alfa Romeo',
+        faults: [
+          { title: 'Spálené lamely spojek, hlavně spojka A a zpátečka', text: 'Úbytek tlaku oleje a stáří těsnění. Auto přestane couvat nebo se rozjíždět dopředu.' },
+          { title: 'Selhání hydrodynamického měniče', text: 'Ztráta přenosu výkonu a přehřívání oleje.' },
+          { title: 'Závady elektroniky (např. 4HP20)', text: 'Vadné snímače otáček nebo přerušená kabeláž.' },
+        ],
+        codes: [
+          { code: 'P0730', text: 'Nesprávný převodový poměr (prokluz lamel).' },
+          { code: 'P0715', text: 'Snímač vstupních otáček převodovky (vadné čidlo).' },
+          { code: 'P0741', text: 'Závada obvodu spojky měniče, měnič nezamyká.' },
+        ] },
+      { id: 'zf5hp', name: 'ZF 5HP', aka: '5HP18, 5HP19, 5HP24, 5HP30', spec: '5stupňová', cars: 'BMW E39/E46, Audi A4/A6/A8, VW Passat B5, Porsche',
+        faults: [
+          { title: 'Prasklý buben spojky A (typicky 5HP19 a 5HP24)', text: 'Náhlá ztráta pohonu vpřed, zpátečka přitom funguje normálně.' },
+          { title: 'Opotřebená blokovací spojka měniče', text: 'Kolísání otáček při ustálené jízdě a vibrace kolem 80–100 km/h.' },
+          { title: 'Zaseknutý regulační ventil tlaku v rozvaděči', text: 'Tvrdé kopance při zařazení R nebo D a nouzový režim.' },
+        ],
+        codes: [
+          { code: 'P0741', text: 'Spojka přemostění měniče, žádný přenos síly (VAG 17125).' },
+          { code: 'P0730', text: 'Kontrola převodového poměru, nesprávný poměr (VAG 17114).' },
+          { code: 'P1814', text: 'Regulační ventil tlaku 1 (N215), přerušení nebo zkrat (VAG 18222).' },
+          { code: '17125', text: 'VAG: spojka přemostění měniče, žádný přenos síly (OBD P0741).' },
+          { code: '17114', text: 'VAG: nesprávný převodový poměr (OBD P0730).' },
+          { code: '18222', text: 'VAG: regulační ventil tlaku 1 N215 (OBD P1814).' },
+        ] },
+      { id: 'zf6hp', name: 'ZF 6HP', aka: '6HP19, 6HP21, 6HP26, 6HP28', spec: '6stupňová', cars: 'BMW E60/E90/E70, Audi A4/A6/A8/Q7, Jaguar, Land Rover',
+        faults: [
+          { title: 'Prasklé těsnění mezi mechatronikou a skříní (tzv. „brýle“)', text: 'Ztráta tlaku oleje, škubání při řazení a nouzový režim.' },
+          { title: 'Opotřebená pouzdra uvnitř převodovky', text: 'Únik tlaku oleje a následné spálení spojky E, typicky při řazení ze 4. na 5. stupeň.' },
+          { title: 'Vadné solenoidy v mechatronice', text: 'Tvrdé podřazování, kopance při dojíždění ke křižovatce z 2. na 1. stupeň.' },
+          { title: 'Opotřebený měnič', text: 'Houkání nebo houpání otáček za studena.' },
+        ],
+        codes: [
+          { code: 'P0735', text: 'Kontrola převodového poměru spojky E, časté při řazení 4–5 (BMW 4F85).' },
+          { code: 'P0731', text: 'Kontrola převodového poměru spojky A (BMW 4F81).' },
+          { code: 'P0741', text: 'Spojka přemostění měniče, příliš vysoký prokluz (BMW 4F53).' },
+          { code: '4F85', text: 'BMW: převodový poměr spojky E (OBD P0735).' },
+          { code: '4F81', text: 'BMW: převodový poměr spojky A (OBD P0731).' },
+          { code: '4F53', text: 'BMW: spojka přemostění měniče (OBD P0741).' },
+          { code: '5088', text: 'Snímač polohy voliče (L1–L4) uvnitř mechatroniky.' },
+        ] },
+      { id: 'zf8hp', name: 'ZF 8HP', aka: '8HP45, 8HP50, 8HP70, 8HP75, 8HP90', spec: '8stupňová', cars: 'BMW řady F/G, Audi, Alfa Romeo Giulia/Stelvio, Jeep, Land Rover, Dodge',
+        faults: [
+          { title: 'Zanesené nebo opotřebené solenoidy mechatroniky', text: 'Při zanedbané výměně oleje cukání mezi 1., 2. a 3. stupněm nebo prodleva při zařazení D/R.' },
+          { title: 'Opotřebený hydrodynamický měnič (hlavně silné diesely s 8HP70)', text: 'Vibrace při mírné akceleraci v nízkých otáčkách.' },
+          { title: 'Únik oleje přes plastovou vanu nebo průchodku konektoru', text: 'Plastová vana s integrovaným filtrem se teplem a stářím deformuje.' },
+          { title: 'Závada elektroniky parkovací západky (Park-by-Wire)', text: 'Převodovka odmítá vyřadit z polohy P.' },
+        ],
+        codes: [
+          { code: '420311', text: 'BMW: kontrola převodového poměru, prokluz na konkrétním stupni.' },
+          { code: '420321', text: 'BMW: kontrola převodového poměru, prokluz na konkrétním stupni.' },
+          { code: '420641', text: 'BMW: tlakový regulační ventil, zkrat nebo mechanické zablokování.' },
+          { code: '4205B1', text: 'BMW: hydrodynamický měnič, příliš velký prokluz blokovací spojky.' },
+          { code: '421352', text: 'BMW: vadná řídicí jednotka mechatroniky (interní chyba elektroniky).' },
+        ] },
+    ],
+  },
+  {
+    id: 'aisin', name: 'Aisin Warner (6 a 8 stupňů)', link: '/znacky/aisin/',
+    intro: 'Závady převodovek Aisin téměř vždy souvisejí s přehříváním oleje a opotřebením hydraulického rozvaděče. Výrobci aut je často označovali za „bezúdržbové“, což vedlo k přepalování oleje.',
+    units: [
+      { id: 'tf80', name: 'Aisin TF-80SC / TF-81SC', aka: 'AM6 u PSA', spec: '6stupňová', cars: 'Volvo, Peugeot/Citroën, Opel, Ford, Alfa Romeo, Mazda, Saab, Land Rover',
+        faults: [
+          { title: 'Opotřebený hydraulický rozvaděč', text: 'Přepálený olej obrousí pístky a solenoidy. Tvrdé kopance při zařazení D/R nebo škubání při řazení 2–3 a 3–4 po zahřátí oleje.' },
+          { title: 'Závada blokovací spojky měniče', text: 'Kolísání otáček při ustálené jízdě a vibrace při akceleraci.' },
+          { title: 'Únik tlaku na teflonových kroužcích hřídele (hlavně Volvo)', text: 'Prokluz a ztráta tlaku oleje při zařazení D.' },
+        ],
+        codes: [
+          { code: 'P0741', text: 'Závada obvodu spojky měniče, měnič neuzamyká.' },
+          { code: 'P0730', text: 'Nesprávný převodový poměr.' },
+          { code: 'P0733', text: 'Nesprávný převodový poměr, prokluz na 3. stupni.' },
+          { code: 'P0734', text: 'Nesprávný převodový poměr, prokluz na 4. stupni.' },
+          { code: 'P0776', text: 'Regulační ventil tlaku B, zaseknutý solenoid v rozvaděči.' },
+          { code: 'P0796', text: 'Regulační ventil tlaku C, zaseknutý solenoid v rozvaděči.' },
+          { code: 'P0715', text: 'Snímač vstupních otáček převodovky.' },
+          { code: 'P0720', text: 'Snímač výstupních otáček převodovky.' },
+        ] },
+      { id: 'tf60', name: 'Aisin TF-60SN', aka: '09G', spec: '6stupňová', cars: 'Škoda Octavia II, Superb II, VW Golf V/VI, Passat B6, Touran, Audi A3, Mini (1.6 MPI, 1.8 TSI, 2.0 FSI, 2.0 TDI)',
+        faults: [
+          { title: 'Přehřívání a selhání solenoidů N91, N92, N93, N282, N283', text: 'Převodovka nemá plnohodnotný vnější chladič, olej rychle degraduje. Rány při podřazování z 3. na 2. stupeň za tepla.' },
+          { title: 'Poškozený kabelový svazek uvnitř převodovky', text: 'Olej proniká do konektorů a vznikají zkraty na čidlech teploty nebo ventilech.' },
+        ],
+        codes: [
+          { code: 'P0741', text: 'Spojka přemostění měniče, žádný přenos síly (VAG 17125).' },
+          { code: 'P0811', text: 'Příliš velký prokluz spojky (VAG 17195).' },
+          { code: 'P0753', text: 'Elektromagnetický ventil 1 (N88), elektrická závada (VAG 00258).' },
+          { code: 'P1814', text: 'Regulační ventil tlaku 1 (N215), přerušení nebo zkrat na kostru (VAG 18222).' },
+          { code: '17195', text: 'VAG: příliš velký prokluz spojky (OBD P0811).' },
+          { code: '00258', text: 'VAG: elektromagnetický ventil 1 N88 (OBD P0753).' },
+        ] },
+      { id: 'tg81', name: 'Aisin TG-81SC / AWF8F35', aka: '09P, EAT8', spec: '8stupňová', cars: 'Volvo SPA/CMA, Peugeot/Citroën (EAT8), Opel, BMW s motorem napříč, Lexus/Toyota',
+        faults: [
+          { title: 'Zanesené nebo opotřebené solenoidy', text: 'Při zanedbané výměně oleje váhání při rozjezdu nebo cukání mezi 1., 2. a 3. stupněm.' },
+          { title: 'Závada integrovaného elektrického čerpadla oleje (Start-Stop)', text: 'Auto cukne při opětovném nastartování motoru na křižovatce a spadne do nouzového režimu.' },
+          { title: 'Softwarové chyby a rozhozené adaptace', text: 'U prvních ročníků (zhruba 2014–2016) bylo nutné přehrát software kvůli hrubému řazení.' },
+        ],
+        codes: [
+          { code: 'P0741', text: 'Prokluz blokovací spojky měniče.' },
+          { code: 'P0C29', text: 'Přídavné elektrické olejové čerpadlo, zablokované nebo vadné.' },
+          { code: 'P0731', text: 'Nesprávný převodový poměr na 1. stupni.' },
+          { code: 'P0732', text: 'Nesprávný převodový poměr na 2. stupni.' },
+          { code: 'P2757', text: 'Regulační ventil tlaku spojky měniče, zaseknutý.' },
+        ] },
+      { id: 'aw55', name: 'Aisin AW55-50SN / AW55-51SN', spec: '5stupňová, starší', cars: 'Volvo S60/V70/XC90, Saab 9-3/9-5, Opel Vectra C, Renault Laguna/Espace',
+        faults: [
+          { title: 'Citlivý hydraulický rozvaděč (lineární solenoidy SLS, SLT, SLU)', text: 'Prodleva při zařazení D a následná rána, prokluz při řazení 2–3.' },
+          { title: 'Prasklé pouzdro pístu B4', text: 'Ztráta 3. a 4. stupně. Často jde řešit výměnou víčka zvenku bez demontáže převodovky.' },
+        ],
+        codes: [
+          { code: 'P0740', text: 'Závada spojky měniče.' },
+          { code: 'P0741', text: 'Závada spojky měniče.' },
+          { code: 'P0733', text: 'Nesprávný převodový poměr, 3. stupeň.' },
+          { code: 'P0734', text: 'Nesprávný převodový poměr, 4. stupeň.' },
+          { code: 'P0778', text: 'Závada lineárního solenoidu tlaku.' },
+          { code: 'P0798', text: 'Závada lineárního solenoidu tlaku.' },
+        ] },
+    ],
+  },
+  {
+    id: 'cvt', name: 'CVT (Jatco, Multitronic, Lineartronic, Toyota)', link: '/typy-prevodovek/cvt/',
+    intro: 'Závady bezstupňových převodovek CVT vycházejí z jejich konstrukce: ocelový tlačný pás nebo řetěz a dvojice kuželových řemenic.',
+    units: [
+      { id: 'jatco', name: 'Jatco CVT', aka: 'JF011E, JF015E, JF016E, JF017E', spec: 'nejrozšířenější CVT na světě', cars: 'Nissan Qashqai/X-Trail/Juke, Mitsubishi ASX/Outlander, Renault Koleos/Megane, Jeep Compass', link: '/znacky/nissan-jatco/',
+        faults: [
+          { title: 'Zaseknutý regulační ventil olejového čerpadla', text: 'Nejčastější příčina zničení převodovky. Ventil se vydře, klesne tlak oleje a pás začne prokluzovat po řemenicích.' },
+          { title: 'Vytahaný nebo potrhaný ocelový pás a vydřené kužely', text: 'Kvílení, kovové hučení a cukání při akceleraci.' },
+          { title: 'Selhání krokového motorku (hlavně JF011E)', text: 'Převodovka přestane měnit převodový poměr a zůstane v jednom „převodu“.' },
+          { title: 'Opotřebená ložiska na hřídelích', text: 'Hlučnost, která roste s rychlostí jízdy.' },
+        ],
+        codes: [
+          { code: 'P0868', text: 'Nízký tlak sekundární kapaliny CVT. Kritická chyba, obvykle zaseknutý ventil čerpadla nebo vydřené kužely.' },
+          { code: 'P0746', text: 'Závada solenoidu řízení tlaku A.' },
+          { code: 'P1778', text: 'Závada krokového motorku (Step Motor).' },
+          { code: 'P0776', text: 'Regulační ventil tlaku B, zaseknutý ve vypnuté poloze.' },
+          { code: 'P0841', text: 'Snímač tlaku převodového oleje, nevěrohodný signál.' },
+        ] },
+      { id: 'multitronic', name: 'Audi Multitronic', aka: '01J, 0AW', spec: 'CVT s lamelovým řetězem LuK a mokrou rozjezdovou spojkou', cars: 'Audi A4, A5, A6, A7 s pohonem předních kol', link: '/typy-prevodovek/multitronic/',
+        faults: [
+          { title: 'Vadná řídicí jednotka TCM uvnitř převodovky (typicky 01J)', text: 'Prasklé spoje vlivem tepla. Na palubní desce bliká PRNDS a nezobrazuje se zařazená poloha.' },
+          { title: 'Opotřebená vstupní lamelová spojka', text: 'Škubání při rozjezdu a couvání.' },
+          { title: 'Vydřená sací trubka nebo opotřebené olejové čerpadlo', text: 'Pokles tlaku oleje a prokluz řetězu při akceleraci.' },
+        ],
+        codes: [
+          { code: 'P0706', text: 'Snímač zařazeného stupně F125, nevěrohodný signál. Klasická chyba řídicí jednotky (VAG 17090).' },
+          { code: 'P1793', text: 'Snímač výstupních otáček 2 (G196), žádný signál (VAG 18201).' },
+          { code: 'P1741', text: 'Přizpůsobení tlaku spojky, dosažena mez adaptace, opotřebené lamely (VAG 18149).' },
+          { code: 'P0730', text: 'Nesprávný převodový poměr, prokluz řetězu (VAG 17114).' },
+          { code: '17090', text: 'VAG: snímač zařazeného stupně F125 (OBD P0706).' },
+          { code: '18201', text: 'VAG: snímač výstupních otáček G196 (OBD P1793).' },
+          { code: '18149', text: 'VAG: mez adaptace tlaku spojky (OBD P1741).' },
+        ] },
+      { id: 'lineartronic', name: 'Subaru Lineartronic', aka: 'TR580, TR690', spec: 'CVT s tažným řetězem a měničem', cars: 'Subaru Outback, Forester, Legacy, XV, Levorg',
+        faults: [
+          { title: 'Vadný solenoid blokovací spojky měniče', text: 'Auto při brzdění a zastavení cukne a motor má tendenci zhasnout.' },
+          { title: 'Opotřebená ložiska a hřídele u prvních ročníků TR580', text: 'Hučení z přední části převodovky.' },
+          { title: 'Únik oleje přes těsnění víka čerpadla nebo rozvodovky', text: 'Pravidelně kontrolujte těsnost a hladinu.' },
+        ],
+        codes: [
+          { code: 'P2763', text: 'Obvod solenoidu blokovací spojky měniče (Lock-Up Duty Solenoid).' },
+          { code: 'P2764', text: 'Obvod solenoidu blokovací spojky měniče (Lock-Up Duty Solenoid).' },
+          { code: 'P0971', text: 'Solenoid řízení tlaku A, vysoký signál nebo přerušený obvod.' },
+          { code: 'P0700', text: 'Řídicí jednotka převodovky žádá rozsvícení kontrolky motoru.' },
+        ] },
+      { id: 'toyotacvt', name: 'Toyota / Aisin CVT', aka: 'K111, K112, K310, K311, K313', spec: 'obecně nejspolehlivější variátory (nezaměňovat s hybridním e-CVT)', cars: 'Toyota Corolla, Auris, Avensis, RAV4, Yaris', link: '/znacky/toyota/',
+        faults: [
+          { title: 'Opotřebená ložiska vstupní a výstupní hřídele (hlavně K310/K311)', text: 'Hučení nebo pískání, které se mění s rychlostí jízdy.' },
+          { title: 'Zanesený rozvaděč při nedodržení výměny oleje', text: 'Kolísání otáček nebo prodleva při zařazení D/R.' },
+        ],
+        codes: [
+          { code: 'P0741', text: 'Závada spojky měniče točivého momentu.' },
+          { code: 'P0868', text: 'Nízký tlak převodové kapaliny.' },
+          { code: 'P2757', text: 'Zaseknutý regulační ventil tlaku spojky měniče.' },
+        ] },
+    ],
+  },
+  {
+    id: 'powershift', name: 'PowerShift (Getrag – Ford, Volvo)', link: '/znacky/ford-powershift/',
+    intro: 'Dvouspojkové převodovky Getrag ve vozech Ford, Volvo, Dodge a Chrysler se zásadně liší podle toho, zda mají suché spojky, nebo spojky v olejové lázni.',
+    units: [
+      { id: 'dps6', name: 'Getrag 6DCT250', aka: 'DPS6', spec: '6stupňová, suché spojky, do 250 Nm', cars: 'Ford Fiesta, Focus III, B-Max, EcoSport, Mondeo s motory 1.0/1.5 EcoBoost, 1.6 Ti-VCT, 1.5/1.6 TDCi',
+        faults: [
+          { title: 'Selhání řídicí jednotky převodovky TCM', text: 'Nejznámější slabina. Teplem a vibracemi praskají spoje na desce, auto nestartuje, neřadí nebo vypadává zpátečka.' },
+          { title: 'Zatuhlé řadicí vidličky (aktuátory A a B)', text: 'Prach z obložení suchých spojek zanese mechanismus a vidličky se zaseknou.' },
+          { title: 'Opotřebená suchá dvojspojka a vypínací ložiska', text: 'Cukání, chvění a drnčení při rozjezdu, hlavně na 1. a 2. stupeň.' },
+        ],
+        codes: [
+          { code: 'P0606', text: 'Porucha procesoru řídicího modulu, vadná jednotka TCM.' },
+          { code: 'P0902', text: 'Obvod aktuátoru spojky A, nízké napětí nebo zkrat.' },
+          { code: 'P090C', text: 'Obvod aktuátoru spojky B, nízké napětí nebo zkrat.' },
+          { code: 'P2831', text: 'Poloha řadicí vidličky A (zaseknutá vidlička nebo snímač v TCM).' },
+          { code: 'P2832', text: 'Poloha řadicí vidličky A (zaseknutá vidlička nebo snímač v TCM).' },
+          { code: 'P2836', text: 'Poloha řadicí vidličky B (zaseknutá vidlička nebo snímač v TCM).' },
+          { code: 'P2837', text: 'Poloha řadicí vidličky B (zaseknutá vidlička nebo snímač v TCM).' },
+          { code: 'P07A3', text: 'Třecí prvek převodovky A zaseknutý.' },
+          { code: 'P07A5', text: 'Třecí prvek převodovky B zaseknutý.' },
+          { code: 'U0101', text: 'Ztráta komunikace s řídicím modulem převodovky TCM.' },
+        ] },
+      { id: 'mps6', name: 'Getrag 6DCT450', aka: 'MPS6', spec: '6stupňová, spojky v olejové lázni, do 450 Nm', cars: 'Ford Mondeo IV/V, S-Max, Galaxy, Kuga, C-Max; Volvo S40, V50, V60, V70, S80, XC60 (2.0 TDCi, D3/D4, 2.0 EcoBoost, T5)',
+        faults: [
+          { title: 'Rozpadlý plastový tlumič torzních kmitů ve dvojspojce', text: 'Úlomky plastu ucpou filtr a solenoidy mechatroniky. Následují tvrdé kopance a nouzový režim.' },
+          { title: 'Únik oleje přes gufero mezi motorem a převodovkou', text: 'Netěsní přední víko spojkového koše a z převodovky uniká olej.' },
+          { title: 'Zanesené a opotřebené solenoidy v mechatronice', text: 'Prodleva při zařazení D/R, škubání za tepla nebo ztráta sudých či lichých stupňů.' },
+        ],
+        codes: [
+          { code: 'P0771', text: 'Elektromagnetický ventil řazení E, zaseknutý solenoid.' },
+          { code: 'P0776', text: 'Regulace tlaku B, zaseknutý solenoid v mechatronice.' },
+          { code: 'P1719', text: 'Signál točivého momentu motoru, často doprovází prokluz spojek.' },
+          { code: 'P2714', text: 'Regulační ventil tlaku D, zaseknutý ve vypnuté poloze.' },
+          { code: 'P2723', text: 'Regulační ventil tlaku E, zaseknutý ve vypnuté poloze.' },
+          { code: 'P0746', text: 'Regulační ventil tlaku A, výkon nebo zaseknutí.' },
+          { code: 'P0730', text: 'Nesprávný převodový poměr, prokluz opotřebených lamel.' },
+          { code: 'P0731', text: 'Nesprávný převodový poměr, 1. stupeň.' },
+          { code: 'P0732', text: 'Nesprávný převodový poměr, 2. stupeň.' },
+        ] },
+      { id: 'sps6', name: 'Getrag 6DCT470', aka: 'SPS6, DCS', spec: '6stupňová, olejová lázeň, pohon 4×4', cars: 'Mitsubishi Lancer Ralliart / Evo X, Citroën C-Crosser, Peugeot 4007', link: '/znacky/mitsubishi/',
+        faults: [
+          { title: 'Uvolněné magnety z řadicích vidliček', text: 'Řídicí jednotka neví, v jaké poloze je vidlička, a vyřadí jednu větev stupňů.' },
+          { title: 'Prasklé těsnění pístu spojky nebo přehřátý olej', text: 'Typicky po sportovní jízdě.' },
+        ],
+        codes: [
+          { code: 'P1830', text: 'Snímač zdvihu vidličky (upadlý magnet na vidličce).' },
+          { code: 'P1831', text: 'Snímač zdvihu vidličky (upadlý magnet na vidličce).' },
+          { code: 'P0776', text: 'Solenoid tlaku spojky 1.' },
+          { code: 'P0796', text: 'Solenoid tlaku spojky 2.' },
+        ] },
+    ],
+  },
+];
+
+export const allCodes = families.flatMap((f) => f.units.flatMap((u) => u.codes.map((c) => ({ ...c, unit: u.name, aka: u.aka, family: f.name, familyId: f.id, unitId: u.id }))));

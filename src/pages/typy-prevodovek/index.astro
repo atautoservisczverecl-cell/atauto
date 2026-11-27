@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { types } from '../../data/types';
+const compare = [
+  ['Konstrukce', 'měnič + planetová soukolí', 'dvě spojky, předvolený stupeň', 'pás nebo řetěz + řemenice'],
+  ['Řazení', 'plynulé, s měničem', 'velmi rychlé', 'bez stupňů'],
+  ['Typické vozy', 'BMW, Mercedes, Volvo, SUV', 'Škoda, VW, Audi, Ford', 'Nissan, Toyota, Subaru'],
+  ['Nejčastější závady', 'měnič, solenoidy, lamely', 'mechatronika, spojky', 'čerpadlo, pás, ložiska'],
+  ['Interval oleje', '50–80 tis. km', '40–60 tis. km', '40–60 tis. km'],
+];
+---
+<Base title="Typy automatických převodovek | DSG, CVT, klasický automat | A.T. Autoservis" description="Přehled typů automatických převodovek a jejich typických závad: klasické hydrodynamické automaty, DSG/DCT, CVT, PowerShift, Multitronic a robotizované převodovky." breadcrumbs={[{ href: '/typy-prevodovek/', label: 'Typy převodovek' }]}>
+  <PageHero eyebrow="Technologie" title="Typy automatických převodovek" lead="Každý typ automatu funguje jinak a má jiné slabiny. Vyberte technologii a zjistěte, co se u ní nejčastěji kazí a jak to opravujeme." crumbs={[{ href: '/typy-prevodovek/', label: 'Typy převodovek' }]} />
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid-3">
+        {types.map((t) => (
+          <a class="tcard card" href={`/typy-prevodovek/${t.slug}/`}>
+            <h2>{t.name}</h2>
+            <p>{t.lead}</p>
+            <span class="tags">{t.tags.slice(0, 4).map((x) => <span class="tag tag-light">{x}</span>)}</span>
+            <span class="tmore">Závady a opravy <Icon name="arrow" size={16} /></span>
+          </a>
+        ))}
+      </div>
+      <div class="cmp">
+        <h2>Rozdíl mezi klasickým automatem, DSG a CVT</h2>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th>Klasický automat</th><th>DSG / DCT</th><th>CVT</th></tr></thead>
+            <tbody>{compare.map((r) => <tr>{r.map((c, i) => (i === 0 ? <th scope="row">{c}</th> : <td>{c}</td>))}</tr>)}</tbody>
+          </table>
+        </div>
+        <p>Podrobné srovnání najdete v článku <a href="/blog/rozdil-mezi-dsg-cvt-a-klasickym-automatem/">Jaký je rozdíl mezi DSG, CVT a klasickým automatem</a>. Další specializované převodové systémy, například hybridní e-CVT Toyota, také diagnostikujeme. <a href="/kontakt/">Zeptejte se nás.</a></p>
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .tcard { display: grid; gap: .75rem; align-content: start; text-decoration: none; transition: border-color .2s; }
+  .tcard:hover { border-color: var(--ink); }
+  .tcard h2 { font-size: 1.3rem; }
+  .tcard p { color: var(--text-soft); font-size: .97rem; }
+  .tmore { display: inline-flex; gap: .3rem; align-items: center; font: 600 .92rem var(--font-display); color: var(--red-hover); }
+  .cmp { margin-top: 4rem; display: grid; gap: 1.25rem; }
+  .cmp table { width: 100%; min-width: 640px; border-collapse: collapse; background: var(--white); border: 1px solid var(--line); }
+  .cmp th, .cmp td { text-align: left; padding: .8rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .cmp thead th { font-family: var(--font-display); background: var(--ink); color: #fff; }
+  .cmp tbody th { font-family: var(--font-display); font-weight: 600; width: 22%; }
+  .cmp p { color: var(--text-soft); max-width: 80ch; }
+  .cmp a { color: var(--red-hover); }
+</style>

@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+const posts = (await getCollection('blog')).sort((a, b) => +b.data.date - +a.data.date);
+const crumbs = [{ href: '/blog/', label: 'Rady a články' }];
+---
+<Base title="Rady a články o automatických převodovkách | A.T. Autoservis" description="Praktické rady od specialistů na automatické převodovky: příznaky závad, výměna oleje, DSG, CVT, repase a prodloužení životnosti." breadcrumbs={crumbs}>
+  <PageHero eyebrow="Rady a články" title="Co byste měli vědět o automatické převodovce" lead="Píšeme z praxe naší dílny. Jak poznat začínající závadu, kdy měnit olej a kdy se vyplatí repase." crumbs={crumbs} cta={false} />
+  <section class="section">
+    <div class="wrap grid grid-3 posts">
+      {posts.map((p) => (
+        <a class="post card" href={`/blog/${p.id}/`}>
+          <img src={p.data.image} alt={p.data.imageAlt} width="480" height="320" loading="lazy" />
+          <div class="post-b">
+            <p class="post-d">{p.data.date.toLocaleDateString('cs-CZ', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+            <h2>{p.data.title}</h2>
+            <p>{p.data.excerpt}</p>
+            <span class="post-more">Číst článek <Icon name="arrow" size={16} /></span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .post { display: flex; flex-direction: column; padding: 0; overflow: hidden; color: var(--text); text-decoration: none; transition: border-color .2s; }
+  .post:hover { border-color: var(--red); }
+  .post img { width: 100%; aspect-ratio: 3/2; object-fit: cover; }
+  .post-b { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .post h2 { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+  .post p { margin: 0; color: var(--text-soft); }
+  .post-d { font-size: .85rem; }
+  .post-more { margin-top: auto; color: var(--red); font-weight: 600; display: inline-flex; gap: 6px; align-items: center; }
+</style>

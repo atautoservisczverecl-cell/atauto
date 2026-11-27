@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="Zásady cookies | A.T. Autoservis" description="Jaké cookies používá web A.T. Autoservis, k čemu slouží a jak můžete svůj souhlas změnit." breadcrumbs={[{ href: '/cookies/', label: 'Cookies' }]}>
+  <PageHero title="Zásady používání cookies" crumbs={[{ href: '/cookies/', label: 'Cookies' }]} cta={false} />
+  <section class="section"><div class="wrap"><div class="prose">
+    <p>Cookies jsou malé soubory, které web ukládá do vašeho prohlížeče. Nezbytné cookies používáme vždy, ostatní jen s vaším souhlasem. Souhlas můžete kdykoli změnit tlačítkem <button type="button" class="inline-btn" data-open-consent>Nastavení cookies</button> (najdete ho i v patičce).</p>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Kategorie</th><th>K čemu slouží</th><th>Nástroje</th><th>Souhlas</th></tr></thead>
+      <tbody>
+        <tr><td>Nezbytné</td><td>Uložení vaší volby cookies, fungování formulářů</td><td>Vlastní (localStorage)</td><td>Není potřeba</td></tr>
+        <tr><td>Analytické</td><td>Anonymní statistiky návštěvnosti, zlepšování webu</td><td>Google Analytics 4 přes Google Tag Manager</td><td>Ano</td></tr>
+        <tr><td>Marketingové</td><td>Měření úspěšnosti reklam a remarketing</td><td>Google Ads, případně Meta Pixel</td><td>Ano</td></tr>
+      </tbody>
+    </table></div>
+    <p>Web používá režim souhlasu Google (Consent Mode v2). Dokud souhlas neudělíte, analytické a reklamní nástroje neukládají cookies.</p>
+  </div></div></section>
+</Base>
+<style>.inline-btn { background: none; border: 0; padding: 0; font: inherit; color: var(--red-hover); text-decoration: underline; cursor: pointer; }</style>

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+const mapSrc = 'https://www.google.com/maps?q=N%C3%A1dra%C5%BEn%C3%AD%20272%2C%20253%2001%20Hostivice&output=embed';
+---
+<Base title="Kontakt | A.T. Autoservis Hostivice u Prahy | Oprava automatických převodovek" description={`Kontakt na A.T. Autoservis: ${site.phone}, ${site.email}, ${site.street}, ${site.city} (Praha-západ). Otevřeno ${site.hours}. Pošlete nezávaznou poptávku opravy převodovky.`} breadcrumbs={[{ href: '/kontakt/', label: 'Kontakt' }]}>
+  <PageHero eyebrow="Kontakt" title="Kontakt a objednání" lead="Zavolejte, napište nebo pošlete nezávaznou poptávku. Najdete nás v Hostivicích, pár minut od Prahy." crumbs={[{ href: '/kontakt/', label: 'Kontakt' }]} cta={false} />
+  <section class="section">
+    <div class="wrap kgrid">
+      <div class="kinfo">
+        <a class="kphone" href={site.phoneHref} data-track="phone"><Icon name="phone" size={26} /><span><small>Telefon</small>{site.phone}</span></a>
+        <a class="kitem" href={`mailto:${site.email}`} data-track="email"><Icon name="mail" /><span><small>E-mail</small>{site.email}</span></a>
+        <div class="kitem"><Icon name="pin" /><span><small>Adresa provozovny</small>{site.street}, {site.zip} {site.city}<br />{site.region}</span></div>
+        <div class="kitem"><Icon name="clock" /><span><small>Otevírací doba</small>Pondělí–pátek 8:30–17:30<br />Sobota a neděle zavřeno</span></div>
+        <div class="kitem firm"><span><small>Fakturační údaje</small>{site.legalName}<br />IČO {site.ico}, DIČ {site.dic}</span></div>
+        <div class="map" id="map">
+          <div class="map-ph">
+            <p><strong>Mapa se načte z Google Maps</strong><br />Načtením souhlasíte s přenosem dat společnosti Google.</p>
+            <div class="btn-row">
+              <button type="button" class="btn btn-dark" data-map={mapSrc}>Zobrazit mapu</button>
+              <a class="btn btn-ghost" href={site.mapUrl} target="_blank" rel="noopener">Google Mapy</a>
+              <a class="btn btn-ghost" href="https://mapy.cz/zakladni?q=N%C3%A1dra%C5%BEn%C3%AD%20272%20Hostivice" target="_blank" rel="noopener">Mapy.cz</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kform">
+        <h2>Nezávazná poptávka</h2>
+        <p>Odpovíme obvykle ještě týž pracovní den. Fotky nebo diagnostický protokol můžete přiložit v <a href="/poptavka/">podrobném formuláři</a>.</p>
+        <InquiryForm compact id="kontakt-form" />
+      </div>
+    </div>
+  </section>
+</Base>
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-map]').forEach((b) => b.addEventListener('click', () => {
+    const box = document.getElementById('map')!;
+    const f = document.createElement('iframe');
+    f.src = b.dataset.map!; f.title = 'Mapa: A.T. Autoservis, Nádražní 272, Hostivice'; f.loading = 'lazy'; f.referrerPolicy = 'no-referrer-when-downgrade';
+    box.replaceChildren(f);
+  }));
+</script>
+<style>
+  .kgrid { display: grid; gap: 2.5rem; }
+  @media (min-width: 1000px) { .kgrid { grid-template-columns: 1fr 1.1fr; gap: 4rem; } }
+  .kinfo { display: grid; gap: 1rem; align-content: start; }
+  .kphone { display: flex; gap: 1rem; align-items: center; background: var(--red); color: #fff; padding: 1.2rem 1.4rem; border-radius: 8px; text-decoration: none; font: 700 clamp(1.5rem, 1.2rem + 1.2vw, 2rem) var(--font-display); }
+  .kphone small, .kitem small { display: block; font: 600 .75rem var(--font-display); letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+  .kitem { display: flex; gap: .9rem; align-items: flex-start; padding: 1rem 0; border-bottom: 1px solid var(--line); text-decoration: none; font-size: 1.05rem; }
+  .kitem svg { color: var(--red); margin-top: .25rem; flex: none; }
+  .kitem small { color: var(--text-soft); }
+  .firm { padding-left: 0; }
+  .map { margin-top: .5rem; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--white); aspect-ratio: 4 / 3; max-width: 100%; }
+  .map :global(iframe) { width: 100%; height: 100%; border: 0; }
+  .map-ph { height: 100%; display: grid; place-content: center; gap: 1rem; padding: 1.5rem; text-align: center; background: repeating-linear-gradient(45deg, #eef0f2 0 14px, #e7eaed 14px 28px); }
+  .map-ph .btn-row { justify-content: center; }
+  .map-ph .btn-ghost { color: var(--text); }
+  .kform { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: clamp(1.25rem, 1rem + 1.5vw, 2.25rem); display: grid; gap: .8rem; align-content: start; }
+  .kform > p { color: var(--text-soft); }
+  .kform a { color: var(--red-hover); }
+</style>

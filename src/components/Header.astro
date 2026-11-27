@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import { transmissionLinks } from '../data/nav';
+import { cmsMenu } from '../data/cms';
+const path = Astro.url.pathname;
+const primary = cmsMenu.filter((n) => n.in_header);
+const mobileNav = cmsMenu.filter((n) => n.in_mobile);
+---
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span><Icon name="pin" size={15} /> {site.street}, {site.city} ({site.region})</span>
+    <span><Icon name="clock" size={15} /> {site.hours}</span>
+    <a href={`mailto:${site.email}`} data-track="email"><Icon name="mail" size={15} /> {site.email}</a>
+    <span class="topbar-right">Specialisté na automatické převodovky od roku {site.since}</span>
+    <a class="topbar-book" href="/rezervace/" data-track="booking"><Icon name="clock" size={15} /> Rezervovat termín</a>
+  </div>
+</div>
+<header class="header" id="top">
+  <div class="wrap header-in">
+    <a href="/" class="logo" aria-label="A.T. Autoservis – úvodní stránka">
+      <img src="/img/ui/logo-tagline-w.png" width="562" height="104" alt="A.T. Autoservis s.r.o. – specialista na automatické převodovky" />
+    </a>
+    <nav class="nav" aria-label="Hlavní navigace">
+      <ul>
+        {primary.map((n) => (
+          <li><a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="header-cta">
+      <a class="btn btn-ghost hide-sm" href="/poptavka/">Poptat opravu</a>
+      <a class="btn btn-red" href={site.phoneHref} data-track="phone"><Icon name="phone" /><span>{site.phoneShort}</span></a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"><Icon name="menu" size={22} /><span class="sr-only">Otevřít menu</span></button>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu" hidden>
+  <div class="mm-head wrap">
+    <a href="/" class="logo"><img src="/img/ui/logo-tagline-w.png" width="562" height="104" alt="A.T. Autoservis s.r.o. – specialista na automatické převodovky" /></a>
+    <button class="mm-close" type="button"><Icon name="close" size={22} /> Zavřít</button>
+  </div>
+  <div class="wrap mm-body">
+    <a class="mm-call" href={site.phoneHref} data-track="phone">
+      <span class="mm-call-ic"><Icon name="phone" size={24} /></span>
+      <span><strong>{site.phoneShort}</strong><small>Volejte {site.hours}</small></span>
+    </a>
+    <p class="mm-label">Opravy převodovek</p>
+    <div class="mm-grid">
+      {transmissionLinks.map((t) => <a href={t.href}><strong>{t.label}</strong><small>{t.sub}</small></a>)}
+    </div>
+    <ul class="mm-links">
+      <li><a href="/poptavka/">Poptat opravu online <small>Odpovíme obvykle týž pracovní den</small></a></li>
+      {mobileNav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+    </ul>
+    <p class="mm-addr"><strong>{site.street}, {site.city}</strong> ({site.region})</p>
+  </div>
+</div>
+
+<style>
+  @media (max-width: 380px) { .header-cta .btn-red :global(svg) { display: none; } }
+  .topbar { background: #0c0d0e; color: var(--on-dark-soft); font-size: .84rem; }
+  .topbar-in { display: flex; gap: 1.5rem; align-items: center; min-height: 36px; flex-wrap: wrap; }
+  .topbar-in > * { display: inline-flex; align-items: center; gap: .4rem; text-decoration: none; }
+  .topbar-in a:hover { color: #fff; }
+  .topbar-right { margin-left: auto; color: var(--on-dark); }
+  .topbar-book { color: #fff; font-weight: 600; background: var(--red); padding: 0 .8rem; align-self: stretch; }
+  .topbar-book:hover { background: var(--red-hover); }
+  @media (max-width: 899px) { .topbar { display: none; } }
+  .header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50; background: rgba(19,20,22,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line-dark); color: var(--on-dark); }
+  .header-in { display: flex; align-items: center; gap: 1.25rem; min-height: 72px; }
+  .logo { display: flex; align-items: center; background: var(--red); align-self: stretch; margin-block: 6px; padding: 0 .8rem; border-radius: 7px; }
+  .logo img { width: 188px; height: auto; }
+  
+  .nav { margin-left: auto; }
+  .nav ul { list-style: none; display: flex; gap: .1rem; margin: 0; padding: 0; }
+  .nav a { white-space: nowrap; display: block; padding: .5rem .6rem; text-decoration: none; font-family: var(--font-display); font-weight: 600; font-size: .95rem; color: var(--on-dark-soft); border-radius: 4px; }
+  .nav a:hover, .nav a[aria-current] { color: #fff; }
+  .nav a[aria-current] { box-shadow: inset 0 -2px 0 var(--red); border-radius: 0; }
+  .header-cta { display: flex; gap: .5rem; align-items: center; }
+  .header-cta .btn { padding: .65rem 1rem; }
+  .menu-btn { display: none; background: none; border: 1px solid var(--line-dark); color: #fff; border-radius: var(--radius); padding: .55rem; cursor: pointer; }
+  .show-xs { display: none; }
+  @media (max-width: 1359px) { .nav { display: none; } .menu-btn { display: inline-flex; } .header-cta { margin-left: auto; } }
+  @media (max-width: 640px) { .hide-sm { display: none; } .header-in { min-height: 62px; } .logo img { width: 168px; } .logo { padding: 0 .65rem; } .header-in { gap: .6rem; } }
+  @media (max-width: 480px) { .hide-xs { display: none; } .show-xs { display: inline; } .header-cta .btn { padding: .6rem .75rem; font-size: 1rem; } .header-cta { gap: .45rem; } .menu-btn { padding: .45rem; } }
+  .mobile-menu { position: fixed; inset: 0; z-index: 80; background: var(--ink); color: var(--on-dark); overflow-y: auto; padding-top: env(safe-area-inset-top, 0px); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 2rem); }
+  .mm-head { display: flex; justify-content: space-between; align-items: stretch; min-height: 62px; border-bottom: 1px solid var(--line-dark); }
+  .mm-head .logo img { width: 168px; }
+  .mm-close { align-self: center; display: inline-flex; gap: .4rem; align-items: center; background: none; color: #fff; border: 1px solid var(--line-dark); border-radius: var(--radius); padding: .5rem .8rem; font: 600 1rem var(--font-display); cursor: pointer; }
+  .mm-body { display: grid; gap: 1.25rem; padding-top: 1.25rem; }
+  .mm-call { display: flex; gap: 1rem; align-items: center; background: var(--red); color: #fff; border-radius: 10px; padding: 1rem 1.2rem; text-decoration: none; }
+  .mm-call strong { display: block; font: 700 1.7rem/1.1 var(--font-display); }
+  .mm-call small { opacity: .9; }
+  .mm-call-ic { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,.16); display: grid; place-items: center; flex: none; }
+  .mm-label { font: 600 .8rem var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: #ff6a5f; margin-top: .5rem; }
+  .mm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  .mm-grid a { border: 1px solid var(--line-dark); background: var(--graphite); border-radius: 8px; padding: .8rem .9rem; text-decoration: none; }
+  .mm-grid strong { display: block; font: 700 1.05rem var(--font-display); }
+  .mm-grid small { color: var(--on-dark-soft); }
+  .mm-links { list-style: none; margin: 0; padding: 0; }
+  .mm-links a { display: block; padding: .9rem 0; border-bottom: 1px solid var(--line-dark); text-decoration: none; font: 600 1.2rem var(--font-display); }
+  .mm-links small { display: block; font: 400 .9rem var(--font-body); color: var(--on-dark-soft); }
+  .mm-addr { color: var(--on-dark-soft); }
+  .mm-addr strong { color: #fff; }
+</style>
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const close = document.querySelector<HTMLButtonElement>('.mm-close');
+  const setOpen = (open: boolean) => {
+    if (!menu || !btn) return;
+    menu.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (open) close?.focus(); else btn.focus();
+  };
+  btn?.addEventListener('click', () => setOpen(true));
+  close?.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu && !menu.hidden) setOpen(false); });
+</script>

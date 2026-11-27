@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site, yearsOnMarket } from '../data/site';
+const equipment = [
+  { src: '/img/ui/tech-10.webp', alt: 'Zkušební zařízení pro hydraulické bloky převodovek' },
+  { src: '/img/ui/tech-11.webp', alt: 'Řídicí panel testovacího zařízení' },
+  { src: '/img/ui/tech-8.webp', alt: 'Zkušební stolice s tlakoměry' },
+  { src: '/img/ui/tech-1.webp', alt: 'Pracoviště pro testování převodovek' },
+  { src: '/img/ui/tech-4.webp', alt: 'Převodovka na zkušební stolici' },
+  { src: '/img/ui/prod-1.webp', alt: 'Sklad měničů točivého momentu' },
+];
+---
+<Base title="O nás | Specialisté na automatické převodovky od roku 1991 | A.T. Autoservis" description={`A.T. Auto Service s.r.o. opravuje automatické převodovky od roku ${site.since}. Začínali jsme u amerických vozů, dnes opravujeme převodovky všech značek. Hostivice u Prahy.`} breadcrumbs={[{ href: '/o-nas/', label: 'O nás' }]}>
+  <PageHero eyebrow="O nás" title={`Automatickým převodovkám se věnujeme od roku ${site.since}`} lead="Jsme specializovaný servis v Hostivicích u Prahy. Automatické převodovky jsou naše hlavní práce, ne doplňková služba." crumbs={[{ href: '/o-nas/', label: 'O nás' }]} image={{ src: '/img/realizace/zf-06.webp', alt: 'Práce na převodovce ZF v dílně A.T. Autoservis', w: 1000, h: 1331 }} />
+  <section class="section">
+    <div class="wrap about">
+      <div class="prose">
+        <h2>Jak jsme začínali</h2>
+        <p>První službou, kterou jsme zákazníkům nabídli, byla oprava a servis automatických převodovek amerických vozů. Postupem času jsme činnost rozšířili na všechny typy a druhy převodovek. Dnes díky dlouholeté praxi opravujeme převodovky majitelům vozů všech značek, od nejstarších po nejmodernější.</p>
+        <p>Realizujeme opravy převodovek všech renomovaných výrobců: Jatco, Aisin Warner, ZF, General Motors, Chrysler, Getrag, Hyundai, Mitsubishi a Mercedes-Benz. Opravujeme klasické automaty, dvouspojkové převodovky DSG a PowerShift i CVT.</p>
+        <h2>Jak pracujeme</h2>
+        <ul>
+          <li><strong>Nejdřív diagnostika.</strong> Hledáme skutečnou příčinu závady. Jeden chybový kód automaticky neznamená výměnu dílu.</li>
+          <li><strong>Cena předem.</strong> Rozsah opravy a cenu s vámi odsouhlasíme dřív, než začneme. Bez souhlasu nic navíc neúčtujeme.</li>
+          <li><strong>Kvalitní díly a správné oleje.</strong> Používáme kvalitní náhradní díly a oleje podle specifikace výrobce převodovky.</li>
+          <li><strong>Vzdělávání.</strong> Naši technici se průběžně školí v nových technologiích převodovek.</li>
+          <li><strong>Férový přístup.</strong> V každé situaci se snažíme vyjít zákazníkovi vstříc cenově i termínem. Rádi vás uvidíme jako stálého zákazníka.</li>
+        </ul>
+        <h2>Vybavení</h2>
+        <p>Pracujeme s moderními diagnostickými přístroji, zařízením pro dynamickou výměnu oleje a specializovaným nářadím pro opravy mechatronik, hydraulických bloků a měničů.</p>
+      </div>
+      <aside class="facts">
+        <dl>
+          <div><dt>Na trhu od</dt><dd>{site.since}</dd></div>
+          <div><dt>Zkušenosti</dt><dd>{yearsOnMarket} let</dd></div>
+          <div><dt>Záruka</dt><dd>{site.warranty}</dd></div>
+          <div><dt>Ocenění</dt><dd>Firmy.cz TOP FIRMA 2025</dd></div>
+        </dl>
+        <div class="badges">
+          <img src="/img/ui/firmy-top-2025.webp" width="287" height="262" alt="Firmy.cz TOP FIRMA 2025" loading="lazy" />
+          <img src="/img/ui/atsg.webp" width="239" height="60" alt="ATSG – Automatic Transmission Service Group" loading="lazy" />
+          <img src="/img/ui/transtec.webp" width="400" height="80" alt="Transtec – dodavatel dílů pro převodovky" loading="lazy" />
+        </div>
+        <p class="firm">{site.legalName}<br />IČO {site.ico}, DIČ {site.dic}<br />{site.street}, {site.zip} {site.city}</p>
+      </aside>
+    </div>
+  </section>
+  <section class="section-tight light">
+    <div class="wrap">
+      <h2 class="eq-h">Zkušební a diagnostické vybavení</h2>
+      <ul class="eq">{equipment.map((e) => <li><img src={e.src} alt={e.alt} width="500" height="344" loading="lazy" /></li>)}</ul>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .about { display: grid; gap: 3rem; }
+  @media (min-width: 1000px) { .about { grid-template-columns: minmax(0,1fr) 340px; gap: 4rem; } }
+  .facts { background: var(--ink); color: var(--on-dark); border-radius: 8px; padding: 1.6rem; display: grid; gap: 1.5rem; align-content: start; }
+  .facts dl { margin: 0; display: grid; gap: 1rem; }
+  .facts dt { color: var(--on-dark-soft); font-size: .85rem; }
+  .facts dd { margin: 0; font: 700 1.5rem var(--font-display); color: #fff; }
+  .badges { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+  .badges img:first-child { width: 72px; }
+  .badges img:not(:first-child) { width: 110px; }
+  .firm { color: var(--on-dark-soft); font-size: .9rem; }
+  .eq-h { margin-bottom: 1.25rem; font-size: clamp(1.4rem, 1.2rem + .8vw, 1.8rem); }
+  .eq { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; grid-template-columns: repeat(2, minmax(0,1fr)); }
+  @media (min-width: 900px) { .eq { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .eq li { border-radius: 6px; overflow: hidden; }
+</style>

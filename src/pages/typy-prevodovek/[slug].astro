@@ -1,0 +1,13 @@
+---
+import Content from '../../layouts/Content.astro';
+import { types } from '../../data/types';
+export function getStaticPaths() { return types.map((t) => ({ params: { slug: t.slug }, props: { t } })); }
+const { t } = Astro.props as { t: (typeof types)[number] };
+const labels: Record<string, string> = { '/znacky/zf/': 'Převodovky ZF', '/znacky/aisin/': 'Aisin Warner', '/znacky/mercedes-benz/': 'Mercedes-Benz', '/znacky/dsg-dq381/': 'Mechatronika DQ381', '/oprava-mechatroniky/': 'Oprava mechatroniky', '/blog/jak-poznat-problemy-s-dsg/': 'Jak poznat problémy s DSG', '/znacky/nissan-jatco/': 'Nissan Jatco', '/znacky/mitsubishi/': 'Mitsubishi', '/znacky/toyota/': 'Toyota', '/znacky/ford-powershift/': 'Ford PowerShift', '/typy-prevodovek/cvt/': 'CVT převodovky', '/vymena-oleje-automaticka-prevodovka/': 'Výměna oleje' };
+const related = [...t.related.map((h) => ({ href: h, label: labels[h] })), { href: '/chybove-kody-prevodovek/', label: 'Chybové kódy' }, { href: '/blog/rozdil-mezi-dsg-cvt-a-klasickym-automatem/', label: 'DSG vs. CVT vs. automat' }, ...types.filter((x) => x.slug !== t.slug).map((x) => ({ href: `/typy-prevodovek/${x.slug}/`, label: x.short }))];
+---
+<Content title={t.title} description={t.desc} h1={t.h1} lead={t.lead} eyebrow={t.name} tags={t.tags}
+  crumbs={[{ href: '/typy-prevodovek/', label: 'Typy převodovek' }, { href: `/typy-prevodovek/${t.slug}/`, label: t.short }]}
+  markdown={t.body} related={related}
+  heroImage={{ src: `/img/realizace/${t.photo}.webp`, alt: `${t.short} – oprava v dílně A.T. Autoservis`, w: 1000, h: 1331 }}
+  service={{ name: t.h1, serviceType: 'Oprava automatické převodovky' }} />

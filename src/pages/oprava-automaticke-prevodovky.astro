@@ -1,0 +1,24 @@
+---
+import Content from '../layouts/Content.astro';
+import { site } from '../data/site';
+import md from '../texts/oprava.md?raw';
+import { photos } from '../data/photos';
+const faq = [
+  { q: 'Kolik stojí oprava automatické převodovky?', a: 'Záleží na typu převodovky a rozsahu závady. Oprava úniku oleje stojí řádově jinak než oprava mechatroniky nebo kompletní repase. Přesnou cenu stanovíme po diagnostice a odsouhlasíme ji s vámi před zahájením práce.' },
+  { q: 'Jak dlouho oprava trvá?', a: 'Výměna oleje trvá obvykle 2 až 4 hodiny. Oprava mechatroniky nebo kompletní repase zabere více času podle dostupnosti dílů. Termín vám sdělíme po diagnostice.' },
+  { q: 'Můžu s vadnou převodovkou dál jezdit?', a: 'Nedoporučujeme to. Prokluzující nebo přehřátá převodovka se poškozuje dál a z levnější opravy se může stát kompletní repase. V nouzovém režimu dojeďte jen do servisu.' },
+  { q: 'Dostanu na opravu záruku?', a: site.warrantyDetail },
+];
+---
+<Content
+  title="Oprava automatické převodovky | Specializovaný servis u Prahy | A.T. Autoservis"
+  description="Oprava automatických převodovek všech značek: DSG, ZF, Aisin, CVT, PowerShift. Diagnostika, oprava mechatroniky, hydrauliky a měniče. Hostivice u Prahy, od roku 1991."
+  eyebrow="Opravy převodovek" h1="Oprava automatické převodovky"
+  lead="Najdeme skutečnou příčinu závady a opravíme jen to, co je opravdu vadné. Klasické automaty, DSG, PowerShift i CVT všech značek."
+  crumbs={[{ href: '/oprava-automaticke-prevodovky/', label: 'Oprava automatické převodovky' }]}
+  markdown={md} faq={faq}
+  heroImage={{ src: '/img/realizace/zf-04.webp', alt: 'Oprava automatické převodovky ZF v dílně A.T. Autoservis', w: 1000, h: 1331 }}
+  photos={[photos['zf'][4], photos['aisin'][0], photos['toyota'][3], photos['ford'][2]]}
+  related={[{ href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika převodovky' }, { href: '/repase-automaticke-prevodovky/', label: 'Kompletní repase' }, { href: '/oprava-mechatroniky/', label: 'Oprava mechatroniky' }, { href: '/chybove-kody-prevodovek/', label: 'Chybové kódy' }, { href: '/typy-prevodovek/', label: 'Typy převodovek' }]}
+  service={{ name: 'Oprava automatické převodovky', serviceType: 'Oprava automatické převodovky' }}
+/>

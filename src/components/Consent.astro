@@ -1,0 +1,67 @@
+---
+// Cookie lišta s Google Consent Mode v2. Analytika a marketing se spustí až po souhlasu.
+---
+<div class="consent" id="consent" hidden role="dialog" aria-labelledby="consent-title" aria-modal="false">
+  <div class="consent-in">
+    <p id="consent-title" class="consent-h">Cookies na tomto webu</p>
+    <p>Nezbytné cookies zajišťují fungování webu. Se svolením použijeme i analytické cookies (návštěvnost, Google Analytics) a marketingové cookies (měření reklam Google Ads). Volbu můžete kdykoli změnit v patičce. <a href="/cookies/">Více o cookies</a></p>
+    <div class="consent-opts" id="consent-opts" hidden>
+      <label><input type="checkbox" checked disabled /> Nezbytné</label>
+      <label><input type="checkbox" id="c-analytics" /> Analytické</label>
+      <label><input type="checkbox" id="c-marketing" /> Marketingové</label>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn btn-red" data-consent="all">Přijmout vše</button>
+      <button type="button" class="btn btn-ghost" data-consent="none">Jen nezbytné</button>
+      <button type="button" class="btn btn-ghost" data-consent="custom" id="consent-custom">Nastavit</button>
+    </div>
+  </div>
+</div>
+<style>
+  .consent { position: fixed; z-index: 90; left: max(12px, env(safe-area-inset-left, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); bottom: calc(12px + env(safe-area-inset-bottom, 0px)); display: flex; justify-content: center; }
+  .consent-in { max-width: 760px; background: var(--white); color: var(--text); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,.35); padding: 1.25rem 1.4rem; display: grid; gap: .8rem; font-size: .95rem; }
+  .consent-h { font: 700 1.1rem var(--font-display); }
+  .consent a { color: var(--red-hover); }
+  .consent .btn { padding: .6rem 1rem; font-size: .95rem; }
+  .consent .btn-ghost { color: var(--text); border-color: var(--line); }
+  .consent-opts { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .consent-opts label { display: inline-flex; gap: .4rem; align-items: center; }
+</style>
+<script>
+  type Choice = { analytics: boolean; marketing: boolean };
+  const KEY = 'at-consent-v1';
+  const el = document.getElementById('consent')!;
+  const opts = document.getElementById('consent-opts')!;
+  const read = (): Choice | null => { try { const v = localStorage.getItem(KEY); return v ? JSON.parse(v) : null; } catch { return null; } };
+  const apply = (c: Choice) => {
+    const w = window as any;
+    if (typeof w.gtag === 'function') {
+      w.gtag('consent', 'update', {
+        analytics_storage: c.analytics ? 'granted' : 'denied',
+        ad_storage: c.marketing ? 'granted' : 'denied',
+        ad_user_data: c.marketing ? 'granted' : 'denied',
+        ad_personalization: c.marketing ? 'granted' : 'denied',
+      });
+    }
+    (w.dataLayer = w.dataLayer || []).push({ event: 'consent_update', consent_analytics: c.analytics, consent_marketing: c.marketing });
+  };
+  const save = (c: Choice) => { try { localStorage.setItem(KEY, JSON.stringify(c)); } catch {} apply(c); el.hidden = true; };
+  const existing = read();
+  if (existing) apply(existing); else el.hidden = false;
+  el.addEventListener('click', (e) => {
+    const t = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-consent]');
+    if (!t) return;
+    const kind = t.dataset.consent;
+    if (kind === 'all') save({ analytics: true, marketing: true });
+    else if (kind === 'none') save({ analytics: false, marketing: false });
+    else if (opts.hidden) { opts.hidden = false; t.textContent = 'Uložit volbu'; }
+    else save({ analytics: (document.getElementById('c-analytics') as HTMLInputElement).checked, marketing: (document.getElementById('c-marketing') as HTMLInputElement).checked });
+  });
+  document.querySelectorAll('[data-open-consent]').forEach((b) => b.addEventListener('click', () => {
+    const c = read();
+    (document.getElementById('c-analytics') as HTMLInputElement).checked = !!c?.analytics;
+    (document.getElementById('c-marketing') as HTMLInputElement).checked = !!c?.marketing;
+    opts.hidden = false; el.hidden = false;
+    const custom = document.getElementById('consent-custom'); if (custom) custom.textContent = 'Uložit volbu';
+  }));
+</script>

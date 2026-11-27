@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { marked } from 'marked';
+import md from '../texts/obchodni-podminky.md?raw';
+const html = marked.parse(md, { async: false }) as string;
+---
+<Base title="Obchodní podmínky a reklamační řád | A.T. Auto Service s.r.o." description="Obchodní podmínky, reklamační řád, záruční podmínky a hodinové sazby společnosti A.T. Auto Service s.r.o." breadcrumbs={[{ href: '/obchodni-podminky/', label: 'Obchodní podmínky' }]}>
+  <PageHero title="Obchodní podmínky a reklamační řád" lead="A.T. AUTO SERVICE s.r.o., IČO 25669338" crumbs={[{ href: '/obchodni-podminky/', label: 'Obchodní podmínky' }]} cta={false} />
+  <section class="section"><div class="wrap"><div class="prose legal" set:html={html.replace(/<table>/g, '<div class="table-scroll"><table>').replace(/<\/table>/g, '</table></div>')} /></div></section>
+</Base>
+<style>.legal { font-size: 1rem; } .legal :global(table) { background: var(--white); }</style>

@@ -1,0 +1,102 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer class="footer dark">
+  <div class="wrap f-makers" aria-label="Převodovky výrobců, které opravujeme">
+    <p class="f-makers-h">Opravujeme převodovky výrobců</p>
+    <ul>
+      <li><img src="/img/brands/zf.webp" width="120" height="120" alt="ZF" class="mk-zf" loading="lazy" /></li>
+      <li><img src="/img/brands/aisin.webp" width="742" height="120" alt="Aisin" class="mk-aisin" loading="lazy" /></li>
+      <li><img src="/img/brands/borgwarner.webp" width="927" height="120" alt="BorgWarner" class="mk-bw" loading="lazy" /></li>
+    </ul>
+  </div>
+  <div class="wrap footer-grid">
+    <div class="f-brand">
+      <a href="/" class="f-logo"><img src="/img/ui/logo-white.webp" width="520" height="231" alt="A.T. Autoservis s.r.o." loading="lazy" /></a>
+      <p>Specializovaný servis automatických převodovek v Hostivicích u Prahy. Diagnostika, opravy a repase převodovek všech typů od roku {site.since}.</p>
+      <div class="f-badges">
+        <img src="/img/ui/firmy-top-2025.webp" width="287" height="262" alt="Ocenění Firmy.cz TOP FIRMA 2025" loading="lazy" />
+        <img src="/img/ui/atsg.webp" width="239" height="60" alt="ATSG – Automatic Transmission Service Group" loading="lazy" />
+      </div>
+    </div>
+    <nav aria-label="Služby">
+      <p class="f-h">Služby</p>
+      <ul>
+        <li><a href="/oprava-automaticke-prevodovky/">Oprava automatické převodovky</a></li>
+        <li><a href="/repase-automaticke-prevodovky/">Repase automatické převodovky</a></li>
+        <li><a href="/diagnostika-automaticke-prevodovky/">Diagnostika převodovky</a></li>
+        <li><a href="/vymena-oleje-automaticka-prevodovka/">Výměna oleje v automatu</a></li>
+        <li><a href="/oprava-mechatroniky/">Oprava mechatroniky</a></li>
+        <li><a href="/chybove-kody-prevodovek/">Chybové kódy převodovek</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Převodovky">
+      <p class="f-h">Převodovky</p>
+      <ul>
+        <li><a href="/typy-prevodovek/dsg/">DSG / DCT</a></li>
+        <li><a href="/typy-prevodovek/cvt/">CVT</a></li>
+        <li><a href="/znacky/zf/">ZF 6HP / 8HP</a></li>
+        <li><a href="/znacky/aisin/">Aisin Warner</a></li>
+        <li><a href="/znacky/ford-powershift/">Ford PowerShift</a></li>
+        <li><a href="/znacky/mercedes-benz/">Mercedes-Benz</a></li>
+        <li><a href="/znacky/">Všechny značky</a></li>
+      </ul>
+    </nav>
+    <div>
+      <p class="f-h">Kontakt</p>
+      <address>
+        <strong>{site.legalName}</strong><br />
+        {site.street}, {site.zip} {site.city}<br />{site.region}<br />
+        <a href={site.phoneHref} data-track="phone">{site.phone}</a><br />
+        <a href={`mailto:${site.email}`} data-track="email">{site.email}</a><br />
+        {site.hours}<br />
+        IČO {site.ico}, DIČ {site.dic}
+      </address>
+    </div>
+  </div>
+  <div class="wrap f-bottom">
+    <span>© {year} {site.legalName}</span>
+    <span class="f-legal">
+      <a href="/o-nas/">O nás</a>
+      <a href="/realizace/">Realizace</a>
+      <a href="/blog/">Články</a>
+      <a href="/obchodni-podminky/">Obchodní podmínky</a>
+      <a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a>
+      <a href="/cookies/">Cookies</a>
+      <button type="button" class="linklike" data-open-consent>Nastavení cookies</button>
+      <a href="/administrace/" rel="nofollow">Administrace</a>
+    </span>
+  </div>
+</footer>
+<style>
+  .f-makers { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem 2.5rem; padding-bottom: 2.5rem; margin-bottom: 3rem; border-bottom: 1px solid var(--line-dark); }
+  .f-makers-h { margin: 0; font: 600 .74rem var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: var(--on-dark-soft); }
+  .footer .f-makers ul { flex-direction: row; grid-template-columns: none; list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem 3rem; }
+  .footer .f-makers li { margin: 0; }
+  .f-makers img { display: block; width: auto; opacity: .55; transition: opacity .2s; }
+  .f-makers img:hover { opacity: .9; }
+  .mk-zf { height: 34px; }
+  .mk-aisin { height: 18px; }
+  .mk-bw { height: 17px; }
+  @media (max-width: 599px) { .f-makers { justify-content: flex-start; } .f-makers ul { gap: 1.25rem 2rem; } .mk-zf { height: 28px; } .mk-aisin { height: 15px; } .mk-bw { height: 14px; } }
+  .footer { padding-top: 4rem; padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px)); font-size: .95rem; }
+  @media (min-width: 900px) { .footer { padding-bottom: 2rem; } }
+  .footer-grid { display: grid; gap: 2.5rem; }
+  @media (min-width: 760px) { .footer-grid { grid-template-columns: 1.4fr 1fr 1fr 1.1fr; } }
+  .f-logo { display: inline-block; background: var(--red); padding: .9rem 1.1rem; border-radius: 4px; }
+  .f-logo img { width: 150px; }
+  .f-brand p { color: var(--on-dark-soft); margin-top: 1rem; max-width: 40ch; }
+  .f-badges { display: flex; gap: 1rem; align-items: center; margin-top: 1.25rem; }
+  .f-badges img:first-child { width: 74px; }
+  .f-badges img:last-child { width: 120px; opacity: .85; }
+  .f-h { font: 600 .8rem var(--font-display); letter-spacing: .14em; text-transform: uppercase; color: #fff; margin-bottom: .9rem; }
+  .footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: .45rem; }
+  .footer a { color: var(--on-dark-soft); text-decoration: none; }
+  .footer a:hover { color: #fff; text-decoration: underline; }
+  address { font-style: normal; color: var(--on-dark-soft); line-height: 1.8; }
+  address strong { color: #fff; }
+  .f-bottom { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; border-top: 1px solid var(--line-dark); margin-top: 3rem; padding-top: 1.5rem; color: var(--on-dark-soft); font-size: .85rem; }
+  .f-legal { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; }
+  .linklike { background: none; border: 0; padding: 0; color: var(--on-dark-soft); font: inherit; cursor: pointer; text-decoration: underline; }
+</style>

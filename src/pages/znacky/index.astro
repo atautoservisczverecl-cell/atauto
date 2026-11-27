@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import brands from '../../data/brands.json';
+import { photos } from '../../data/photos';
+const list = [
+  ...brands.map((b) => ({ href: `/znacky/${b.slug}/`, name: b.name, makes: b.makes, tags: b.tags.slice(0, 4), img: photos[b.photos]?.[0] })),
+  { href: '/znacky/mercedes-benz/', name: 'Mercedes-Benz', makes: 'Mercedes-Benz · Chrysler · Jeep', tags: ['5G-Tronic', '7G-Tronic', '9G-Tronic'], img: undefined },
+];
+const more = ['General Motors (GM)', 'Chrysler', 'Getrag', 'Hyundai', 'Kia', 'Honda', 'Subaru', 'Volvo', 'Audi Multitronic', 'Land Rover', 'Jaguar', 'Porsche'];
+---
+<Base title="Opravy převodovek podle značky a výrobce | ZF, Aisin, Jatco, DSG | A.T. Autoservis" description="Opravy a repase automatických převodovek ZF, Aisin Warner, Jatco, Mercedes-Benz, GM, DSG, Ford PowerShift, Toyota a Audi Multitronic. Vyberte výrobce převodovky." breadcrumbs={[{ href: '/znacky/', label: 'Značky a výrobci' }]}>
+  <PageHero eyebrow="Značky a výrobci" title="Opravy převodovek podle výrobce" lead="Realizujeme opravy převodovek všech renomovaných výrobců: Jatco, Aisin Warner, ZF, General Motors, Chrysler, Getrag, Hyundai, Mitsubishi a Mercedes-Benz." crumbs={[{ href: '/znacky/', label: 'Značky a výrobci' }]} />
+  <section class="section">
+    <div class="wrap">
+      <div class="blist">
+        {list.map((b) => (
+          <a href={b.href} class="bcard">
+            {b.img ? <img src={b.img.src} alt={b.img.alt} width={b.img.w} height={b.img.h} loading="lazy" /> : <span class="bph" aria-hidden="true">{b.name.slice(0, 2)}</span>}
+            <span class="bbody">
+              <span class="bmakes">{b.makes}</span>
+              <strong>{b.name}</strong>
+              <span class="tags">{b.tags.map((t) => <span class="tag tag-light">{t}</span>)}</span>
+              <span class="bmore">Závady, postup opravy, fotky <Icon name="arrow" size={16} /></span>
+            </span>
+          </a>
+        ))}
+      </div>
+      <div class="also-b">
+        <h2>Další výrobci a značky</h2>
+        <p>Opravujeme i převodovky, které zde nemají samostatnou stránku. Pošlete nám VIN nebo označení převodovky a ověříme, co pro vás můžeme udělat.</p>
+        <div class="tags">{more.map((m) => <span class="tag tag-light">{m}</span>)}</div>
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .blist { display: grid; gap: 1rem; }
+  @media (min-width: 760px) { .blist { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  .bcard { display: grid; grid-template-columns: 120px 1fr; background: var(--white); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; text-decoration: none; transition: border-color .2s; }
+  .bcard:hover { border-color: var(--ink); }
+  .bcard img, .bph { width: 120px; height: 100%; min-height: 160px; object-fit: cover; }
+  .bph { display: grid; place-items: center; background: var(--ink); color: #fff; font: 700 2rem var(--font-display); }
+  .bbody { padding: 1.2rem 1.3rem; display: grid; gap: .5rem; align-content: start; }
+  .bmakes { font: 600 .74rem var(--font-display); letter-spacing: .1em; text-transform: uppercase; color: var(--red); }
+  .bbody strong { font: 700 1.4rem var(--font-display); }
+  .bmore { display: inline-flex; gap: .3rem; align-items: center; font: 600 .92rem var(--font-display); color: var(--red-hover); }
+  .also-b { margin-top: 3rem; display: grid; gap: 1rem; max-width: 760px; }
+  .also-b p { color: var(--text-soft); }
+</style>

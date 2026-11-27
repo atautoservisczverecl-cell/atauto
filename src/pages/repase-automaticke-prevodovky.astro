@@ -1,0 +1,24 @@
+---
+import Content from '../layouts/Content.astro';
+import { site } from '../data/site';
+import md from '../texts/repase.md?raw';
+import { photos } from '../data/photos';
+const faq = [
+  { q: 'Kolik stojí repase automatické převodovky?', a: 'Cena závisí na typu převodovky a na tom, kolik dílů je nutné vyměnit. Přesnou cenu proto stanovíme až po rozebrání a změření a před pokračováním ji s vámi odsouhlasíme.' },
+  { q: 'Vyplatí se repase, nebo koupit použitou převodovku?', a: 'U použité převodovky neznáte její stav ani historii. Repase odstraní příčinu závady a víte přesně, co bylo vyměněno. Navíc na ni dostanete záruku. Podrobněji v článku <a href="/blog/vyplati-se-repase-automaticke-prevodovky/">Vyplatí se repase automatické převodovky?</a>' },
+  { q: 'Repasujete i měnič točivého momentu?', a: 'Ano. Stav měniče při repasi vždy posuzujeme a podle potřeby zajistíme jeho opravu nebo repas.' },
+  { q: 'Jaká je záruka na repasi?', a: site.warrantyDetail },
+];
+---
+<Content
+  title="Repase automatické převodovky | Kompletní repase všech značek | A.T. Autoservis"
+  description="Kompletní repase automatických převodovek: rozebrání, kontrola, výměna opotřebených dílů, měnič, mechatronika, adaptace. ZF, Aisin, Jatco, DSG, PowerShift. Záruka až 24 měsíců."
+  eyebrow="Repase převodovek" h1="Repase automatické převodovky"
+  lead="Rozebereme, změříme, vyměníme opotřebené díly a převodovku znovu sestavíme. Rozsah repase vždy podle skutečného stavu."
+  crumbs={[{ href: '/repase-automaticke-prevodovky/', label: 'Repase automatické převodovky' }]}
+  markdown={md} faq={faq}
+  heroImage={{ src: '/img/realizace/zf-07.webp', alt: 'Spojkové pakety převodovky ZF během repase', w: 1000, h: 1331 }}
+  photos={[photos['zf'][5], photos['zf'][7], photos['jatco'][4], photos['mitsubishi'][3], photos['toyota'][4], photos['vw-dq381'][4], photos['jatco'][2], photos['zf'][2]]}
+  related={[{ href: '/oprava-automaticke-prevodovky/', label: 'Oprava převodovky' }, { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika' }, { href: '/realizace/', label: 'Realizace' }, { href: '/znacky/', label: 'Značky a výrobci' }]}
+  service={{ name: 'Repase automatické převodovky', serviceType: 'Repase automatické převodovky' }}
+/>

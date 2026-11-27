@@ -1,0 +1,16 @@
+---
+import Content from '../../layouts/Content.astro';
+import md from '../../texts/mercedes.md?raw';
+const faq = [
+  { q: 'Opravujete převodovky 7G-Tronic?', a: 'Ano. Řešíme diagnostiku, opravu řídicí jednotky a hydraulického bloku, měniče i kompletní repase převodovek 7G-Tronic.' },
+  { q: 'Jaký olej používáte u Mercedesu?', a: 'Vždy olej podle specifikace Mercedes-Benz pro konkrétní převodovku. 5G, 7G a 9G-Tronic mají odlišné specifikace.' },
+];
+---
+<Content title="Oprava automatické převodovky Mercedes-Benz | 7G-Tronic, 9G-Tronic | A.T. Autoservis"
+  description="Oprava a repase automatických převodovek Mercedes-Benz 5G-Tronic, 7G-Tronic a 9G-Tronic. Diagnostika, řídicí jednotka, měnič, výměna oleje. Hostivice u Prahy."
+  eyebrow="Mercedes-Benz" h1="Oprava automatické převodovky Mercedes-Benz" lead="5G-Tronic, 7G-Tronic a 9G-Tronic. Diagnostika, oprava řídicí jednotky a hydrauliky, měniče i kompletní repase."
+  tags={['722.6 / 5G', '722.9 / 7G', '725.0 / 9G']}
+  crumbs={[{ href: '/znacky/', label: 'Značky a výrobci' }, { href: '/znacky/mercedes-benz/', label: 'Mercedes-Benz' }]}
+  markdown={md} faq={faq}
+  related={[{ href: '/typy-prevodovek/hydrodynamicke/', label: 'Klasické automaty' }, { href: '/znacky/zf/', label: 'Převodovky ZF' }, { href: '/vymena-oleje-automaticka-prevodovka/', label: 'Výměna oleje a ceník' }]}
+  service={{ name: 'Oprava automatické převodovky Mercedes-Benz', serviceType: 'Oprava automatické převodovky' }} />

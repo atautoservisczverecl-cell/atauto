@@ -1,0 +1,44 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+interface Props { eyebrow?: string; title: string; lead?: string; crumbs?: { href: string; label: string }[]; image?: { src: string; alt: string; w: number; h: number }; tags?: string[]; cta?: boolean; cutout?: boolean; }
+const { eyebrow, title, lead, crumbs, image, tags, cta = true, cutout = false } = Astro.props;
+---
+<section class="phero dark">
+  <div class="wrap phero-in" class:list={[{ 'has-img': !!image }]}>
+    <div class="phero-text">
+      {crumbs && <Breadcrumbs items={crumbs} />}
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1 set:html={title} />
+      {lead && <p class="lead">{lead}</p>}
+      {tags && <div class="tags">{tags.map((t) => <span class="tag">{t}</span>)}</div>}
+      {cta && (
+        <div class="btn-row">
+          <a class="btn btn-red" href="/poptavka/">Poptat opravu <Icon name="arrow" /></a>
+          <a class="btn btn-ghost" href={site.phoneHref} data-track="phone"><Icon name="phone" /> {site.phone}</a>
+        </div>
+      )}
+      <slot />
+    </div>
+    {image && (
+      <figure class="phero-img" class:list={[{ cutout }]}>
+        <img src={image.src} alt={image.alt} width={image.w} height={image.h} fetchpriority="high" />
+      </figure>
+    )}
+  </div>
+</section>
+<style>
+  .phero { padding-block: clamp(2rem, 1.5rem + 3vw, 4.5rem); position: relative; overflow: hidden; }
+  .phero::after { content: ""; position: absolute; inset: auto 0 0 0; height: 1px; background: var(--line-dark); }
+  .phero-in { display: grid; gap: 2rem; align-items: center; }
+  .phero-text { display: grid; gap: 1.1rem; justify-items: start; min-width: 0; }
+  @media (min-width: 900px) { .phero-in.has-img { grid-template-columns: 1.25fr .75fr; gap: 3.5rem; } }
+  .phero-img { margin: 0; border-radius: 8px; overflow: hidden; border: 1px solid var(--line-dark); aspect-ratio: 4 / 3.4; max-width: 100%; }
+  .phero-img img { width: 100%; height: 100%; object-fit: cover; }
+  @media (max-width: 899px) { .phero-img { aspect-ratio: 16 / 9; } }
+  .phero-img.cutout { border: 0; border-radius: 0; aspect-ratio: auto; overflow: visible; position: relative; }
+  .phero-img.cutout::before { content: ""; position: absolute; inset: -10% -5%; background: radial-gradient(closest-side, rgba(217,39,29,.22), transparent); z-index: 0; }
+  .phero-img.cutout img { position: relative; z-index: 1; object-fit: contain; height: auto; filter: drop-shadow(0 18px 30px rgba(0,0,0,.5)); }
+  @media (max-width: 899px) { .phero-img.cutout { max-width: 300px; justify-self: center; margin-top: -.5rem; } }
+</style>

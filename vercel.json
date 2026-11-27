@@ -1,0 +1,116 @@
+{
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/servis-a-opravy-prevodovek",
+      "destination": "/oprava-automaticke-prevodovky/",
+      "permanent": true
+    },
+    {
+      "source": "/oprava-prevodovky",
+      "destination": "/oprava-automaticke-prevodovky/",
+      "permanent": true
+    },
+    {
+      "source": "/repase-automatickych-prevodovek-zf",
+      "destination": "/znacky/zf/",
+      "permanent": true
+    },
+    {
+      "source": "/repase-automatickych-prevodovek-aisin",
+      "destination": "/znacky/aisin/",
+      "permanent": true
+    },
+    {
+      "source": "/repase-ford-powershift",
+      "destination": "/znacky/ford-powershift/",
+      "permanent": true
+    },
+    {
+      "source": "/oprava-mechatroniky-dq381",
+      "destination": "/znacky/dsg-dq381/",
+      "permanent": true
+    },
+    {
+      "source": "/repase-automatickych-prevodovek-mitsubishi",
+      "destination": "/znacky/mitsubishi/",
+      "permanent": true
+    },
+    {
+      "source": "/repase-automatickych-prevodovek-nissan-jatco",
+      "destination": "/znacky/nissan-jatco/",
+      "permanent": true
+    },
+    {
+      "source": "/repase-automatickych-prevodovek-toyota",
+      "destination": "/znacky/toyota/",
+      "permanent": true
+    },
+    {
+      "source": "/diagnostika-zavady-prevodovky",
+      "destination": "/diagnostika-automaticke-prevodovky/",
+      "permanent": true
+    },
+    {
+      "source": "/vymena-oleje-v-automaticke-prevodovce-jezdete-kazdy-den-s-klidem",
+      "destination": "/vymena-oleje-automaticka-prevodovka/",
+      "permanent": true
+    },
+    {
+      "source": "/sluzby",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/objednani-sluzeb",
+      "destination": "/poptavka/",
+      "permanent": true
+    },
+    {
+      "source": "/zasady-cookies-eu",
+      "destination": "/cookies/",
+      "permanent": true
+    },
+    {
+      "source": "/thanks",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/servisni-prohlidka",
+      "destination": "/kontakt/",
+      "permanent": true
+    },
+    {
+      "source": "/vymena-oleje-v-motoru",
+      "destination": "/rezervace/#olej-motor",
+      "permanent": true
+    },
+    {
+      "source": "/vymena-oleje-v-automaticke-prevodovce:rest*",
+      "destination": "/vymena-oleje-automaticka-prevodovka/",
+      "permanent": true
+    },
+    {
+      "source": "/pneuservis:rest*",
+      "destination": "/kontakt/",
+      "permanent": true
+    },
+    {
+      "source": "/plneni-klimatizace:rest*",
+      "destination": "/kontakt/",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(fonts|img)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
+}

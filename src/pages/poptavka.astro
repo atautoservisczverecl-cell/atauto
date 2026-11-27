@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+<Base title="Poptávka opravy automatické převodovky | A.T. Autoservis" description="Nezávazná poptávka opravy, repase nebo diagnostiky automatické převodovky. Vyplnění zabere dvě minuty, odpovíme obvykle týž pracovní den. Můžete přiložit fotky i protokol." breadcrumbs={[{ href: '/poptavka/', label: 'Poptávka' }]}>
+  <PageHero eyebrow="Nezávazná poptávka" title="Poptejte opravu převodovky" lead="Čím víc toho o voze a závadě víme, tím přesněji vám poradíme. Vyplnění zabere asi dvě minuty." crumbs={[{ href: '/poptavka/', label: 'Poptávka' }]} cta={false} />
+  <section class="section">
+    <div class="wrap pgrid">
+      <div class="pform"><InquiryForm id="full-form" /></div>
+      <aside class="pside">
+        <h2>Co bude dál</h2>
+        <ol>
+          <li><strong>Ozveme se vám</strong> obvykle ještě týž pracovní den ({site.hours}).</li>
+          <li><strong>Upřesníme závadu</strong> a ověříme typ převodovky podle VIN.</li>
+          <li><strong>Domluvíme termín</strong> diagnostiky nebo opravy. Cenu znáte předem.</li>
+        </ol>
+        <p class="pcall">Spěcháte?<br /><a href={site.phoneHref} data-track="phone"><Icon name="phone" /> {site.phone}</a></p>
+        <p class="psafe">Údaje použijeme jen pro vyřízení poptávky. <a href="/ochrana-osobnich-udaju/">Ochrana osobních údajů</a></p>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .pgrid { display: grid; gap: 2.5rem; }
+  @media (min-width: 1000px) { .pgrid { grid-template-columns: minmax(0, 1fr) 320px; gap: 4rem; } }
+  .pform { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem); }
+  .pside { display: grid; gap: 1.25rem; align-content: start; }
+  @media (min-width: 1000px) { .pside { position: sticky; top: 96px; } }
+  .pside h2 { font-size: 1.4rem; }
+  .pside ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .8rem; }
+  .pside li::marker { color: var(--red); font-weight: 700; }
+  .pcall { background: var(--ink); color: var(--on-dark-soft); padding: 1.2rem; border-radius: 8px; }
+  .pcall a { display: inline-flex; gap: .5rem; align-items: center; color: #fff; font: 700 1.4rem var(--font-display); text-decoration: none; margin-top: .3rem; }
+  .psafe { font-size: .88rem; color: var(--text-soft); }
+  .psafe a { color: var(--red-hover); }
+</style>

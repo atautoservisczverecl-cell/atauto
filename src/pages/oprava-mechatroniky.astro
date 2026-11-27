@@ -1,0 +1,17 @@
+---
+import Content from '../layouts/Content.astro';
+import md from '../texts/mechatronika.md?raw';
+import { photos } from '../data/photos';
+---
+<Content
+  title="Oprava mechatroniky převodovky | DSG, ZF, PowerShift | A.T. Autoservis"
+  description="Diagnostika, oprava a repas mechatroniky automatických převodovek DSG, ZF 6HP/8HP, Ford PowerShift, Aisin a Multitronic. Solenoidy, snímače, TCM, hydraulický blok."
+  eyebrow="Mechatronika a řídicí jednotky" h1="Oprava mechatroniky převodovky"
+  lead="Solenoidy, snímače, hydraulický blok i řídicí jednotka. Oprava nebo repas mechatroniky bývá výrazně levnější než výměna celé jednotky."
+  crumbs={[{ href: '/oprava-mechatroniky/', label: 'Oprava mechatroniky' }]}
+  markdown={md}
+  heroImage={{ src: '/img/realizace/zf-02.webp', alt: 'Hydraulický blok a mechatronika převodovky ZF', w: 1000, h: 1331 }}
+  photos={[photos['vw-dq381'][0], photos['vw-dq381'][3], photos['jatco'][1], photos['ford'][2]]}
+  related={[{ href: '/znacky/dsg-dq381/', label: 'Mechatronika DSG DQ381' }, { href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika' }, { href: '/chybove-kody-prevodovek/', label: 'Chybové kódy' }]}
+  service={{ name: 'Oprava mechatroniky automatické převodovky', serviceType: 'Oprava mechatroniky' }}
+/>

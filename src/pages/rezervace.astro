@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import BookingForm, { bookingServices } from '../components/BookingForm.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+const crumbs = [{ href: '/rezervace/', label: 'Rezervace termínu' }];
+---
+<Base title="Rezervace termínu: výměna oleje a diagnostika převodovky | A.T. Autoservis" description={`Online rezervace termínu na výměnu oleje v automatické převodovce, výměnu oleje v motoru nebo diagnostiku převodovky. ${site.street}, ${site.city}. Termín potvrdíme obvykle týž pracovní den.`} breadcrumbs={crumbs}>
+  <PageHero eyebrow="Rezervace online" title="Rezervujte si termín" lead="Výměna oleje v převodovce, výměna oleje v motoru nebo diagnostika převodovky. Vyberte službu a den, termín vám potvrdíme obvykle ještě týž pracovní den." crumbs={crumbs} cta={false} cutout image={{ src: '/img/ui/prevodovka-hero.webp', alt: 'Řez automatickou převodovkou s měničem točivého momentu a planetovými soukolími', w: 1200, h: 800 }}>
+    <div class="quick">
+      {bookingServices.map((s) => <a href={`#${s.id}`} class="tag">{s.title}</a>)}
+    </div>
+  </PageHero>
+  <section class="section">
+    <div class="wrap rgrid">
+      <div class="rform"><BookingForm /></div>
+      <aside class="rside">
+        <div class="rcard">
+          <h2>Jak rezervace probíhá</h2>
+          <ol>
+            <li><strong>Vyberete službu a den.</strong> Stačí pár údajů o voze.</li>
+            <li><strong>Potvrdíme termín</strong> telefonicky nebo e-mailem, obvykle týž pracovní den.</li>
+            <li><strong>Přijedete do dílny</strong> v Hostivicích. Cenu víte předem.</li>
+          </ol>
+        </div>
+        <div class="rcard">
+          <h2>Kde nás najdete</h2>
+          <p><Icon name="pin" size={18} /> {site.street}, {site.zip} {site.city}</p>
+          <p><Icon name="clock" size={18} /> {site.hours}</p>
+          <p><Icon name="phone" size={18} /> <a href={site.phoneHref} data-track="phone">{site.phone}</a></p>
+          <a class="maplink" href={site.mapUrl} target="_blank" rel="noopener">Otevřít v mapě <Icon name="arrow" size={16} /></a>
+        </div>
+        <p class="rnote">Ceny výměny oleje v převodovce podle značky najdete v <a href="/vymena-oleje-automaticka-prevodovka/#cenik">ceníku</a>. {site.priceDiag}</p>
+        <p class="rnote">Máte s převodovkou vážnější problém? Pošlete raději <a href="/poptavka/">poptávku opravy</a> s popisem závady.</p>
+      </aside>
+    </div>
+  </section>
+</Base>
+<style>
+  .quick { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .quick .tag { text-decoration: none; }
+  .quick .tag:hover { border-color: var(--red); color: #fff; }
+  .rgrid { display: grid; gap: 2.5rem; }
+  @media (min-width: 1000px) { .rgrid { grid-template-columns: minmax(0, 1fr) 340px; gap: 3.5rem; } }
+  .rform { background: var(--white); border: 1px solid var(--line); border-radius: 8px; padding: clamp(1.25rem, 1rem + 1.5vw, 2.5rem); scroll-margin-top: 90px; }
+  .rside { display: grid; gap: 1.25rem; align-content: start; }
+  @media (min-width: 1000px) { .rside { position: sticky; top: 100px; } }
+  .rcard { background: var(--ink); color: var(--on-dark); border-radius: 8px; padding: 1.5rem; display: grid; gap: .7rem; }
+  .rcard h2 { font: 600 .82rem var(--font-display); letter-spacing: .12em; text-transform: uppercase; margin: 0 0 .2rem; color: #fff; }
+  .rcard ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .6rem; color: var(--on-dark-soft); }
+  .rcard ol strong { color: var(--on-dark); }
+  .rcard p { margin: 0; display: flex; gap: .5rem; align-items: center; color: var(--on-dark-soft); }
+  .rcard a { color: #fff; }
+  .maplink { display: inline-flex; gap: .35rem; align-items: center; font-weight: 600; margin-top: .3rem; }
+  .rnote { margin: 0; font-size: .9rem; color: var(--text-soft); }
+  .rnote a { color: var(--text); font-weight: 600; }
+</style>

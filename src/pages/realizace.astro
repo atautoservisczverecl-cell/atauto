@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Gallery from '../components/Gallery.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { cmsPhotos as photos } from '../data/cms';
+import { photoLabels } from '../data/photos';
+const groups = [
+  { key: 'zf', title: 'Převodovky ZF', text: 'Rozebrání, kontrola spojkových paketů, hydraulického bloku a mechatroniky převodovek ZF.', href: '/znacky/zf/' },
+  { key: 'vw-dq381', title: 'DSG DQ381 (0GC)', text: 'Oprava mechatroniky a kontrola sedmistupňové převodovky DSG v olejové lázni.', href: '/znacky/dsg-dq381/' },
+  { key: 'jatco', title: 'Nissan Jatco CVT', text: 'Repase CVT převodovek Jatco: řemenice, pás, hydraulika a olejové čerpadlo.', href: '/znacky/nissan-jatco/' },
+  { key: 'toyota', title: 'Toyota', text: 'Opravy klasických automatů a CVT převodovek Toyota.', href: '/znacky/toyota/' },
+  { key: 'mitsubishi', title: 'Mitsubishi', text: 'Opravy CVT a automatických převodovek vozů Mitsubishi.', href: '/znacky/mitsubishi/' },
+  { key: 'ford', title: 'Ford PowerShift', text: 'Dvouspojkové převodovky PowerShift: spojky, mechatronika a TCM.', href: '/znacky/ford-powershift/' },
+  { key: 'aisin', title: 'Aisin Warner', text: 'Hydraulika, solenoidy a repase převodovek Aisin.', href: '/znacky/aisin/' },
+];
+const known = new Set(groups.map((g) => g.key));
+for (const k of Object.keys(photos)) if (!known.has(k)) groups.push({ key: k, title: photoLabels[k] || 'Další realizace', text: 'Další ukázky práce z naší dílny.', href: '/kontakt/' });
+const shown = groups.filter((g) => photos[g.key]?.length);
+---
+<Base title="Realizace oprav automatických převodovek | Fotografie z dílny | A.T. Autoservis" description="Skutečné fotografie z oprav a repasí automatických převodovek ZF, DSG DQ381, Jatco CVT, Toyota, Mitsubishi, Ford PowerShift a Aisin v dílně A.T. Autoservis." breadcrumbs={[{ href: '/realizace/', label: 'Realizace' }]}>
+  <PageHero eyebrow="Realizace" title="Ukázky oprav z naší dílny" lead="Žádné fotobanky. Toto jsou skutečné převodovky, které jsme opravovali a repasovali." crumbs={[{ href: '/realizace/', label: 'Realizace' }]} />
+  {shown.map((g, i) => (
+    <section class:list={['section-tight', { light: i % 2 === 0 }]}>
+      <div class="wrap">
+        <div class="rg-head">
+          <div><h2>{g.title}</h2><p>{g.text}</p></div>
+          <a href={g.href} class="rg-link">Více o opravách {g.title}</a>
+        </div>
+        <Gallery photos={photos[g.key]} cols={photos[g.key].length >= 8 ? 4 : photos[g.key].length === 6 ? 3 : 4} />
+      </div>
+    </section>
+  ))}
+  <section class="section-tight">
+    <div class="wrap"><div class="placeholder"><strong>Místo pro případové studie „před a po“</strong><p>Doporučujeme doplnit 3–5 konkrétních zakázek: vůz, závada, co jsme zjistili, co jsme opravili, výsledek. Takový obsah výborně funguje pro důvěru i ve vyhledávání.</p></div></div>
+  </section>
+  <CtaBand />
+</Base>
+<style>
+  .rg-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.25rem; }
+  .rg-head p { color: var(--text-soft); margin-top: .4rem; }
+  .rg-link { font: 600 .95rem var(--font-display); color: var(--red-hover); }
+  .placeholder { border: 2px dashed #b3b9c0; border-radius: 8px; padding: 1.5rem; color: var(--text-soft); display: grid; gap: .4rem; }
+  .placeholder strong { color: var(--text); font-family: var(--font-display); font-size: 1.1rem; }
+</style>

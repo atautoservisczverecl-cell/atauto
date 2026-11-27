@@ -1,0 +1,314 @@
+[
+ {
+  "slug": "",
+  "title": "Oprava a repase automatických převodovek",
+  "seo_title": "Oprava a repase automatických převodovek | A.T. Autoservis Praha-západ",
+  "seo_description": "Specialisté na automatické převodovky od roku 1991. Diagnostika, opravy a repase DSG, ZF, Aisin, CVT i PowerShift. Hostivice u Prahy, záruka až 24 měsíců.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog",
+  "title": "Co byste měli vědět o automatické převodovce",
+  "seo_title": "Rady a články o automatických převodovkách | A.T. Autoservis",
+  "seo_description": "Praktické rady od specialistů na automatické převodovky: příznaky závad, výměna oleje, DSG, CVT, repase a prodloužení životnosti.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/jak-poznat-problemy-s-dsg",
+  "title": "Jak poznat problémy s DSG?",
+  "seo_title": "Jak poznat problémy s DSG | Příznaky závad DQ200, DQ250, DQ381",
+  "seo_description": "Typické příznaky závad převodovek DSG: cukání při rozjezdu, jízda jen na liché stupně, blikající kontrolka. Rozdíly mezi DQ200, DQ250 a DQ381.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/jak-poznat-vadnou-automatickou-prevodovku",
+  "title": "Jak poznat vadnou automatickou převodovku?",
+  "seo_title": "Jak poznat vadnou automatickou převodovku | 8 varovných příznaků",
+  "seo_description": "Cukání, prokluz, zpožděný záběr, hučení nebo kontrolka. Osm příznaků vadné automatické převodovky, co znamenají a kdy jet do servisu.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/jak-prodlouzit-zivotnost-automaticke-prevodovky",
+  "title": "Jak prodloužit životnost automatické převodovky?",
+  "seo_title": "Jak prodloužit životnost automatické převodovky | 9 rad od specialistů",
+  "seo_description": "Devět praktických rad, jak prodloužit životnost automatické převodovky, DSG i CVT. Olej, zahřátí, styl jízdy, tažení přívěsu a včasná diagnostika.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/kdy-vymenit-olej-v-automaticke-prevodovce",
+  "title": "Kdy je potřeba vyměnit olej v automatu?",
+  "seo_title": "Kdy vyměnit olej v automatické převodovce | Intervaly podle typu",
+  "seo_description": "Jak často měnit olej v automatické převodovce, DSG a CVT. Doporučené intervaly, příznaky starého oleje a proč „doživotní náplň“ neexistuje.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/proc-automaticka-prevodovka-cuka",
+  "title": "Proč automatická převodovka cuká?",
+  "seo_title": "Proč automatická převodovka cuká | Příčiny podle typu převodovky",
+  "seo_description": "Cukání při rozjezdu, při řazení nebo za tepla. Nejčastější příčiny cukání automatické převodovky, DSG a CVT a co s tím dělat.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/rozdil-mezi-dsg-cvt-a-klasickym-automatem",
+  "title": "Jaký je rozdíl mezi DSG, CVT a klasickým automatem?",
+  "seo_title": "Rozdíl mezi DSG, CVT a klasickým automatem | Srovnání převodovek",
+  "seo_description": "Jak fungují a čím se liší klasický automat s měničem, dvouspojková DSG a bezstupňová CVT. Výhody, slabiny a na co si dát pozor při koupi auta.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "blog/vyplati-se-repase-automaticke-prevodovky",
+  "title": "Vyplatí se repase automatické převodovky?",
+  "seo_title": "Vyplatí se repase automatické převodovky? Repase vs. použitá vs. nová",
+  "seo_description": "Repase, použitá převodovka z vrakoviště, nebo nová od výrobce? Srovnání výhod, rizik a nákladů a kdy repase dává smysl.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "chybove-kody-prevodovek",
+  "title": "Chybové kódy automatických převodovek",
+  "seo_title": "Chybové kódy automatických převodovek | P0741, P0868, P17BF a další | A.T. Autoservis",
+  "seo_description": "Databáze 102 chybových kódů převodovek DSG, ZF, Aisin, CVT Jatco, Multitronic a PowerShift. Co kód znamená, typické příčiny a závady. Vyhledejte svůj kód.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "cookies",
+  "title": "Zásady používání cookies",
+  "seo_title": "Zásady cookies | A.T. Autoservis",
+  "seo_description": "Jaké cookies používá web A.T. Autoservis, k čemu slouží a jak můžete svůj souhlas změnit.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "diagnostika-automaticke-prevodovky",
+  "title": "Diagnostika automatické převodovky",
+  "seo_title": "Diagnostika automatické převodovky | Chybové kódy a příčiny závad | A.T. Autoservis",
+  "seo_description": "Profesionální diagnostika automatických převodovek: chybové kódy, živá data, tlaky oleje, zkušební jízda. Cukání, prokluzování, vibrace, nouzový režim. Hostivice u Prahy.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "kontakt",
+  "title": "Kontakt a objednání",
+  "seo_title": "Kontakt | A.T. Autoservis Hostivice u Prahy | Oprava automatických převodovek",
+  "seo_description": "Kontakt na A.T. Autoservis: +420 721 004 440, info@atautoservis.cz, Nádražní 272, Hostivice (Praha-západ). Otevřeno Po–Pá 8:30–17:30. Pošlete nezávaznou poptávku opravy převodovky.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "o-nas",
+  "title": "Automatickým převodovkám se věnujeme od roku 1991",
+  "seo_title": "O nás | Specialisté na automatické převodovky od roku 1991 | A.T. Autoservis",
+  "seo_description": "A.T. Auto Service s.r.o. opravuje automatické převodovky od roku 1991. Začínali jsme u amerických vozů, dnes opravujeme převodovky všech značek. Hostivice u Prahy.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "obchodni-podminky",
+  "title": "Obchodní podmínky a reklamační řád",
+  "seo_title": "Obchodní podmínky a reklamační řád | A.T. Auto Service s.r.o.",
+  "seo_description": "Obchodní podmínky, reklamační řád, záruční podmínky a hodinové sazby společnosti A.T. Auto Service s.r.o.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "ochrana-osobnich-udaju",
+  "title": "Ochrana osobních údajů",
+  "seo_title": "Ochrana osobních údajů | A.T. Autoservis",
+  "seo_description": "Jak A.T. Auto Service s.r.o. zpracovává osobní údaje z poptávkového formuláře, telefonické a e-mailové komunikace a při opravě vozidla.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "oprava-automaticke-prevodovky",
+  "title": "Oprava automatické převodovky",
+  "seo_title": "Oprava automatické převodovky | Specializovaný servis u Prahy | A.T. Autoservis",
+  "seo_description": "Oprava automatických převodovek všech značek: DSG, ZF, Aisin, CVT, PowerShift. Diagnostika, oprava mechatroniky, hydrauliky a měniče. Hostivice u Prahy, od roku 1991.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "oprava-mechatroniky",
+  "title": "Oprava mechatroniky převodovky",
+  "seo_title": "Oprava mechatroniky převodovky | DSG, ZF, PowerShift | A.T. Autoservis",
+  "seo_description": "Diagnostika, oprava a repas mechatroniky automatických převodovek DSG, ZF 6HP/8HP, Ford PowerShift, Aisin a Multitronic. Solenoidy, snímače, TCM, hydraulický blok.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "poptavka",
+  "title": "Poptejte opravu převodovky",
+  "seo_title": "Poptávka opravy automatické převodovky | A.T. Autoservis",
+  "seo_description": "Nezávazná poptávka opravy, repase nebo diagnostiky automatické převodovky. Vyplnění zabere dvě minuty, odpovíme obvykle týž pracovní den. Můžete přiložit fotky i protokol.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "realizace",
+  "title": "Ukázky oprav z naší dílny",
+  "seo_title": "Realizace oprav automatických převodovek | Fotografie z dílny | A.T. Autoservis",
+  "seo_description": "Skutečné fotografie z oprav a repasí automatických převodovek ZF, DSG DQ381, Jatco CVT, Toyota, Mitsubishi, Ford PowerShift a Aisin v dílně A.T. Autoservis.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "repase-automaticke-prevodovky",
+  "title": "Repase automatické převodovky",
+  "seo_title": "Repase automatické převodovky | Kompletní repase všech značek | A.T. Autoservis",
+  "seo_description": "Kompletní repase automatických převodovek: rozebrání, kontrola, výměna opotřebených dílů, měnič, mechatronika, adaptace. ZF, Aisin, Jatco, DSG, PowerShift. Záruka až 24 měsíců.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "rezervace",
+  "title": "Rezervujte si termín",
+  "seo_title": "Rezervace termínu: výměna oleje a diagnostika převodovky | A.T. Autoservis",
+  "seo_description": "Online rezervace termínu na výměnu oleje v automatické převodovce, výměnu oleje v motoru nebo diagnostiku převodovky. Nádražní 272, Hostivice. Termín potvrdíme obvykle týž pracovní den.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek",
+  "title": "Typy automatických převodovek",
+  "seo_title": "Typy automatických převodovek | DSG, CVT, klasický automat | A.T. Autoservis",
+  "seo_description": "Přehled typů automatických převodovek a jejich typických závad: klasické hydrodynamické automaty, DSG/DCT, CVT, PowerShift, Multitronic a robotizované převodovky.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek/automatizovane-manualni",
+  "title": "Oprava robotizované (automatizované manuální) převodovky",
+  "seo_title": "Oprava robotizované převodovky | Dualogic, ASG, Sensodrive | A.T. Autoservis",
+  "seo_description": "Servis a opravy automatizovaných manuálních převodovek: Dualogic, Selespeed, Sensodrive, ASG. Aktuátory, hydraulická jednotka, spojka a adaptace.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek/cvt",
+  "title": "Oprava CVT převodovky",
+  "seo_title": "Oprava CVT převodovky | Jatco, Toyota, Subaru | A.T. Autoservis",
+  "seo_description": "Opravy a repase bezstupňových převodovek CVT: Jatco JF011E, JF016E, JF017E, Toyota K310/K311, Subaru Lineartronic, Audi Multitronic. Pás, řemenice, čerpadlo.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek/dsg",
+  "title": "Oprava DSG převodovky",
+  "seo_title": "Oprava DSG převodovky | DQ200, DQ250, DQ381 | Repase DSG | A.T. Autoservis",
+  "seo_description": "Oprava a repase převodovek DSG: DQ200 (0AM), DQ250 (02E/0D9), DQ381 (0GC). Mechatronika, spojky, chybové kódy P17BF, P1735. VW, Škoda, Audi, Seat.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek/hydrodynamicke",
+  "title": "Oprava klasických automatických převodovek",
+  "seo_title": "Oprava klasické automatické převodovky s měničem | ZF, Aisin, Mercedes | A.T. Autoservis",
+  "seo_description": "Opravy a repase klasických hydrodynamických automatických převodovek ZF, Aisin, Mercedes-Benz, Jatco, GM a Toyota. Měnič, mechatronika, spojky, výměna oleje.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek/multitronic",
+  "title": "Oprava převodovky Audi Multitronic",
+  "seo_title": "Oprava Audi Multitronic 01J a 0AW | A.T. Autoservis",
+  "seo_description": "Opravy převodovek Audi Multitronic 01J a 0AW: řídicí jednotka TCM, blikající PRNDS, spojka, řetěz, čerpadlo. Diagnostika a repase u specialisty.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "typy-prevodovek/powershift",
+  "title": "Oprava převodovky PowerShift",
+  "seo_title": "Oprava převodovky PowerShift | 6DCT250, 6DCT450 | A.T. Autoservis",
+  "seo_description": "Dvouspojkové převodovky Getrag PowerShift 6DCT250 (DPS6), 6DCT450 (MPS6) a 6DCT470 ve vozech Ford, Volvo a Mitsubishi. TCM, spojky, mechatronika.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "vymena-oleje-automaticka-prevodovka",
+  "title": "Výměna oleje v automatické převodovce",
+  "seo_title": "Výměna oleje v automatické převodovce | Dynamická výměna a ceník | A.T. Autoservis",
+  "seo_description": "Dynamická výměna oleje v automatické převodovce s proplachem: až 95–100 % oleje, oleje podle specifikace výrobce. DSG, ZF, Aisin, CVT. Orientační ceník podle značky vozu.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky",
+  "title": "Opravy převodovek podle výrobce",
+  "seo_title": "Opravy převodovek podle značky a výrobce | ZF, Aisin, Jatco, DSG | A.T. Autoservis",
+  "seo_description": "Opravy a repase automatických převodovek ZF, Aisin Warner, Jatco, Mercedes-Benz, GM, DSG, Ford PowerShift, Toyota a Audi Multitronic. Vyberte výrobce převodovky.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/aisin",
+  "title": "Oprava a repase převodovek Aisin Warner",
+  "seo_title": "Oprava převodovek Aisin Warner | Repase Aisin | A.T. Autoservis",
+  "seo_description": "Opravy a repase automatických převodovek Aisin Warner: TF-80SC, TF-60SN (09G), AWF8F35, AW55-50SN. Hydraulika, solenoidy, měniče. A.T. Autoservis u Prahy.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/dsg-dq381",
+  "title": "Oprava mechatroniky DSG DQ381 (0GC)",
+  "seo_title": "Oprava mechatroniky DQ381 | DSG 0GC | A.T. Autoservis",
+  "seo_description": "Diagnostika, oprava a repas mechatroniky sedmistupňové DSG DQ381 (0GC). Snímače tlaku G193/G194, čerpadlo, nouzový režim. A.T. Autoservis u Prahy.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/ford-powershift",
+  "title": "Oprava a repase převodovek Ford PowerShift",
+  "seo_title": "Oprava Ford PowerShift 6DCT250 a 6DCT450 | A.T. Autoservis",
+  "seo_description": "Repase a opravy převodovek Ford PowerShift 6DCT250 (DPS6) a 6DCT450 (MPS6): spojky, mechatronika, TCM a diagnostika. Specializovaný servis u Prahy.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/mercedes-benz",
+  "title": "Oprava automatické převodovky Mercedes-Benz",
+  "seo_title": "Oprava automatické převodovky Mercedes-Benz | 7G-Tronic, 9G-Tronic | A.T. Autoservis",
+  "seo_description": "Oprava a repase automatických převodovek Mercedes-Benz 5G-Tronic, 7G-Tronic a 9G-Tronic. Diagnostika, řídicí jednotka, měnič, výměna oleje. Hostivice u Prahy.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/mitsubishi",
+  "title": "Oprava a repase převodovek Mitsubishi",
+  "seo_title": "Oprava převodovek Mitsubishi | CVT Jatco, INVECS | A.T. Autoservis",
+  "seo_description": "Repase a opravy automatických převodovek Mitsubishi: CVT Jatco JF011E, CVT-8, INVECS, hydraulika a mechatronika. Diagnostika u specialisty.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/nissan-jatco",
+  "title": "Oprava a repase převodovek Nissan Jatco",
+  "seo_title": "Oprava převodovek Nissan Jatco CVT | JF011E, JF016E | A.T. Autoservis",
+  "seo_description": "Repase a opravy převodovek Nissan Jatco: CVT JF011E, JF015E, JF016E, JF017E a automaty RE5R05A, RE7R01A. Diagnostika, hydraulika, mechatronika a měniče.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/toyota",
+  "title": "Oprava a repase převodovek Toyota",
+  "seo_title": "Oprava převodovek Toyota | Aisin, CVT K310, e-CVT | A.T. Autoservis",
+  "seo_description": "Repase a opravy automatických převodovek Toyota: U340, U660, U760, A750, AB60, CVT K110, K310, K311 a diagnostika hybridních e-CVT.",
+  "noindex": false,
+  "custom": false
+ },
+ {
+  "slug": "znacky/zf",
+  "title": "Oprava a repase převodovek ZF",
+  "seo_title": "Oprava převodovek ZF 6HP a 8HP | Repase ZF | A.T. Autoservis",
+  "seo_description": "Oprava a repase automatických převodovek ZF 6HP a 8HP. Diagnostika, mechatronika, měnič a hydraulika. Specialisté na automaty od roku 1991, Hostivice u Prahy.",
+  "noindex": false,
+  "custom": false
+ }
+]

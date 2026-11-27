@@ -1,0 +1,22 @@
+---
+import Content from '../layouts/Content.astro';
+import md from '../texts/diagnostika.md?raw';
+import { site } from '../data/site';
+const faq = [
+  { q: 'Kolik stojí diagnostika automatické převodovky?', a: site.priceDiag + ' Přesný rozsah diagnostiky vám řekneme předem.' },
+  { q: 'Jak dlouho diagnostika trvá?', a: 'Základní diagnostika včetně vyčtení chyb, kontroly oleje a zkušební jízdy obvykle zabere několik hodin. U složitějších závad může být nutné další měření.' },
+  { q: 'Stačí vyčíst chybové kódy obyčejnou čtečkou?', a: 'Obecná OBD čtečka ukáže jen část informací. Pro správnou diagnózu jsou důležitá živá data, stav adaptací a chování převodovky při jízdě. Kód navíc ukazuje na obvod nebo funkci, ne vždy na konkrétní vadný díl.' },
+  { q: 'Co když diagnostika ukáže, že převodovka je v pořádku?', a: 'Pak vám to rovnou řekneme. Příčina potíží může být i mimo převodovku, například v motoru, uložení nebo setrvačníku.' },
+];
+---
+<Content booking="diagnostika"
+  title="Diagnostika automatické převodovky | Chybové kódy a příčiny závad | A.T. Autoservis"
+  description="Profesionální diagnostika automatických převodovek: chybové kódy, živá data, tlaky oleje, zkušební jízda. Cukání, prokluzování, vibrace, nouzový režim. Hostivice u Prahy."
+  eyebrow="Diagnostika" h1="Diagnostika automatické převodovky"
+  lead="Cukání, prokluz, vibrace, nouzový režim nebo hlučnost. Zjistíme skutečnou příčinu dřív, než se z drobné závady stane drahá oprava."
+  crumbs={[{ href: '/diagnostika-automaticke-prevodovky/', label: 'Diagnostika automatické převodovky' }]}
+  markdown={md} faq={faq}
+  heroImage={{ src: '/img/realizace/vw-dq381-02.webp', alt: 'Diagnostika a kontrola převodovky DSG DQ381', w: 1000, h: 1337 }}
+  related={[{ href: '/chybove-kody-prevodovek/', label: 'Databáze chybových kódů' }, { href: '/blog/jak-poznat-vadnou-automatickou-prevodovku/', label: 'Jak poznat vadnou převodovku' }, { href: '/oprava-automaticke-prevodovky/', label: 'Oprava převodovky' }, { href: '/oprava-mechatroniky/', label: 'Oprava mechatroniky' }]}
+  service={{ name: 'Diagnostika automatické převodovky', serviceType: 'Diagnostika převodovky' }}
+/>

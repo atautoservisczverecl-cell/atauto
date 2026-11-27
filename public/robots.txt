@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dekujeme/
+Disallow: /api/
+Disallow: /administrace/
+
+Sitemap: https://www.atautoservis.cz/sitemap-index.xml
