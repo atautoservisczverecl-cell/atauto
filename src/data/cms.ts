@@ -1,8 +1,9 @@
 // Obsah spravovaný v administraci, načtený při sestavení webu (build).
 // Bez databáze (nebo když je tabulka prázdná) se použije výchozí obsah z kódu.
 import { DEFAULTS } from '../admin/store';
-const URL_ = import.meta.env.PUBLIC_SUPABASE_URL as string | undefined;
-const KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string | undefined;
+import { SUPABASE_URL, SUPABASE_KEY, DEMO } from '../lib/supabase-config';
+const URL_: string | undefined = DEMO ? undefined : SUPABASE_URL;
+const KEY: string | undefined = DEMO ? undefined : SUPABASE_KEY;
 
 async function fetchTable(t: string, order: string): Promise<any[] | null> {
   if (!URL_ || !KEY) return null;

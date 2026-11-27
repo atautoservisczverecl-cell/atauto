@@ -7,7 +7,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "build:preview-artifact": "astro build && node scripts/relativize.mjs"
+    "build:preview-artifact": "PUBLIC_DEMO=1 astro build && node scripts/relativize.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.6",

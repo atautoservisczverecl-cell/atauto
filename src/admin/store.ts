@@ -10,8 +10,9 @@ export type Table = 'menu_items' | 'pages' | 'services' | 'gallery_photos' | 'bo
 export type Row = Record<string, any>;
 export interface Stats { daily: { day: string; views: number; visitors: number; calls: number; leads: number }[]; pages: [string, number][]; sources: [string, number][]; devices: [string, number][] }
 
-const URL_ = import.meta.env.PUBLIC_SUPABASE_URL as string | undefined;
-const KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string | undefined;
+import { SUPABASE_URL, SUPABASE_KEY, DEMO } from '../lib/supabase-config';
+const URL_: string | undefined = DEMO ? undefined : SUPABASE_URL;
+const KEY: string | undefined = DEMO ? undefined : SUPABASE_KEY;
 export const live = !!(URL_ && KEY);
 export const sb: SupabaseClient | null = live ? createClient(URL_!, KEY!) : null;
 

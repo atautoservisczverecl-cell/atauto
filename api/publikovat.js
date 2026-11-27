@@ -4,7 +4,7 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method' });
   const token = (req.headers.authorization || '').replace(/^Bearer /, '');
-  const url = process.env.PUBLIC_SUPABASE_URL, key = process.env.PUBLIC_SUPABASE_ANON_KEY;
+  const url = 'https://ehakqkhmoacbziwgjniz.supabase.co', key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVoYWtxa2htb2FjYnppd2dqbml6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU3OTA3NzUsImV4cCI6MjExMTM2Njc3NX0.MQ07p0H3Kso3aYPH5GK_9dg7X3mJ8pu-JOfmYcXUAaY'; // veřejné údaje, viz src/lib/supabase-config.ts
   if (!url || !key) return res.status(500).json({ error: 'Databáze není nastavená.' });
   if (!process.env.DEPLOY_HOOK_URL) return res.status(500).json({ error: 'Chybí Deploy Hook ve Vercelu (DEPLOY_HOOK_URL).' });
   if (!token) return res.status(401).json({ error: 'Přihlaste se prosím znovu.' });

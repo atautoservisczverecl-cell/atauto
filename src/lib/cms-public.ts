@@ -1,7 +1,8 @@
 // Napojení veřejného webu na databázi administrace (bez knihovny, přes REST Supabase).
 // Bez nastavené databáze (náhled) se vše ukládá jen v prohlížeči, aby šlo administraci vyzkoušet.
-const URL_ = import.meta.env.PUBLIC_SUPABASE_URL as string | undefined;
-const KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY as string | undefined;
+import { SUPABASE_URL, SUPABASE_KEY, DEMO } from './supabase-config';
+const URL_: string | undefined = DEMO ? undefined : SUPABASE_URL;
+const KEY: string | undefined = DEMO ? undefined : SUPABASE_KEY;
 export const live = !!(URL_ && KEY);
 const headers = () => ({ apikey: KEY!, Authorization: `Bearer ${KEY}`, 'Content-Type': 'application/json', Prefer: 'return=minimal' });
 const ls = {
