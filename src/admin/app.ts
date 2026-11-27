@@ -64,6 +64,12 @@ function start(who: string) {
   $('#app').hidden = false; $('#who').textContent = live ? `(${who})` : '';
   $('#logout').hidden = !live;
   $('#logout').onclick = async () => { await sb!.auth.signOut(); location.reload(); };
+  $('#passwd').hidden = !live;
+  $('#passwd').onclick = () => dialog(`<h3>Změnit heslo</h3><label>Nové heslo (aspoň 8 znaků)<input name="p1" type="password" minlength="8" required autocomplete="new-password"></label><label>Nové heslo znovu<input name="p2" type="password" minlength="8" required autocomplete="new-password"></label>${acts('Změnit heslo')}`, async (fd) => {
+    if (fd.get('p1') !== fd.get('p2')) throw new Error('Hesla se neshodují.');
+    const { error } = await sb!.auth.updateUser({ password: String(fd.get('p1')) }); if (error) throw error;
+    toast('Heslo změněno.');
+  });
   $('#publish').onclick = async (e) => {
     const b = e.currentTarget as HTMLButtonElement; b.disabled = true; const t = b.textContent; b.textContent = 'Publikuji…';
     try { const r = await publish(); toast(r === 'demo' ? 'Ukázka: na ostrém webu by se teď spustilo publikování (1–2 minuty).' : 'Publikování spuštěno. Web bude aktuální za 1–2 minuty.'); }
